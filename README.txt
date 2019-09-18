@@ -1,0 +1,1 @@
+Software designed to assist planning and execution of powerlifting cycles.

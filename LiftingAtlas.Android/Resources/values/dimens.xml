@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<resources>
+  <dimen name="space_between_label_and_text">4dp</dimen>
+  <item name="left_guideline_constraint_guide_percent" type="dimen">0.02</item>
+  <item name="right_guideline_constraint_guide_percent" type="dimen">0.98</item>
+  <item name="left_mainview_guideline_constraint_guide_percent" type="dimen">0.10</item>
+  <item name="right_mainview_guideline_constraint_guide_percent" type="dimen">0.90</item>
+  <dimen name="button_min_height">53dp</dimen>
+</resources>

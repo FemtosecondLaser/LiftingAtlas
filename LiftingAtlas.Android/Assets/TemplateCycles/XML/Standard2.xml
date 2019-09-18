@@ -1,0 +1,1549 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Cycle CycleTemplateName="Standard2">
+  <Lifts>
+    <Lift>Squat</Lift>
+    <Lift>Bench press</Lift>
+    <Lift>Deadlift</Lift>
+  </Lifts>
+  <Sessions>
+    <Session>
+      <Number>1</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>24</LowerBound>
+            <UpperBound>24</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>36</LowerBound>
+            <UpperBound>36</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>48</LowerBound>
+            <UpperBound>48</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>60</LowerBound>
+            <UpperBound>60</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>2</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>20</LowerBound>
+            <UpperBound>20</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>32</LowerBound>
+            <UpperBound>32</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>44</LowerBound>
+            <UpperBound>44</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>56</LowerBound>
+            <UpperBound>56</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>3</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>28</LowerBound>
+            <UpperBound>28</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>40</LowerBound>
+            <UpperBound>40</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>52</LowerBound>
+            <UpperBound>52</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>64</LowerBound>
+            <UpperBound>64</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>4</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>24</LowerBound>
+            <UpperBound>24</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>36</LowerBound>
+            <UpperBound>36</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>48</LowerBound>
+            <UpperBound>48</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>60</LowerBound>
+            <UpperBound>60</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>5</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>20</LowerBound>
+            <UpperBound>20</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>32</LowerBound>
+            <UpperBound>32</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>44</LowerBound>
+            <UpperBound>44</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>56</LowerBound>
+            <UpperBound>56</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>6</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>28</LowerBound>
+            <UpperBound>28</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>40</LowerBound>
+            <UpperBound>40</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>52</LowerBound>
+            <UpperBound>52</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>64</LowerBound>
+            <UpperBound>64</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>96</LowerBound>
+            <UpperBound>96</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>96</LowerBound>
+            <UpperBound>96</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>96</LowerBound>
+            <UpperBound>96</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>7</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>24</LowerBound>
+            <UpperBound>24</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>36</LowerBound>
+            <UpperBound>36</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>48</LowerBound>
+            <UpperBound>48</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>60</LowerBound>
+            <UpperBound>60</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>88</LowerBound>
+            <UpperBound>88</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>88</LowerBound>
+            <UpperBound>88</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>88</LowerBound>
+            <UpperBound>88</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>88</LowerBound>
+            <UpperBound>88</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>8</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>20</LowerBound>
+            <UpperBound>20</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>32</LowerBound>
+            <UpperBound>32</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>44</LowerBound>
+            <UpperBound>44</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>56</LowerBound>
+            <UpperBound>56</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>9</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>28</LowerBound>
+            <UpperBound>28</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>40</LowerBound>
+            <UpperBound>40</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>52</LowerBound>
+            <UpperBound>52</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>64</LowerBound>
+            <UpperBound>64</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>96</LowerBound>
+            <UpperBound>96</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>100</LowerBound>
+            <UpperBound>100</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>100</LowerBound>
+            <UpperBound>100</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>10</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>28</LowerBound>
+            <UpperBound>28</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>40</LowerBound>
+            <UpperBound>40</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>52</LowerBound>
+            <UpperBound>52</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>64</LowerBound>
+            <UpperBound>64</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>76</LowerBound>
+            <UpperBound>76</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>84</LowerBound>
+            <UpperBound>84</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>11</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>20</LowerBound>
+            <UpperBound>20</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>32</LowerBound>
+            <UpperBound>32</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>7</LowerBound>
+            <UpperBound>7</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>44</LowerBound>
+            <UpperBound>44</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>56</LowerBound>
+            <UpperBound>56</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>5</LowerBound>
+            <UpperBound>5</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>68</LowerBound>
+            <UpperBound>68</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+      </Sets>
+    </Session>
+    <Session>
+      <Number>12</Number>
+      <Sets>
+        <Set>
+          <Number>1</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>28</LowerBound>
+            <UpperBound>28</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>8</LowerBound>
+            <UpperBound>8</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>2</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>44</LowerBound>
+            <UpperBound>44</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>6</LowerBound>
+            <UpperBound>6</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>3</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>60</LowerBound>
+            <UpperBound>60</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>4</LowerBound>
+            <UpperBound>4</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>4</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>72</LowerBound>
+            <UpperBound>72</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>3</LowerBound>
+            <UpperBound>3</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>5</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>80</LowerBound>
+            <UpperBound>80</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>2</LowerBound>
+            <UpperBound>2</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>6</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>88</LowerBound>
+            <UpperBound>88</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>7</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>92</LowerBound>
+            <UpperBound>92</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>8</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>96</LowerBound>
+            <UpperBound>96</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>9</Number>
+          <PlannedPercentageOfReferencePoint>
+            <LowerBound>100</LowerBound>
+            <UpperBound>100</UpperBound>
+          </PlannedPercentageOfReferencePoint>
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note />
+        </Set>
+        <Set>
+          <Number>10</Number>
+          <PlannedPercentageOfReferencePoint />
+          <PlannedRepetitions>
+            <LowerBound>1</LowerBound>
+            <UpperBound>1</UpperBound>
+          </PlannedRepetitions>
+          <WeightAdjustmentConstant />
+          <Note>Maximum</Note>
+        </Set>
+      </Sets>
+    </Session>
+  </Sessions>
+</Cycle>
