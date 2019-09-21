@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<transition xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@drawable/list_pressed_apptheme"/>
+  <item android:drawable="@drawable/list_longpressed_apptheme"/>
+</transition>

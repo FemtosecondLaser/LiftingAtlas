@@ -4,6 +4,9 @@
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     <item name="colorAccent">@color/colorAccent</item>
+    <item name="android:listChoiceBackgroundIndicator">@drawable/list_selector_apptheme</item>
+    <item name="listChoiceBackgroundIndicator">@drawable/list_selector_apptheme</item>
+    <item name="android:activatedBackgroundIndicator">@drawable/activated_background_apptheme</item>
   </style>
 
   <style name="StartupTheme" parent="AppTheme">
