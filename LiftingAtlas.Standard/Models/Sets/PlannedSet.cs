@@ -101,6 +101,21 @@ namespace LiftingAtlas.Standard
         #region Methods
 
         /// <summary>
+        /// Determines if <paramref name="weight"/> falls within planned range.
+        /// </summary>
+        /// <param name="weight">Weight.</param>
+        /// <returns>True if <paramref name="weight"/> falls within planned range
+        /// or if planned range does not exist;
+        /// otherwise, false.</returns>
+        public bool WeightWithinPlannedRange(double weight)
+        {
+            if (this.PlannedWeight == null)
+                return true;
+
+            return this.PlannedWeight.InRange(weight, true, true);
+        }
+
+        /// <summary>
         /// Compares this instance of the class with an object.
         /// </summary>
         /// <param name="obj">An object to compare with.</param>

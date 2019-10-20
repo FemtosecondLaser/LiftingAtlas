@@ -110,6 +110,17 @@ namespace LiftingAtlas.Standard
         #region Methods
 
         /// <summary>
+        /// Determines if <paramref name="repetitions"/> fall within planned range.
+        /// </summary>
+        /// <param name="repetitions">Repetitions.</param>
+        /// <returns>True if <paramref name="repetitions"/> fall within planned range;
+        /// otherwise, false.</returns>
+        public bool RepetitionsWithinPlannedRange(int repetitions)
+        {
+            return this.PlannedRepetitions.InRange(repetitions, true, true);
+        }
+
+        /// <summary>
         /// Compares this instance of the class with an object.
         /// </summary>
         /// <param name="obj">An object to compare with.</param>

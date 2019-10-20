@@ -157,7 +157,7 @@ namespace LiftingAtlas.Standard
                 plannedSetNumber
                 );
 
-            return plannedSet.PlannedRepetitions.InRange(repetitions, true, true);
+            return plannedSet.RepetitionsWithinPlannedRange(repetitions);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace LiftingAtlas.Standard
                 plannedSetNumber
                 );
 
-            return plannedSet.PlannedWeight.InRange(weight, true, true);
+            return plannedSet.WeightWithinPlannedRange(weight);
         }
 
         /// <summary>
