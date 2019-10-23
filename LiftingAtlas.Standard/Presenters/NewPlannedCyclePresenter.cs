@@ -25,9 +25,9 @@ namespace LiftingAtlas.Standard
         private readonly IPlannedCycleRepository plannedCycleRepository;
 
         /// <summary>
-        /// Quantization provider.
+        /// Uniform quantization provider factory.
         /// </summary>
-        private readonly IQuantizationProvider quantizationProvider;
+        private readonly IUniformQuantizationProviderFactory uniformQuantizationProviderFactory;
 
         #endregion
 
@@ -41,15 +41,16 @@ namespace LiftingAtlas.Standard
         /// Must not be null.</param>
         /// <param name="plannedCycleRepository">Planned cycle repository.
         /// Must not be null.</param>
-        /// <param name="quantizationProvider">Provider of quantization method for weight planning.</param>
+        /// <param name="uniformQuantizationProviderFactory">Uniform quantization provider factory.
+        /// Must not be null.</param>
         /// <exception cref="ArgumentNullException"><paramref name="newPlannedCycleView"/>,
-        /// <paramref name="templateCycleProviderMaster"/> or <paramref name="plannedCycleRepository"/>
-        /// is null.</exception>
+        /// <paramref name="templateCycleProviderMaster"/>, <paramref name="plannedCycleRepository"/> or
+        /// <paramref name="uniformQuantizationProviderFactory"/> is null.</exception>
         public NewPlannedCyclePresenter(
             INewPlannedCycleView newPlannedCycleView,
             ITemplateCycleProviderMaster templateCycleProviderMaster,
             IPlannedCycleRepository plannedCycleRepository,
-            IQuantizationProvider quantizationProvider
+            IUniformQuantizationProviderFactory uniformQuantizationProviderFactory
             )
         {
             if (newPlannedCycleView == null)
@@ -61,10 +62,13 @@ namespace LiftingAtlas.Standard
             if (plannedCycleRepository == null)
                 throw new ArgumentNullException(nameof(plannedCycleRepository));
 
+            if (uniformQuantizationProviderFactory == null)
+                throw new ArgumentNullException(nameof(uniformQuantizationProviderFactory));
+
             this.newPlannedCycleView = newPlannedCycleView;
             this.templateCycleProviderMaster = templateCycleProviderMaster;
             this.plannedCycleRepository = plannedCycleRepository;
-            this.quantizationProvider = quantizationProvider;
+            this.uniformQuantizationProviderFactory = uniformQuantizationProviderFactory;
         }
 
         #endregion
@@ -77,19 +81,28 @@ namespace LiftingAtlas.Standard
         /// <param name="cycleTemplateName">Name of cycle template used for planning. Must not be null.</param>
         /// <param name="lift">Lift to plan new cycle for. Must be specified.</param>
         /// <param name="referencePoint">Reference point used to plan new cycle. Must not be less than 0.</param>
+        /// <param name="uniformQuantizationInterval">Uniform quantization interval. Must not be null.</param>
         /// <exception cref="ArgumentNullException"><paramref name="cycleTemplateName"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="lift"/> is unspecified.</exception>
         /// <exception cref="ArgumentOutOfRangeException"><paramref name="referencePoint"/> is less than 0.</exception>
-        public void PlanNewCycle(string cycleTemplateName, Lift lift, double referencePoint)
+        public void PlanNewCycle(
+            string cycleTemplateName,
+            Lift lift,
+            double referencePoint,
+            UniformQuantizationInterval uniformQuantizationInterval
+            )
         {
             if (cycleTemplateName == null)
                 throw new ArgumentNullException(nameof(cycleTemplateName));
 
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             if (referencePoint < 0.00)
                 throw new ArgumentOutOfRangeException(nameof(referencePoint));
+
+            if (uniformQuantizationInterval == null)
+                throw new ArgumentNullException(nameof(uniformQuantizationInterval));
 
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 this.templateCycleProviderMaster.TemplateCycle(cycleTemplateName);
@@ -98,7 +111,7 @@ namespace LiftingAtlas.Standard
                 templateCycle,
                 lift,
                 referencePoint,
-                this.quantizationProvider
+                this.uniformQuantizationProviderFactory.Create(uniformQuantizationInterval)
                 );
         }
 

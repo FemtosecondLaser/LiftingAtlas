@@ -26,6 +26,8 @@ namespace LiftingAtlas.Droid
         private ChoosableTemplateCycleAdapter choosableTemplateCycleAdapter;
         private TextInputLayout referencePointTextInputLayout;
         private TextInputEditText referencePointTextInputEditText;
+        private TextInputLayout uniformQuantizationIntervalTextInputLayout;
+        private TextInputEditText uniformQuantizationIntervalTextInputEditText;
         private Button planNewCycleButton;
         private AlertDialog planNewCycleErrorAlertDialog;
         private StringBuilder planNewCycleErrorStringBuilder;
@@ -45,6 +47,8 @@ namespace LiftingAtlas.Droid
             this.cycleTemplatesListView = this.FindViewById<ListView>(Resource.Id.cycle_templates_listview);
             this.referencePointTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.reference_point_textinputlayout);
             this.referencePointTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.reference_point_textinputedittext);
+            this.uniformQuantizationIntervalTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.uniform_quantization_interval_textinputlayout);
+            this.uniformQuantizationIntervalTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.uniform_quantization_interval_textinputedittext);
             this.planNewCycleButton = this.FindViewById<Button>(Resource.Id.plan_new_cycle_button);
 
             this.SetSupportActionBar(toolbar);
@@ -95,11 +99,32 @@ namespace LiftingAtlas.Droid
                 this.planNewCycleErrorStringBuilder.AppendLine(
                     this.GetString(Resource.String.enter_reference_point_dot)
                     );
+            else
+            {
+                if (referencePoint < 0.00)
+                    this.planNewCycleErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.reference_point_must_not_be_less_than_0_dot)
+                        );
+            }
 
-            if (referencePoint < 0.00)
+            double uniformQuantizationInterval;
+
+            if (!double.TryParse(this.uniformQuantizationIntervalTextInputEditText.Text, out uniformQuantizationInterval))
                 this.planNewCycleErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.reference_point_must_not_be_less_than_0_dot)
+                    this.GetString(Resource.String.enter_uniform_quantization_interval_dot)
                     );
+            else
+            {
+                if (double.IsNaN(uniformQuantizationInterval) || double.IsInfinity(uniformQuantizationInterval))
+                    this.planNewCycleErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.uniform_quantization_interval_must_be_a_finite_number)
+                        );
+
+                if (!(uniformQuantizationInterval > 0.00))
+                    this.planNewCycleErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.uniform_quantization_interval_must_be_greater_than_0)
+                        );
+            }
 
             if (this.planNewCycleErrorStringBuilder.Length > 0)
             {
@@ -117,7 +142,8 @@ namespace LiftingAtlas.Droid
             this.newPlannedCyclePresenter.PlanNewCycle(
                 selectedCycleTemplateName,
                 this.lift,
-                referencePoint
+                referencePoint,
+                new UniformQuantizationInterval(uniformQuantizationInterval)
                 );
 
             this.Finish();

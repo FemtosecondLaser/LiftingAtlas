@@ -32,7 +32,7 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentNullException(nameof(sessions));
 
             if (!(sessions.Count > 0))
-                throw new ArgumentException($"{nameof(sessions)} must contain more than 0 sessions.");
+                throw new ArgumentException("Sessions must contain more than 0 sessions.", nameof(sessions));
 
             this.sessions = sessions;
         }

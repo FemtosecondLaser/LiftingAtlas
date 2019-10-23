@@ -111,7 +111,7 @@ namespace LiftingAtlas.Droid
         public string[] NamesOfTemplateCyclesForTheLift(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             string[] templateCycleAssets = this.context.Assets.List(path);
 

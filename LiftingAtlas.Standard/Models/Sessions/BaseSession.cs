@@ -32,7 +32,7 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentNullException(nameof(sets));
 
             if (!(sets.Count > 0))
-                throw new ArgumentException($"{nameof(sets)} must contain more than 0 sets.");
+                throw new ArgumentException("Sets must contain more than 0 sets.", nameof(sets));
 
             this.sets = sets;
         }

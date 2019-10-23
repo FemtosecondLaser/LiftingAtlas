@@ -3499,17 +3499,17 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0076
 			public const int action_bar_title = 2131361910;
 			
-			// aapt resource value: 0x7f0a0108
-			public const int action_container = 2131362056;
+			// aapt resource value: 0x7f0a010a
+			public const int action_container = 2131362058;
 			
 			// aapt resource value: 0x7f0a009b
 			public const int action_context_bar = 2131361947;
 			
-			// aapt resource value: 0x7f0a0113
-			public const int action_divider = 2131362067;
+			// aapt resource value: 0x7f0a0115
+			public const int action_divider = 2131362069;
 			
-			// aapt resource value: 0x7f0a0109
-			public const int action_image = 2131362057;
+			// aapt resource value: 0x7f0a010b
+			public const int action_image = 2131362059;
 			
 			// aapt resource value: 0x7f0a0003
 			public const int action_menu_divider = 2131361795;
@@ -3526,11 +3526,11 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0078
 			public const int action_mode_close_button = 2131361912;
 			
-			// aapt resource value: 0x7f0a010a
-			public const int action_text = 2131362058;
+			// aapt resource value: 0x7f0a010c
+			public const int action_text = 2131362060;
 			
-			// aapt resource value: 0x7f0a0114
-			public const int actions = 2131362068;
+			// aapt resource value: 0x7f0a0116
+			public const int actions = 2131362070;
 			
 			// aapt resource value: 0x7f0a0079
 			public const int activity_chooser_view_content = 2131361913;
@@ -3565,20 +3565,20 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0044
 			public const int bottom = 2131361860;
 			
-			// aapt resource value: 0x7f0a00e7
-			public const int browser_actions_header_text = 2131362023;
-			
 			// aapt resource value: 0x7f0a00e9
-			public const int browser_actions_menu_item_icon = 2131362025;
+			public const int browser_actions_header_text = 2131362025;
+			
+			// aapt resource value: 0x7f0a00eb
+			public const int browser_actions_menu_item_icon = 2131362027;
+			
+			// aapt resource value: 0x7f0a00ec
+			public const int browser_actions_menu_item_text = 2131362028;
 			
 			// aapt resource value: 0x7f0a00ea
-			public const int browser_actions_menu_item_text = 2131362026;
+			public const int browser_actions_menu_items = 2131362026;
 			
 			// aapt resource value: 0x7f0a00e8
-			public const int browser_actions_menu_items = 2131362024;
-			
-			// aapt resource value: 0x7f0a00e6
-			public const int browser_actions_menu_view = 2131362022;
+			public const int browser_actions_menu_view = 2131362024;
 			
 			// aapt resource value: 0x7f0a007f
 			public const int buttonPanel = 2131361919;
@@ -3598,8 +3598,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0093
 			public const int checkbox = 2131361939;
 			
-			// aapt resource value: 0x7f0a0112
-			public const int chronometer = 2131362066;
+			// aapt resource value: 0x7f0a0114
+			public const int chronometer = 2131362068;
 			
 			// aapt resource value: 0x7f0a0061
 			public const int clip_horizontal = 2131361889;
@@ -3610,8 +3610,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0040
 			public const int collapseActionView = 2131361856;
 			
-			// aapt resource value: 0x7f0a00ed
-			public const int container = 2131362029;
+			// aapt resource value: 0x7f0a00ef
+			public const int container = 2131362031;
 			
 			// aapt resource value: 0x7f0a008f
 			public const int content = 2131361935;
@@ -3619,14 +3619,14 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0082
 			public const int contentPanel = 2131361922;
 			
-			// aapt resource value: 0x7f0a00ee
-			public const int coordinator = 2131362030;
+			// aapt resource value: 0x7f0a00f0
+			public const int coordinator = 2131362032;
 			
 			// aapt resource value: 0x7f0a00b7
 			public const int current_cycle_button = 2131361975;
 			
-			// aapt resource value: 0x7f0a00fe
-			public const int current_textview = 2131362046;
+			// aapt resource value: 0x7f0a0100
+			public const int current_textview = 2131362048;
 			
 			// aapt resource value: 0x7f0a0089
 			public const int custom = 2131361929;
@@ -3646,11 +3646,11 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a00b8
 			public const int cycle_templates_button = 2131361976;
 			
-			// aapt resource value: 0x7f0a00e4
-			public const int cycle_templates_lift_label_textview = 2131362020;
+			// aapt resource value: 0x7f0a00e6
+			public const int cycle_templates_lift_label_textview = 2131362022;
 			
-			// aapt resource value: 0x7f0a00e5
-			public const int cycle_templates_lift_spinner = 2131362021;
+			// aapt resource value: 0x7f0a00e7
+			public const int cycle_templates_lift_spinner = 2131362023;
 			
 			// aapt resource value: 0x7f0a00ba
 			public const int cycle_templates_listview = 2131361978;
@@ -3664,20 +3664,20 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a007c
 			public const int default_activity_button = 2131361916;
 			
-			// aapt resource value: 0x7f0a00f0
-			public const int design_bottom_sheet = 2131362032;
+			// aapt resource value: 0x7f0a00f2
+			public const int design_bottom_sheet = 2131362034;
+			
+			// aapt resource value: 0x7f0a00f7
+			public const int design_menu_item_action_area = 2131362039;
+			
+			// aapt resource value: 0x7f0a00f6
+			public const int design_menu_item_action_area_stub = 2131362038;
 			
 			// aapt resource value: 0x7f0a00f5
-			public const int design_menu_item_action_area = 2131362037;
+			public const int design_menu_item_text = 2131362037;
 			
 			// aapt resource value: 0x7f0a00f4
-			public const int design_menu_item_action_area_stub = 2131362036;
-			
-			// aapt resource value: 0x7f0a00f3
-			public const int design_menu_item_text = 2131362035;
-			
-			// aapt resource value: 0x7f0a00f2
-			public const int design_navigation_view = 2131362034;
+			public const int design_navigation_view = 2131362036;
 			
 			// aapt resource value: 0x7f0a006f
 			public const int dimensions = 2131361903;
@@ -3688,8 +3688,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0027
 			public const int disableHome = 2131361831;
 			
-			// aapt resource value: 0x7f0a00ff
-			public const int done_textview = 2131362047;
+			// aapt resource value: 0x7f0a0101
+			public const int done_textview = 2131362049;
 			
 			// aapt resource value: 0x7f0a009c
 			public const int edit_query = 2131361948;
@@ -3748,8 +3748,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a007e
 			public const int icon = 2131361918;
 			
-			// aapt resource value: 0x7f0a0115
-			public const int icon_group = 2131362069;
+			// aapt resource value: 0x7f0a0117
+			public const int icon_group = 2131362071;
 			
 			// aapt resource value: 0x7f0a0041
 			public const int ifRoom = 2131361857;
@@ -3757,11 +3757,11 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a007b
 			public const int image = 2131361915;
 			
-			// aapt resource value: 0x7f0a010e
-			public const int info = 2131362062;
+			// aapt resource value: 0x7f0a0110
+			public const int info = 2131362064;
 			
-			// aapt resource value: 0x7f0a00fd
-			public const int information_constraintlayout = 2131362045;
+			// aapt resource value: 0x7f0a00ff
+			public const int information_constraintlayout = 2131362047;
 			
 			// aapt resource value: 0x7f0a0066
 			public const int invisible = 2131361894;
@@ -3775,8 +3775,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a004e
 			public const int labeled = 2131361870;
 			
-			// aapt resource value: 0x7f0a00ec
-			public const int largeLabel = 2131362028;
+			// aapt resource value: 0x7f0a00ee
+			public const int largeLabel = 2131362030;
 			
 			// aapt resource value: 0x7f0a0054
 			public const int left = 2131361876;
@@ -3784,38 +3784,38 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a00aa
 			public const int left_guideline = 2131361962;
 			
-			// aapt resource value: 0x7f0a00f8
-			public const int lift_textview = 2131362040;
-			
-			// aapt resource value: 0x7f0a00d8
-			public const int lifted_repetitions_label_textview = 2131362008;
-			
-			// aapt resource value: 0x7f0a00d9
-			public const int lifted_repetitions_space = 2131362009;
-			
-			// aapt resource value: 0x7f0a00e1
-			public const int lifted_repetitions_textinputedittext = 2131362017;
-			
-			// aapt resource value: 0x7f0a00de
-			public const int lifted_repetitions_textinputlayout = 2131362014;
+			// aapt resource value: 0x7f0a00fa
+			public const int lift_textview = 2131362042;
 			
 			// aapt resource value: 0x7f0a00da
-			public const int lifted_repetitions_textview = 2131362010;
+			public const int lifted_repetitions_label_textview = 2131362010;
 			
-			// aapt resource value: 0x7f0a00d5
-			public const int lifted_weight_label_textview = 2131362005;
+			// aapt resource value: 0x7f0a00db
+			public const int lifted_repetitions_space = 2131362011;
 			
-			// aapt resource value: 0x7f0a00d6
-			public const int lifted_weight_space = 2131362006;
+			// aapt resource value: 0x7f0a00e3
+			public const int lifted_repetitions_textinputedittext = 2131362019;
 			
-			// aapt resource value: 0x7f0a00df
-			public const int lifted_weight_textinputedittext = 2131362015;
+			// aapt resource value: 0x7f0a00e0
+			public const int lifted_repetitions_textinputlayout = 2131362016;
 			
-			// aapt resource value: 0x7f0a00c4
-			public const int lifted_weight_textinputlayout = 2131361988;
+			// aapt resource value: 0x7f0a00dc
+			public const int lifted_repetitions_textview = 2131362012;
 			
 			// aapt resource value: 0x7f0a00d7
-			public const int lifted_weight_textview = 2131362007;
+			public const int lifted_weight_label_textview = 2131362007;
+			
+			// aapt resource value: 0x7f0a00d8
+			public const int lifted_weight_space = 2131362008;
+			
+			// aapt resource value: 0x7f0a00e1
+			public const int lifted_weight_textinputedittext = 2131362017;
+			
+			// aapt resource value: 0x7f0a00c6
+			public const int lifted_weight_textinputlayout = 2131361990;
+			
+			// aapt resource value: 0x7f0a00d9
+			public const int lifted_weight_textview = 2131362009;
 			
 			// aapt resource value: 0x7f0a00b6
 			public const int lifting_atlas_logotype_text_imageview = 2131361974;
@@ -3832,8 +3832,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a007d
 			public const int list_item = 2131361917;
 			
-			// aapt resource value: 0x7f0a0117
-			public const int masked = 2131362071;
+			// aapt resource value: 0x7f0a0119
+			public const int masked = 2131362073;
 			
 			// aapt resource value: 0x7f0a00a9
 			public const int message = 2131361961;
@@ -3856,14 +3856,14 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a002f
 			public const int multiply = 2131361839;
 			
-			// aapt resource value: 0x7f0a00f1
-			public const int navigation_header_container = 2131362033;
+			// aapt resource value: 0x7f0a00f3
+			public const int navigation_header_container = 2131362035;
 			
 			// aapt resource value: 0x7f0a0042
 			public const int never = 2131361858;
 			
-			// aapt resource value: 0x7f0a0118
-			public const int new_cycle = 2131362072;
+			// aapt resource value: 0x7f0a011a
+			public const int new_cycle = 2131362074;
 			
 			// aapt resource value: 0x7f0a0029
 			public const int none = 2131361833;
@@ -3871,23 +3871,23 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0025
 			public const int normal = 2131361829;
 			
-			// aapt resource value: 0x7f0a00db
-			public const int note_label_textview = 2131362011;
-			
-			// aapt resource value: 0x7f0a00dc
-			public const int note_space = 2131362012;
-			
 			// aapt resource value: 0x7f0a00dd
-			public const int note_textview = 2131362013;
+			public const int note_label_textview = 2131362013;
 			
-			// aapt resource value: 0x7f0a0110
-			public const int notification_background = 2131362064;
+			// aapt resource value: 0x7f0a00de
+			public const int note_space = 2131362014;
 			
-			// aapt resource value: 0x7f0a010c
-			public const int notification_main_column = 2131362060;
+			// aapt resource value: 0x7f0a00df
+			public const int note_textview = 2131362015;
 			
-			// aapt resource value: 0x7f0a010b
-			public const int notification_main_column_container = 2131362059;
+			// aapt resource value: 0x7f0a0112
+			public const int notification_background = 2131362066;
+			
+			// aapt resource value: 0x7f0a010e
+			public const int notification_main_column = 2131362062;
+			
+			// aapt resource value: 0x7f0a010d
+			public const int notification_main_column_container = 2131362061;
 			
 			// aapt resource value: 0x7f0a0060
 			public const int outline = 2131361888;
@@ -3913,53 +3913,53 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0058
 			public const int pin = 2131361880;
 			
-			// aapt resource value: 0x7f0a00bc
-			public const int plan_new_cycle_button = 2131361980;
+			// aapt resource value: 0x7f0a00be
+			public const int plan_new_cycle_button = 2131361982;
 			
-			// aapt resource value: 0x7f0a0104
-			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview = 2131362052;
-			
-			// aapt resource value: 0x7f0a0103
-			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview_left_guideline = 2131362051;
+			// aapt resource value: 0x7f0a0106
+			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview = 2131362054;
 			
 			// aapt resource value: 0x7f0a0105
-			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview_right_guideline = 2131362053;
+			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview_left_guideline = 2131362053;
 			
-			// aapt resource value: 0x7f0a00c9
-			public const int planned_percentage_of_reference_point_label_textview = 2131361993;
-			
-			// aapt resource value: 0x7f0a00ca
-			public const int planned_percentage_of_reference_point_space = 2131361994;
+			// aapt resource value: 0x7f0a0107
+			public const int planned_percentage_of_reference_point_and_weight_adjustment_constant_textview_right_guideline = 2131362055;
 			
 			// aapt resource value: 0x7f0a00cb
-			public const int planned_percentage_of_reference_point_textview = 2131361995;
+			public const int planned_percentage_of_reference_point_label_textview = 2131361995;
 			
-			// aapt resource value: 0x7f0a00d2
-			public const int planned_repetitions_label_textview = 2131362002;
+			// aapt resource value: 0x7f0a00cc
+			public const int planned_percentage_of_reference_point_space = 2131361996;
 			
-			// aapt resource value: 0x7f0a00d3
-			public const int planned_repetitions_space = 2131362003;
+			// aapt resource value: 0x7f0a00cd
+			public const int planned_percentage_of_reference_point_textview = 2131361997;
 			
 			// aapt resource value: 0x7f0a00d4
-			public const int planned_repetitions_textview = 2131362004;
+			public const int planned_repetitions_label_textview = 2131362004;
 			
-			// aapt resource value: 0x7f0a00cf
-			public const int planned_weight_label_textview = 2131361999;
+			// aapt resource value: 0x7f0a00d5
+			public const int planned_repetitions_space = 2131362005;
 			
-			// aapt resource value: 0x7f0a0101
-			public const int planned_weight_planned_repetitions_linearlayout = 2131362049;
-			
-			// aapt resource value: 0x7f0a0100
-			public const int planned_weight_planned_repetitions_linearlayout_left_guideline = 2131362048;
-			
-			// aapt resource value: 0x7f0a0102
-			public const int planned_weight_planned_repetitions_linearlayout_right_guideline = 2131362050;
-			
-			// aapt resource value: 0x7f0a00d0
-			public const int planned_weight_space = 2131362000;
+			// aapt resource value: 0x7f0a00d6
+			public const int planned_repetitions_textview = 2131362006;
 			
 			// aapt resource value: 0x7f0a00d1
-			public const int planned_weight_textview = 2131362001;
+			public const int planned_weight_label_textview = 2131362001;
+			
+			// aapt resource value: 0x7f0a0103
+			public const int planned_weight_planned_repetitions_linearlayout = 2131362051;
+			
+			// aapt resource value: 0x7f0a0102
+			public const int planned_weight_planned_repetitions_linearlayout_left_guideline = 2131362050;
+			
+			// aapt resource value: 0x7f0a0104
+			public const int planned_weight_planned_repetitions_linearlayout_right_guideline = 2131362052;
+			
+			// aapt resource value: 0x7f0a00d2
+			public const int planned_weight_space = 2131362002;
+			
+			// aapt resource value: 0x7f0a00d3
+			public const int planned_weight_textview = 2131362003;
 			
 			// aapt resource value: 0x7f0a0006
 			public const int progress_circular = 2131361798;
@@ -3985,8 +3985,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a00b2
 			public const int reference_point_textview = 2131361970;
 			
-			// aapt resource value: 0x7f0a00e0
-			public const int register_lifted_values_button = 2131362016;
+			// aapt resource value: 0x7f0a00e2
+			public const int register_lifted_values_button = 2131362018;
 			
 			// aapt resource value: 0x7f0a0055
 			public const int right = 2131361877;
@@ -3994,11 +3994,11 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a00ab
 			public const int right_guideline = 2131361963;
 			
-			// aapt resource value: 0x7f0a010f
-			public const int right_icon = 2131362063;
+			// aapt resource value: 0x7f0a0111
+			public const int right_icon = 2131362065;
 			
-			// aapt resource value: 0x7f0a010d
-			public const int right_side = 2131362061;
+			// aapt resource value: 0x7f0a010f
+			public const int right_side = 2131362063;
 			
 			// aapt resource value: 0x7f0a000c
 			public const int save_image_matrix = 2131361804;
@@ -4063,14 +4063,14 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a004f
 			public const int selected = 2131361871;
 			
-			// aapt resource value: 0x7f0a00be
-			public const int session_number_label_textview = 2131361982;
-			
-			// aapt resource value: 0x7f0a00bf
-			public const int session_number_space = 2131361983;
-			
 			// aapt resource value: 0x7f0a00c0
-			public const int session_number_textview = 2131361984;
+			public const int session_number_label_textview = 2131361984;
+			
+			// aapt resource value: 0x7f0a00c1
+			public const int session_number_space = 2131361985;
+			
+			// aapt resource value: 0x7f0a00c2
+			public const int session_number_textview = 2131361986;
 			
 			// aapt resource value: 0x7f0a00b4
 			public const int sessions_listview = 2131361972;
@@ -4078,38 +4078,38 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a00b3
 			public const int sessions_textview = 2131361971;
 			
-			// aapt resource value: 0x7f0a00c5
-			public const int set_information_constraintlayout = 2131361989;
-			
-			// aapt resource value: 0x7f0a00c3
-			public const int set_information_scrollview = 2131361987;
-			
-			// aapt resource value: 0x7f0a00c6
-			public const int set_number_label_textview = 2131361990;
-			
 			// aapt resource value: 0x7f0a00c7
-			public const int set_number_space = 2131361991;
+			public const int set_information_constraintlayout = 2131361991;
+			
+			// aapt resource value: 0x7f0a00c5
+			public const int set_information_scrollview = 2131361989;
 			
 			// aapt resource value: 0x7f0a00c8
-			public const int set_number_textview = 2131361992;
+			public const int set_number_label_textview = 2131361992;
 			
-			// aapt resource value: 0x7f0a00fa
-			public const int sets_label_textview = 2131362042;
+			// aapt resource value: 0x7f0a00c9
+			public const int set_number_space = 2131361993;
 			
-			// aapt resource value: 0x7f0a00f9
-			public const int sets_left_guideline = 2131362041;
-			
-			// aapt resource value: 0x7f0a00c2
-			public const int sets_listview = 2131361986;
+			// aapt resource value: 0x7f0a00ca
+			public const int set_number_textview = 2131361994;
 			
 			// aapt resource value: 0x7f0a00fc
-			public const int sets_right_guideline = 2131362044;
+			public const int sets_label_textview = 2131362044;
 			
 			// aapt resource value: 0x7f0a00fb
-			public const int sets_space = 2131362043;
+			public const int sets_left_guideline = 2131362043;
 			
-			// aapt resource value: 0x7f0a00c1
-			public const int sets_textview = 2131361985;
+			// aapt resource value: 0x7f0a00c4
+			public const int sets_listview = 2131361988;
+			
+			// aapt resource value: 0x7f0a00fe
+			public const int sets_right_guideline = 2131362046;
+			
+			// aapt resource value: 0x7f0a00fd
+			public const int sets_space = 2131362045;
+			
+			// aapt resource value: 0x7f0a00c3
+			public const int sets_textview = 2131361987;
 			
 			// aapt resource value: 0x7f0a0090
 			public const int shortcut = 2131361936;
@@ -4123,8 +4123,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a002c
 			public const int showTitle = 2131361836;
 			
-			// aapt resource value: 0x7f0a00eb
-			public const int smallLabel = 2131362027;
+			// aapt resource value: 0x7f0a00ed
+			public const int smallLabel = 2131362029;
 			
 			// aapt resource value: 0x7f0a0016
 			public const int snackbar_action = 2131361814;
@@ -4186,17 +4186,17 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0020
 			public const int tag_unhandled_key_listeners = 2131361824;
 			
-			// aapt resource value: 0x7f0a0106
-			public const int template_session_textview = 2131362054;
+			// aapt resource value: 0x7f0a0108
+			public const int template_session_textview = 2131362056;
 			
-			// aapt resource value: 0x7f0a00e2
-			public const int template_sessions_listview = 2131362018;
+			// aapt resource value: 0x7f0a00e4
+			public const int template_sessions_listview = 2131362020;
 			
-			// aapt resource value: 0x7f0a0107
-			public const int template_set_note_textview = 2131362055;
+			// aapt resource value: 0x7f0a0109
+			public const int template_set_note_textview = 2131362057;
 			
-			// aapt resource value: 0x7f0a00e3
-			public const int template_set_notes_listview = 2131362019;
+			// aapt resource value: 0x7f0a00e5
+			public const int template_set_notes_listview = 2131362021;
 			
 			// aapt resource value: 0x7f0a0021
 			public const int text = 2131361825;
@@ -4213,8 +4213,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a005a
 			public const int textStart = 2131361882;
 			
-			// aapt resource value: 0x7f0a00f6
-			public const int text_input_password_toggle = 2131362038;
+			// aapt resource value: 0x7f0a00f8
+			public const int text_input_password_toggle = 2131362040;
 			
 			// aapt resource value: 0x7f0a0018
 			public const int textinput_counter = 2131361816;
@@ -4225,8 +4225,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a001a
 			public const int textinput_helper_text = 2131361818;
 			
-			// aapt resource value: 0x7f0a0111
-			public const int time = 2131362065;
+			// aapt resource value: 0x7f0a0113
+			public const int time = 2131362067;
 			
 			// aapt resource value: 0x7f0a0023
 			public const int title = 2131361827;
@@ -4246,8 +4246,8 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a008a
 			public const int topPanel = 2131361930;
 			
-			// aapt resource value: 0x7f0a00ef
-			public const int touch_outside = 2131362031;
+			// aapt resource value: 0x7f0a00f1
+			public const int touch_outside = 2131362033;
 			
 			// aapt resource value: 0x7f0a000f
 			public const int transition_current_scene = 2131361807;
@@ -4267,6 +4267,12 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a0034
 			public const int uniform = 2131361844;
 			
+			// aapt resource value: 0x7f0a00bf
+			public const int uniform_quantization_interval_textinputedittext = 2131361983;
+			
+			// aapt resource value: 0x7f0a00bc
+			public const int uniform_quantization_interval_textinputlayout = 2131361980;
+			
 			// aapt resource value: 0x7f0a0050
 			public const int unlabeled = 2131361872;
 			
@@ -4276,23 +4282,23 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0a002d
 			public const int useLogo = 2131361837;
 			
-			// aapt resource value: 0x7f0a00f7
-			public const int view_button = 2131362039;
+			// aapt resource value: 0x7f0a00f9
+			public const int view_button = 2131362041;
 			
 			// aapt resource value: 0x7f0a001b
 			public const int view_offset_helper = 2131361819;
 			
-			// aapt resource value: 0x7f0a0116
-			public const int visible = 2131362070;
-			
-			// aapt resource value: 0x7f0a00cc
-			public const int weight_adjustment_constant_label_textview = 2131361996;
-			
-			// aapt resource value: 0x7f0a00cd
-			public const int weight_adjustment_constant_space = 2131361997;
+			// aapt resource value: 0x7f0a0118
+			public const int visible = 2131362072;
 			
 			// aapt resource value: 0x7f0a00ce
-			public const int weight_adjustment_constant_textview = 2131361998;
+			public const int weight_adjustment_constant_label_textview = 2131361998;
+			
+			// aapt resource value: 0x7f0a00cf
+			public const int weight_adjustment_constant_space = 2131361999;
+			
+			// aapt resource value: 0x7f0a00d0
+			public const int weight_adjustment_constant_textview = 2131362000;
 			
 			// aapt resource value: 0x7f0a0043
 			public const int withText = 2131361859;
@@ -4843,6 +4849,9 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d0046
 			public const int enter_reference_point_dot = 2131558470;
 			
+			// aapt resource value: 0x7f0d0077
+			public const int enter_uniform_quantization_interval_dot = 2131558519;
+			
 			// aapt resource value: 0x7f0d0072
 			public const int every = 2131558514;
 			
@@ -5001,6 +5010,15 @@ namespace LiftingAtlas.Droid
 			
 			// aapt resource value: 0x7f0d0035
 			public const int status_bar_notification_info_overflow = 2131558453;
+			
+			// aapt resource value: 0x7f0d0076
+			public const int uniform_quantization_interval = 2131558518;
+			
+			// aapt resource value: 0x7f0d0078
+			public const int uniform_quantization_interval_must_be_a_finite_number = 2131558520;
+			
+			// aapt resource value: 0x7f0d0079
+			public const int uniform_quantization_interval_must_be_greater_than_0 = 2131558521;
 			
 			// aapt resource value: 0x7f0d0063
 			public const int view = 2131558499;

@@ -67,7 +67,7 @@
     <Compile Include="Mocks\HexFirstCharFRestZerosGuidProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\Auxiliary\HexFirstCharLetterGuidFormatterMust.cs" />
-    <Compile Include="Tests\Auxiliary\QuantizationProviders\NearestTwoPointFiveMultipleProviderMust.cs" />
+    <Compile Include="Tests\Auxiliary\QuantizationProviders\NearestMultipleProviderMust.cs" />
     <Compile Include="Tests\DataAccess\PlannedCycleRepositories\SQLitePlannedCycleRepositoryMust.cs" />
     <Compile Include="Tests\DataAccess\StreamBasedTemplateCycleProviders\XMLStreamBasedTemplateCycleProviderMust.cs" />
   </ItemGroup>

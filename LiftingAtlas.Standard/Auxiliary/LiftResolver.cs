@@ -67,12 +67,12 @@ namespace LiftingAtlas.Standard
         /// Does not include string representation of <see cref="Lift.None"/>.</returns>
         public static string[] LiftStrings()
         {
-            string[] output = new string[liftStrings.Length];
+            string[] liftStrings = new string[LiftResolver.liftStrings.Length];
 
-            for (int i = 0; i < output.Length; i++)
-                output[i] = liftStrings[i];
+            for (int i = 0; i < liftStrings.Length; i++)
+                liftStrings[i] = LiftResolver.liftStrings[i];
 
-            return output;
+            return liftStrings;
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace LiftingAtlas.Standard
                     return deadlift;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException("Unsupported lift.", nameof(lift));
             }
         }
 
@@ -125,7 +125,7 @@ namespace LiftingAtlas.Standard
                     return Lift.Deadlift;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException("Unsupported lift.", nameof(lift));
             }
         }
 

@@ -285,21 +285,25 @@ namespace LiftingAtlas.Droid
                 this.registerLiftedValuesErrorStringBuilder.AppendLine(
                     this.GetString(Resource.String.enter_lifted_weight_dot)
                     );
-
-            if (liftedWeight < 0.00)
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
-                    );
+            else
+            {
+                if (liftedWeight < 0.00)
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
+                        );
+            }
 
             if (!int.TryParse(this.liftedRepetitionsTextInputEditText.Text, out liftedRepetitions))
                 this.registerLiftedValuesErrorStringBuilder.AppendLine(
                     this.GetString(Resource.String.enter_lifted_repetitions_dot)
                     );
-
-            if (liftedRepetitions < 0)
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_repetitions_must_not_be_less_than_0_dot)
-                    );
+            else
+            {
+                if (liftedRepetitions < 0)
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.lifted_repetitions_must_not_be_less_than_0_dot)
+                        );
+            }
 
             if (this.registerLiftedValuesErrorStringBuilder.Length > 0)
             {

@@ -87,8 +87,8 @@ namespace LiftingAtlas.Droid
                 .WithParameter("path", Path.Combine("TemplateCycles", "XML"));
 
             containerBuilder
-                .RegisterType<NearestTwoPointFiveMultipleProvider>()
-                .As<IQuantizationProvider>()
+                .RegisterType<NearestMultipleProviderFactory>()
+                .As<IUniformQuantizationProviderFactory>()
                 .SingleInstance()
                 .AutoActivate();
 

@@ -98,7 +98,8 @@ namespace LiftingAtlas.Standard.Tests
         private static IEnumerable<IQuantizationProvider> QuantizationProviders()
         {
             yield return null;
-            yield return new NearestTwoPointFiveMultipleProvider();
+            yield return new NearestMultipleProvider(new UniformQuantizationInterval(1.00));
+            yield return new NearestMultipleProvider(new UniformQuantizationInterval(2.50));
         }
 
         /// <summary>
@@ -106,7 +107,7 @@ namespace LiftingAtlas.Standard.Tests
         /// to plan a cycle using supplied quantization provider.
         /// </summary>
         [Test]
-        [TestCaseSource("QuantizationProviders")]
+        [TestCaseSource(nameof(QuantizationProviders))]
         public void PlanACycleApplyingQuantizationMethodOfSuppliedQuantizationProvider(IQuantizationProvider quantizationProvider)
         {
             Lift plannedLift = Lift.Squat;
@@ -778,7 +779,7 @@ namespace LiftingAtlas.Standard.Tests
         /// at least a single lifted value is less than zero.
         /// </summary>
         [Test]
-        [TestCaseSource("LiftedValuesWithAtLeastASingleValueLessThanZero")]
+        [TestCaseSource(nameof(LiftedValuesWithAtLeastASingleValueLessThanZero))]
         public void ThrowArgumentOutOfRangeExceptionIfUpdatingLiftedValuesOfPlannedSetAndAtLeastASingleLiftedValueIsLessThanZero(
             (int liftedRepetitions, double liftedWeight) liftedValues
             )

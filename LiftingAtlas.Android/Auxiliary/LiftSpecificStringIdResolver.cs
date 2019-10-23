@@ -18,7 +18,7 @@ namespace LiftingAtlas.Droid
         public static int CurrentLiftCycleStringId(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             switch (lift)
             {
@@ -32,14 +32,14 @@ namespace LiftingAtlas.Droid
                     return Resource.String.current_deadlift_cycle;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException($"Unsupported lift.", nameof(lift));
             }
         }
 
         public static int NewLiftCycleStringId(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             switch (lift)
             {
@@ -53,14 +53,14 @@ namespace LiftingAtlas.Droid
                     return Resource.String.new_deadlift_cycle;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException($"Unsupported lift.", nameof(lift));
             }
         }
 
         public static int PlannedLiftSessionStringId(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             switch (lift)
             {
@@ -74,14 +74,14 @@ namespace LiftingAtlas.Droid
                     return Resource.String.planned_deadlift_session;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException($"Unsupported lift.", nameof(lift));
             }
         }
 
         public static int PlannedLiftSetStringId(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             switch (lift)
             {
@@ -95,14 +95,14 @@ namespace LiftingAtlas.Droid
                     return Resource.String.planned_deadlift_set;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException($"Unsupported lift.", nameof(lift));
             }
         }
 
         public static int LiftStringId(Lift lift)
         {
             if (lift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(lift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             switch (lift)
             {
@@ -116,7 +116,7 @@ namespace LiftingAtlas.Droid
                     return Resource.String.deadlift;
 
                 default:
-                    throw new ArgumentException($"Unsupported lift: {lift}.");
+                    throw new ArgumentException($"Unsupported lift.", nameof(lift));
             }
         }
     }

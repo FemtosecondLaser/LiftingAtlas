@@ -36,11 +36,12 @@ namespace LiftingAtlas.Standard
         {
             if (string.IsNullOrWhiteSpace(cycleTemplateName))
                 throw new ArgumentException(
-                    $"{nameof(cycleTemplateName)} must not be null, empty or contain only white-space characters."
+                    "Cycle template name must not be null, empty or contain only white-space characters.",
+                    nameof(cycleTemplateName)
                     );
 
             if (templateLift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(templateLift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(templateLift));
 
             this.cycleTemplateName = cycleTemplateName;
             this.templateLift = templateLift;

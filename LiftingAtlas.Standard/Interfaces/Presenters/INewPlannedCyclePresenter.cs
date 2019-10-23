@@ -19,10 +19,12 @@
         /// <param name="cycleTemplateName">Name of cycle template used for planning.</param>
         /// <param name="lift">Lift to plan new cycle for.</param>
         /// <param name="referencePoint">Reference point used to plan new cycle.</param>
+        /// <param name="uniformQuantizationInterval">Uniform quantization interval.</param>
         void PlanNewCycle(
             string cycleTemplateName,
             Lift lift,
-            double referencePoint
+            double referencePoint,
+            UniformQuantizationInterval uniformQuantizationInterval
             );
     }
 }

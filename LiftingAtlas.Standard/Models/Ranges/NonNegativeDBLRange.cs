@@ -44,7 +44,7 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentOutOfRangeException(nameof(upperBound));
 
             if (upperBound < lowerBound)
-                throw new ArgumentException($"{nameof(upperBound)} is less than {nameof(lowerBound)}.");
+                throw new ArgumentException($"Upper bound is less than lower bound.", nameof(upperBound));
 
             this.lowerBound = lowerBound;
             this.upperBound = upperBound;

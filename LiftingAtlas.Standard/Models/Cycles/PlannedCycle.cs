@@ -60,10 +60,13 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentNullException(nameof(plannedCycleGuid));
 
             if (plannedLift == Lift.None)
-                throw new ArgumentException($"Unspecified {nameof(plannedLift)}.");
+                throw new ArgumentException("Unspecified lift.", nameof(plannedLift));
 
             if (!templateLift.HasFlag(plannedLift))
-                throw new ArgumentException($"{nameof(plannedLift)} is not the lift the cycle template is designed for.");
+                throw new ArgumentException(
+                    "Lift is not the lift the cycle template is designed for.",
+                    nameof(plannedLift)
+                    );
 
             if (referencePoint < 0.00)
                 throw new ArgumentOutOfRangeException(nameof(referencePoint));
