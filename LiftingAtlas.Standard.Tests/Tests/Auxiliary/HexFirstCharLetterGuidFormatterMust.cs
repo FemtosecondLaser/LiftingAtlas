@@ -6,11 +6,6 @@ namespace LiftingAtlas.Standard.Tests
     [TestFixture]
     public class HexFirstCharLetterGuidFormatterMust
     {
-        /// <summary>
-        /// Tests ability of <see cref="HexFirstCharLetterGuidFormatter"/>
-        /// to format guid in such way so that
-        /// the first character of hexadecimal representation is a letter.
-        /// </summary>
         [Test]
         public void FormatGuidInSuchWaySoThatTheFirstCharacterOfHexadecimalRepresentationIsALetter()
         {

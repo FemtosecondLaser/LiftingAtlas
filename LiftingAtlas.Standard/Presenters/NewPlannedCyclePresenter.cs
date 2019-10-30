@@ -2,50 +2,19 @@
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// New planned cycle presenter.
-    /// </summary>
     public class NewPlannedCyclePresenter : INewPlannedCyclePresenter
     {
         #region Private fields
 
-        /// <summary>
-        /// New planned cycle view.
-        /// </summary>
         private readonly INewPlannedCycleView newPlannedCycleView;
-
-        /// <summary>
-        /// Template cycle provider Master.
-        /// </summary>
         private readonly ITemplateCycleProviderMaster templateCycleProviderMaster;
-
-        /// <summary>
-        /// Planned cycle repository.
-        /// </summary>
         private readonly IPlannedCycleRepository plannedCycleRepository;
-
-        /// <summary>
-        /// Uniform quantization provider factory.
-        /// </summary>
         private readonly IUniformQuantizationProviderFactory uniformQuantizationProviderFactory;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates new planned cycle presenter.
-        /// </summary>
-        /// <param name="newPlannedCycleView">New planned cycle view. Must not be null.</param>
-        /// <param name="templateCycleProviderMaster">Template cycle provider master.
-        /// Must not be null.</param>
-        /// <param name="plannedCycleRepository">Planned cycle repository.
-        /// Must not be null.</param>
-        /// <param name="uniformQuantizationProviderFactory">Uniform quantization provider factory.
-        /// Must not be null.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="newPlannedCycleView"/>,
-        /// <paramref name="templateCycleProviderMaster"/>, <paramref name="plannedCycleRepository"/> or
-        /// <paramref name="uniformQuantizationProviderFactory"/> is null.</exception>
         public NewPlannedCyclePresenter(
             INewPlannedCycleView newPlannedCycleView,
             ITemplateCycleProviderMaster templateCycleProviderMaster,
@@ -75,20 +44,10 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Plans new cycle.
-        /// </summary>
-        /// <param name="cycleTemplateName">Name of cycle template used for planning. Must not be null.</param>
-        /// <param name="lift">Lift to plan new cycle for. Must be specified.</param>
-        /// <param name="referencePoint">Reference point used to plan new cycle. Must not be less than 0.</param>
-        /// <param name="uniformQuantizationInterval">Uniform quantization interval. Must not be null.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="cycleTemplateName"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="lift"/> is unspecified.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="referencePoint"/> is less than 0.</exception>
         public void PlanNewCycle(
-            string cycleTemplateName,
+            CycleTemplateName cycleTemplateName,
             Lift lift,
-            double referencePoint,
+            Weight referencePoint,
             UniformQuantizationInterval uniformQuantizationInterval
             )
         {
@@ -98,8 +57,8 @@ namespace LiftingAtlas.Standard
             if (lift == Lift.None)
                 throw new ArgumentException("Unspecified lift.", nameof(lift));
 
-            if (referencePoint < 0.00)
-                throw new ArgumentOutOfRangeException(nameof(referencePoint));
+            if (referencePoint == null)
+                throw new ArgumentNullException(nameof(referencePoint));
 
             if (uniformQuantizationInterval == null)
                 throw new ArgumentNullException(nameof(uniformQuantizationInterval));
@@ -115,13 +74,9 @@ namespace LiftingAtlas.Standard
                 );
         }
 
-        /// <summary>
-        /// Presents names of template cycles for the <see cref="Lift"/>. 
-        /// </summary>
-        /// <param name="lift"><see cref="Lift"/>, to present names of template cycles for.</param>
         public void PresentNamesOfTemplateCyclesForTheLift(Lift lift)
         {
-            string[] namesOfTemplateCyclesForTheLift =
+            CycleTemplateName[] namesOfTemplateCyclesForTheLift =
                 this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLift(lift);
 
             this.newPlannedCycleView.OutputNamesOfTemplateCycles(namesOfTemplateCyclesForTheLift);

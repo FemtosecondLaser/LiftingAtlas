@@ -5,23 +5,14 @@ using System.Xml;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// XML stream-based template cycle provider.
-    /// </summary>
     public class XMLStreamBasedTemplateCycleProvider : IStreamBasedTemplateCycleProvider
     {
-        /// <summary>
-        /// Reads cycle template name and lift.
-        /// </summary>
-        /// <param name="stream">XML stream representing cycle template. Must not be null.</param>
-        /// <returns>Cycle template name and lift.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
-        public (string CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift(Stream stream)
+        public (CycleTemplateName CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift(Stream stream)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            string cycleTemplateName = null;
+            CycleTemplateName cycleTemplateName = null;
             Lift? templateCycleLift = null;
 
             XmlReaderSettings readerSettings = new XmlReaderSettings();
@@ -35,7 +26,8 @@ namespace LiftingAtlas.Standard
                         {
                             case "Cycle":
                                 if (cycleTemplateName == null)
-                                    cycleTemplateName = reader.GetAttribute("CycleTemplateName");
+                                    cycleTemplateName =
+                                        new CycleTemplateName(reader.GetAttribute("CycleTemplateName"));
                                 break;
 
                             case "Lifts":
@@ -55,18 +47,12 @@ namespace LiftingAtlas.Standard
             return (cycleTemplateName, templateCycleLift.Value);
         }
 
-        /// <summary>
-        /// Reads template cycle.
-        /// </summary>
-        /// <param name="stream">XML stream representing cycle template. Must not be null.</param>
-        /// <returns>Template cycle.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="stream"/> is null.</exception>
         public TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(Stream stream)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
 
-            string cycleTemplateName = null;
+            CycleTemplateName cycleTemplateName = null;
             Lift? templateCycleLift = null;
             List<TemplateSession<TemplateSet>> templateSessions = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle = null;
@@ -82,7 +68,8 @@ namespace LiftingAtlas.Standard
                         {
                             case "Cycle":
                                 if (cycleTemplateName == null)
-                                    cycleTemplateName = reader.GetAttribute("CycleTemplateName");
+                                    cycleTemplateName =
+                                        new CycleTemplateName(reader.GetAttribute("CycleTemplateName"));
                                 break;
 
                             case "Lifts":
@@ -114,11 +101,6 @@ namespace LiftingAtlas.Standard
             return templateCycle;
         }
 
-        /// <summary>
-        /// Reads Lifts section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of Lifts section of XML template cycle.</param>
-        /// <returns>Lifts the template cycle is designed for.</returns>
         private Lift ReadLifts(XmlReader reader)
         {
             Lift templateCycleLifts = Lift.None;
@@ -130,11 +112,6 @@ namespace LiftingAtlas.Standard
             return templateCycleLifts;
         }
 
-        /// <summary>
-        /// Reads content of an element and returns it as Lift.
-        /// </summary>
-        /// <param name="reader">Reader of content.</param>
-        /// <returns>Content of an element as Lift.</returns>
         private Lift ReadElementContentAsLift(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)
@@ -156,11 +133,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Reads Sessions section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of Sessions section of XML template cycle.</param>
-        /// <returns>List of template sessions.</returns>
         private List<TemplateSession<TemplateSet>> ReadSessions(XmlReader reader)
         {
             List<TemplateSession<TemplateSet>> templateSessions = new List<TemplateSession<TemplateSet>>();
@@ -173,15 +145,10 @@ namespace LiftingAtlas.Standard
             return templateSessions;
         }
 
-        /// <summary>
-        /// Reads Session section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of Session section of XML template cycle.</param>
-        /// <returns>Template session.</returns>
         private TemplateSession<TemplateSet> ReadSession(XmlReader reader)
         {
             TemplateSession<TemplateSet> templateSession = null;
-            int? number = null;
+            SessionNumber number = null;
             List<TemplateSet> templateSets = null;
 
             while (reader.Read())
@@ -190,7 +157,7 @@ namespace LiftingAtlas.Standard
                     {
                         case "Number":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                number = ReadElementContentAsInt(subReader);
+                                number = new SessionNumber(ReadElementContentAsInt(subReader));
                             break;
 
                         case "Sets":
@@ -202,16 +169,11 @@ namespace LiftingAtlas.Standard
                             break;
                     }
 
-            templateSession = new TemplateSession<TemplateSet>(number.Value, templateSets);
+            templateSession = new TemplateSession<TemplateSet>(number, templateSets);
 
             return templateSession;
         }
 
-        /// <summary>
-        /// Reads Sets section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of Sets section of XML template cycle.</param>
-        /// <returns>List of template sets.</returns>
         private List<TemplateSet> ReadSets(XmlReader reader)
         {
             List<TemplateSet> templateSets = new List<TemplateSet>();
@@ -224,17 +186,13 @@ namespace LiftingAtlas.Standard
             return templateSets;
         }
 
-        /// <summary>
-        /// Reads Set section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of Set section of XML template cycle.</param>
-        /// <returns>Template set.</returns>
         private TemplateSet ReadSet(XmlReader reader)
         {
             TemplateSet templateSet = null;
-            int? number = null;
-            NonNegativeI32Range plannedPercentageOfReferencePoint = null, plannedRepetitions = null;
-            double? weightAdjustmentConstant = null;
+            SetNumber number = null;
+            PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint = null;
+            PlannedRepetitions plannedRepetitions = null;
+            WeightAdjustmentConstant weightAdjustmentConstant = null;
             string note = null;
 
             while (reader.Read())
@@ -243,17 +201,17 @@ namespace LiftingAtlas.Standard
                     {
                         case "Number":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                number = ReadElementContentAsInt(subReader);
+                                number = new SetNumber(ReadElementContentAsInt(subReader));
                             break;
 
                         case "PlannedPercentageOfReferencePoint":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                plannedPercentageOfReferencePoint = ReadRange(subReader);
+                                plannedPercentageOfReferencePoint = ReadPlannedPercentageOfReferencePoint(subReader);
                             break;
 
                         case "PlannedRepetitions":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                plannedRepetitions = ReadRange(subReader);
+                                plannedRepetitions = ReadPlannedRepetitions(subReader);
                             break;
 
                         case "WeightAdjustmentConstant":
@@ -261,7 +219,8 @@ namespace LiftingAtlas.Standard
                             using (XmlReader subReader = reader.ReadSubtree())
                                 weightAdjustmentConstantString = ReadElementContentAsString(subReader);
                             if (!string.IsNullOrEmpty(weightAdjustmentConstantString))
-                                weightAdjustmentConstant = double.Parse(weightAdjustmentConstantString);
+                                weightAdjustmentConstant =
+                                    new WeightAdjustmentConstant(double.Parse(weightAdjustmentConstantString));
                             break;
 
                         case "Note":
@@ -277,7 +236,7 @@ namespace LiftingAtlas.Standard
                     }
 
             templateSet = new TemplateSet(
-                number.Value,
+                number,
                 plannedPercentageOfReferencePoint,
                 plannedRepetitions,
                 weightAdjustmentConstant,
@@ -287,14 +246,9 @@ namespace LiftingAtlas.Standard
             return templateSet;
         }
 
-        /// <summary>
-        /// Reads range representing section of XML template cycle.
-        /// </summary>
-        /// <param name="reader">Reader of range representing section of XML template cycle.</param>
-        /// <returns>Non-negative 32-bit integer range.</returns>
-        private NonNegativeI32Range ReadRange(XmlReader reader)
+        private PlannedPercentageOfReferencePoint ReadPlannedPercentageOfReferencePoint(XmlReader reader)
         {
-            NonNegativeI32Range range = null;
+            PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint = null;
             int? lowerBound = null, upperBound = null;
 
             while (reader.Read())
@@ -316,16 +270,45 @@ namespace LiftingAtlas.Standard
                     }
 
             if (lowerBound != null && upperBound != null)
-                range = new NonNegativeI32Range(lowerBound.Value, upperBound.Value);
+                plannedPercentageOfReferencePoint =
+                    new PlannedPercentageOfReferencePoint(lowerBound.Value, upperBound.Value);
 
-            return range;
+            return plannedPercentageOfReferencePoint;
         }
 
-        /// <summary>
-        /// Reads content of an element and returns it as 32-bit signed integer.
-        /// </summary>
-        /// <param name="reader">Reader of content.</param>
-        /// <returns>Content of an element as 32-bit signed integer.</returns>
+        private PlannedRepetitions ReadPlannedRepetitions(XmlReader reader)
+        {
+            PlannedRepetitions plannedRepetitions = null;
+            int? lowerBound = null, upperBound = null;
+
+            while (reader.Read())
+                if (reader.IsStartElement())
+                    switch (reader.Name)
+                    {
+                        case "LowerBound":
+                            using (XmlReader subReader = reader.ReadSubtree())
+                                lowerBound = ReadElementContentAsInt(subReader);
+                            break;
+
+                        case "UpperBound":
+                            using (XmlReader subReader = reader.ReadSubtree())
+                                upperBound = ReadElementContentAsInt(subReader);
+                            break;
+
+                        default:
+                            break;
+                    }
+
+            if (lowerBound != null && upperBound != null)
+                plannedRepetitions =
+                    new PlannedRepetitions(
+                        new Repetitions(lowerBound.Value),
+                        new Repetitions(upperBound.Value)
+                        );
+
+            return plannedRepetitions;
+        }
+
         private int ReadElementContentAsInt(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)
@@ -334,11 +317,6 @@ namespace LiftingAtlas.Standard
             return reader.ReadElementContentAsInt();
         }
 
-        /// <summary>
-        /// Reads content of an element and returns it as string.
-        /// </summary>
-        /// <param name="reader">Reader of content.</param>
-        /// <returns>Content of an element as string.</returns>
         private string ReadElementContentAsString(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)

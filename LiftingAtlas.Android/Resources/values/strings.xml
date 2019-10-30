@@ -16,6 +16,7 @@
   <string name="no">No</string>
   <string name="select_cycle_template_dot">Select Cycle Template.</string>
   <string name="enter_reference_point_dot">Enter Reference Point.</string>
+  <string name="reference_point_must_be_a_finite_number">Reference Point must be a finite number.</string>
   <string name="reference_point_must_not_be_less_than_0_dot">Reference Point must not be less than 0.</string>
   <string name="sessions">Sessions</string>
   <string name="current">Current</string>
@@ -38,6 +39,7 @@
   <string name="register_lifted_values">Register Lifted Values</string>
   <string name="enter_lifted_weight_dot">Enter Lifted Weight.</string>
   <string name="enter_lifted_repetitions_dot">Enter Lifted Repetitions.</string>
+  <string name="lifted_weight_must_be_a_finite_number">Lifted Weight must be a finite number.</string>
   <string name="lifted_weight_must_not_be_less_than_0_dot">Lifted Weight must not be less than 0.</string>
   <string name="lifted_repetitions_must_not_be_less_than_0_dot">Lifted Repetitions must not be less than 0.</string>
   <string name="lifted_weight_is_outside_of_planned_range_dot">Lifted Weight is outside of planned range.</string>

@@ -17,10 +17,10 @@ using LiftingAtlas.Standard;
 
 namespace LiftingAtlas.Droid
 {
-    public class TemplateSessionAdapter : BaseAdapter<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)>
+    public class TemplateSessionAdapter : BaseAdapter<(string templateSession, IList<(int start, int end)> noteReferencePositions)>
     {
         private Activity activity;
-        private IList<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)> templateSessionsAndNoteReferencePositions;
+        private IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions;
 
         public TemplateSessionAdapter(Activity activity) : base()
         {
@@ -30,10 +30,10 @@ namespace LiftingAtlas.Droid
             this.activity = activity;
 
             this.templateSessionsAndNoteReferencePositions =
-                new List<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)>();
+                new List<(string templateSession, IList<(int start, int end)> noteReferencePositions)>();
         }
 
-        public override (string templateSession, IList<NonNegativeI32Range> NoteReferencePositions) this[int position]
+        public override (string templateSession, IList<(int start, int end)> noteReferencePositions) this[int position]
         {
             get
             {
@@ -70,16 +70,16 @@ namespace LiftingAtlas.Droid
                     false
                     );
 
-            (string templateSession, IList<NonNegativeI32Range> NoteReferencePositions) templateSessionAndNoteReferencePositions =
+            (string templateSession, IList<(int start, int end)> noteReferencePositions) templateSessionAndNoteReferencePositions =
                 this.templateSessionsAndNoteReferencePositions[position];
 
             SpannableString templateSession = new SpannableString(templateSessionAndNoteReferencePositions.templateSession);
-            if (templateSessionAndNoteReferencePositions.NoteReferencePositions != null)
-                foreach (NonNegativeI32Range NoteReferencePosition in templateSessionAndNoteReferencePositions.NoteReferencePositions)
+            if (templateSessionAndNoteReferencePositions.noteReferencePositions != null)
+                foreach ((int start, int end) NoteReferencePosition in templateSessionAndNoteReferencePositions.noteReferencePositions)
                     templateSession.SetSpan(
                         new ForegroundColorSpan(new Color(ContextCompat.GetColor(this.activity, Resource.Color.colorAccent))),
-                        NoteReferencePosition.LowerBound,
-                        NoteReferencePosition.UpperBound,
+                        NoteReferencePosition.start,
+                        NoteReferencePosition.end,
                         SpanTypes.ExclusiveExclusive
                         );
 
@@ -89,7 +89,7 @@ namespace LiftingAtlas.Droid
         }
 
         public void SetTemplateSessionsAndNoteReferencePositions(
-            IList<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)> templateSessionsAndNoteReferencePositions
+            IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
             )
         {
             this.NotifyDataSetInvalidated();
@@ -98,7 +98,7 @@ namespace LiftingAtlas.Droid
 
             if (templateSessionsAndNoteReferencePositions != null)
                 foreach (
-                    (string, IList<NonNegativeI32Range>) templateSessionAndNoteReferencePositions
+                    (string, IList<(int start, int end)>) templateSessionAndNoteReferencePositions
                     in
                     templateSessionsAndNoteReferencePositions
                     )

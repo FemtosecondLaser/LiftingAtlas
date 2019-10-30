@@ -5,35 +5,17 @@ using System.Text;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Template cycle presenter.
-    /// </summary>
     public class TemplateCyclePresenter : ITemplateCyclePresenter
     {
         #region Private fields
 
-        /// <summary>
-        /// Template cycle view.
-        /// </summary>
         private readonly ITemplateCycleView templateCycleView;
-
-        /// <summary>
-        /// Template cycle provider Master.
-        /// </summary>
         private readonly ITemplateCycleProviderMaster templateCycleProviderMaster;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates template cycle presenter.
-        /// </summary>
-        /// <param name="templateCycleView">Template cycle view. Must not be null.</param>
-        /// <param name="templateCycleProviderMaster">Template cycle provider master.
-        /// Must not be null.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="templateCycleView"/>
-        /// or <paramref name="templateCycleProviderMaster"/> is null.</exception>
         public TemplateCyclePresenter(
             ITemplateCycleView templateCycleView,
             ITemplateCycleProviderMaster templateCycleProviderMaster
@@ -53,14 +35,7 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Presents template cycle data.
-        /// </summary>
-        /// <param name="cycleTemplateName">Cycle template name,
-        /// to present template cycle data for. Must not be null.</param>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="cycleTemplateName"/> is null.</exception>
-        public void PresentTemplateCycleData(string cycleTemplateName)
+        public void PresentTemplateCycleData(CycleTemplateName cycleTemplateName)
         {
             if (cycleTemplateName == null)
                 throw new ArgumentNullException(nameof(cycleTemplateName));
@@ -69,17 +44,17 @@ namespace LiftingAtlas.Standard
                 this.templateCycleProviderMaster.TemplateCycle(cycleTemplateName);
 
             StringBuilder templateSessionsBuilder = new StringBuilder();
-            List<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)> templateSessionsAndNoteReferencePositions =
-                new List<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)>();
+            List<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions =
+                new List<(string templateSession, IList<(int start, int end)> noteReferencePositions)>();
 
             StringBuilder templateSetNoteBuilder = new StringBuilder();
             Dictionary<string, int> templateSetNoteDictionary = new Dictionary<string, int>();
-            List<(string templateSetNote, NonNegativeI32Range NoteReferencePosition)> templateSetNotesAndNoteReferencePositions =
-                new List<(string templateSetNote, NonNegativeI32Range NoteReferencePosition)>();
+            List<(string templateSetNote, (int start, int end) NoteReferencePosition)> templateSetNotesAndNoteReferencePositions =
+                new List<(string templateSetNote, (int start, int end) NoteReferencePosition)>();
 
             for (int i = 0; i < templateCycle.Sessions.Count; i++)
             {
-                List<NonNegativeI32Range> templateSessionNoteReferencePositions = new List<NonNegativeI32Range>();
+                List<(int start, int end)> templateSessionNoteReferencePositions = new List<(int start, int end)>();
 
                 templateSessionsBuilder.Clear();
 
@@ -142,9 +117,7 @@ namespace LiftingAtlas.Standard
 
                         noteReferenceEndPosition = templateSessionsBuilder.Length;
 
-                        templateSessionNoteReferencePositions.Add(
-                            new NonNegativeI32Range(noteReferenceStartPosition, noteReferenceEndPosition)
-                            );
+                        templateSessionNoteReferencePositions.Add((noteReferenceStartPosition, noteReferenceEndPosition));
                     }
 
                     templateSessionsBuilder.Append('/');
@@ -182,7 +155,7 @@ namespace LiftingAtlas.Standard
                     templateSetNoteBuilder.Append(note.Key);
 
                     templateSetNotesAndNoteReferencePositions.Add(
-                        (templateSetNoteBuilder.ToString(), new NonNegativeI32Range(noteReferenceStartPosition, noteReferenceEndPosition))
+                        (templateSetNoteBuilder.ToString(), (noteReferenceStartPosition, noteReferenceEndPosition))
                         );
                 }
 

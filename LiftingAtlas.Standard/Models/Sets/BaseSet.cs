@@ -2,49 +2,23 @@
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Minimal planning unit of cycle.
-    /// </summary>
     public abstract class BaseSet : IEquatable<BaseSet>
     {
         #region Private fields
 
-        /// <summary>
-        /// A field behind <see cref="PlannedPercentageOfReferencePoint"/>.
-        /// </summary>
-        private readonly NonNegativeI32Range plannedPercentageOfReferencePoint;
-
-        /// <summary>
-        /// A field behind <see cref="PlannedRepetitions"/>.
-        /// </summary>
-        private readonly NonNegativeI32Range plannedRepetitions;
-
-        /// <summary>
-        /// A field behind <see cref="WeightAdjustmentConstant"/>
-        /// </summary>
-        private readonly double? weightAdjustmentConstant;
-
-        /// <summary>
-        /// A field behind <see cref="Note"/>.
-        /// </summary>
+        private readonly PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint;
+        private readonly PlannedRepetitions plannedRepetitions;
+        private readonly WeightAdjustmentConstant weightAdjustmentConstant;
         private readonly string note;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a set.
-        /// </summary>
-        /// <param name="plannedPercentageOfReferencePoint">Planned percentage of reference point.</param>
-        /// <param name="plannedRepetitions">Amount of repetitions. Must not be null.</param>
-        /// <param name="weightAdjustmentConstant">Constant to add to weight range in order to derive planned weight.</param>
-        /// <param name="note">A note.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="plannedRepetitions"/> is null.</exception>
         public BaseSet(
-            NonNegativeI32Range plannedPercentageOfReferencePoint,
-            NonNegativeI32Range plannedRepetitions,
-            double? weightAdjustmentConstant = null,
+            PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint,
+            PlannedRepetitions plannedRepetitions,
+            WeightAdjustmentConstant weightAdjustmentConstant = null,
             string note = null
             )
         {
@@ -61,10 +35,7 @@ namespace LiftingAtlas.Standard
 
         #region Properties
 
-        /// <summary>
-        /// Planned percentage of reference point.
-        /// </summary>
-        public NonNegativeI32Range PlannedPercentageOfReferencePoint
+        public PlannedPercentageOfReferencePoint PlannedPercentageOfReferencePoint
         {
             get
             {
@@ -72,10 +43,7 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Planned amount of times to lift weight during this set.
-        /// </summary>
-        public NonNegativeI32Range PlannedRepetitions
+        public PlannedRepetitions PlannedRepetitions
         {
             get
             {
@@ -83,10 +51,7 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Constant to add to weight range in order to derive planned weight.
-        /// </summary>
-        public double? WeightAdjustmentConstant
+        public WeightAdjustmentConstant WeightAdjustmentConstant
         {
             get
             {
@@ -94,9 +59,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// A note.
-        /// </summary>
         public string Note
         {
             get
@@ -109,22 +71,14 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Determines if <paramref name="repetitions"/> fall within planned range.
-        /// </summary>
-        /// <param name="repetitions">Repetitions.</param>
-        /// <returns>True if <paramref name="repetitions"/> fall within planned range;
-        /// otherwise, false.</returns>
-        public bool RepetitionsWithinPlannedRange(int repetitions)
+        public bool RepetitionsWithinPlannedRange(Repetitions repetitions)
         {
-            return this.PlannedRepetitions.InRange(repetitions, true, true);
+            if (repetitions == null)
+                throw new ArgumentNullException(nameof(repetitions));
+
+            return this.PlannedRepetitions.InRange(repetitions);
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an object.
-        /// </summary>
-        /// <param name="obj">An object to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is BaseSet))
@@ -133,10 +87,6 @@ namespace LiftingAtlas.Standard
             return this.Equals((BaseSet)obj);
         }
 
-        /// <summary>
-        /// Computes the hash code for this object.
-        /// </summary>
-        /// <returns>Hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -149,11 +99,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an instance of <see cref="BaseSet"/>.
-        /// </summary>
-        /// <param name="other">An instance of <see cref="BaseSet"/> to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public bool Equals(BaseSet other)
         {
             if ((object)other == null)
@@ -174,13 +119,6 @@ namespace LiftingAtlas.Standard
 
         #region Operators
 
-        /// <summary>
-        /// Determines equality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are equal;
-        /// otherwise, false.</returns>
         public static bool operator ==(BaseSet first, BaseSet second)
         {
             if (ReferenceEquals(first, second))
@@ -192,13 +130,6 @@ namespace LiftingAtlas.Standard
             return first.Equals(second);
         }
 
-        /// <summary>
-        /// Determines inequality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are unequal;
-        /// otherwise, false.</returns>
         public static bool operator !=(BaseSet first, BaseSet second)
         {
             return !(first == second);

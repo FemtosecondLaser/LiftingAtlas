@@ -9,19 +9,23 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using LiftingAtlas.Standard;
 
 namespace LiftingAtlas.Droid
 {
     public class ViewTemplateCycleRequestedEventArgs : EventArgs
     {
-        private readonly string cycleTemplateName;
+        private readonly CycleTemplateName cycleTemplateName;
 
-        public ViewTemplateCycleRequestedEventArgs(string cycleTemplateName)
+        public ViewTemplateCycleRequestedEventArgs(CycleTemplateName cycleTemplateName)
         {
+            if (cycleTemplateName == null)
+                throw new ArgumentNullException(nameof(cycleTemplateName));
+
             this.cycleTemplateName = cycleTemplateName;
         }
 
-        public virtual string CycleTemplateName
+        public virtual CycleTemplateName CycleTemplateName
         {
             get
             {

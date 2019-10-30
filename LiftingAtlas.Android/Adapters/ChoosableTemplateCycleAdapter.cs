@@ -9,14 +9,15 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using LiftingAtlas.Standard;
 using static Android.Views.View;
 
 namespace LiftingAtlas.Droid
 {
-    public class ChoosableTemplateCycleAdapter : BaseAdapter<string>, INotifyViewTemplateCycleRequested
+    public class ChoosableTemplateCycleAdapter : BaseAdapter<CycleTemplateName>, INotifyViewTemplateCycleRequested
     {
         private Activity activity;
-        private IList<string> cycleTemplateNames;
+        private IList<CycleTemplateName> cycleTemplateNames;
 
         public ChoosableTemplateCycleAdapter(Activity activity) : base()
         {
@@ -25,12 +26,12 @@ namespace LiftingAtlas.Droid
 
             this.activity = activity;
 
-            this.cycleTemplateNames = new List<string>();
+            this.cycleTemplateNames = new List<CycleTemplateName>();
         }
 
         public event ViewTemplateCycleRequestedEventHandler ViewTemplateCycleRequested;
 
-        public override string this[int position]
+        public override CycleTemplateName this[int position]
         {
             get
             {
@@ -77,28 +78,31 @@ namespace LiftingAtlas.Droid
         private void ViewButton_Click(object sender, EventArgs e)
         {
             View parent = (sender as Button).Parent as View;
-            string cycleTemplateName =
-                parent.FindViewById<TextView>(Resource.Id.cycle_template_name_textview).Text;
+            CycleTemplateName cycleTemplateName =
+                new CycleTemplateName(parent.FindViewById<TextView>(Resource.Id.cycle_template_name_textview).Text);
 
             OnViewTemplateCycleRequested(cycleTemplateName);
         }
 
-        protected void OnViewTemplateCycleRequested(string cycleTemplateName)
+        protected void OnViewTemplateCycleRequested(CycleTemplateName cycleTemplateName)
         {
+            if (cycleTemplateName == null)
+                throw new ArgumentNullException(nameof(cycleTemplateName));
+
             ViewTemplateCycleRequested?.Invoke(
                 this,
                 new ViewTemplateCycleRequestedEventArgs(cycleTemplateName)
                 );
         }
 
-        public void SetCycleTemplateNames(IList<string> cycleTemplateNames)
+        public void SetCycleTemplateNames(IList<CycleTemplateName> cycleTemplateNames)
         {
             NotifyDataSetInvalidated();
 
             this.cycleTemplateNames.Clear();
 
             if (cycleTemplateNames != null)
-                foreach (string cycleTemplateName in cycleTemplateNames)
+                foreach (CycleTemplateName cycleTemplateName in cycleTemplateNames)
                     this.cycleTemplateNames.Add(cycleTemplateName);
 
             NotifyDataSetChanged();

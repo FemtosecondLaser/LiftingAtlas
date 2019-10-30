@@ -101,6 +101,11 @@ namespace LiftingAtlas.Droid
                     );
             else
             {
+                if (double.IsNaN(referencePoint) || double.IsInfinity(referencePoint))
+                    this.planNewCycleErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.reference_point_must_be_a_finite_number)
+                        );
+
                 if (referencePoint < 0.00)
                     this.planNewCycleErrorStringBuilder.AppendLine(
                         this.GetString(Resource.String.reference_point_must_not_be_less_than_0_dot)
@@ -137,12 +142,12 @@ namespace LiftingAtlas.Droid
                 return;
             }
 
-            string selectedCycleTemplateName = this.choosableTemplateCycleAdapter[checkedItemPosition];
+            CycleTemplateName selectedCycleTemplateName = this.choosableTemplateCycleAdapter[checkedItemPosition];
 
             this.newPlannedCyclePresenter.PlanNewCycle(
                 selectedCycleTemplateName,
                 this.lift,
-                referencePoint,
+                new Weight(referencePoint),
                 new UniformQuantizationInterval(uniformQuantizationInterval)
                 );
 
@@ -186,7 +191,7 @@ namespace LiftingAtlas.Droid
                 inputMethodManager.HideSoftInputFromWindow(currentlyFocusedView.WindowToken, HideSoftInputFlags.None);
         }
 
-        public void OutputNamesOfTemplateCycles(IList<string> namesOfTemplateCycles)
+        public void OutputNamesOfTemplateCycles(IList<CycleTemplateName> namesOfTemplateCycles)
         {
             this.choosableTemplateCycleAdapter.SetCycleTemplateNames(namesOfTemplateCycles);
         }

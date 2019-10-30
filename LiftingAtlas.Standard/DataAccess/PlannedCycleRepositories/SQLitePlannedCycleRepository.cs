@@ -4,34 +4,17 @@ using System.Collections.Generic;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// SQLite planned cycle repository.
-    /// </summary>
     public class SQLitePlannedCycleRepository : IPlannedCycleRepository, IDisposable
     {
         #region Private fields
 
-        /// <summary>
-        /// Guid provider.
-        /// </summary>
         private readonly IGuidProvider guidProvider;
-
-        /// <summary>
-        /// SQLite planned cycle repository connection.
-        /// </summary>
         private readonly SQLiteConnection connection;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates SQLite planned cycle repository.
-        /// </summary>
-        /// <param name="guidProvider">Guid provider. Must not be null.</param>
-        /// <param name="connectionString">Connection string. Must not be null.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="guidProvider"/> or
-        /// <paramref name="connectionString"/> is null.</exception>
         public SQLitePlannedCycleRepository(IGuidProvider guidProvider, string connectionString)
         {
             if (guidProvider == null)
@@ -56,18 +39,12 @@ namespace LiftingAtlas.Standard
 
         #region Structure Creation
 
-        /// <summary>
-        /// Creates database structure.
-        /// </summary>
         private void CreateStructure()
         {
             CreatePlannedCycleList();
             CreateLatestPlannedCycleList();
         }
 
-        /// <summary>
-        /// Creates table storing planned cycle list.
-        /// </summary>
         private void CreatePlannedCycleList()
         {
             connection.Execute
@@ -87,9 +64,6 @@ namespace LiftingAtlas.Standard
                 ");
         }
 
-        /// <summary>
-        /// Creates table storing latest planned cycle list.
-        /// </summary>
         private void CreateLatestPlannedCycleList()
         {
             connection.Execute
@@ -109,23 +83,10 @@ namespace LiftingAtlas.Standard
 
         #endregion
 
-        /// <summary>
-        /// Plans a cycle.
-        /// </summary>
-        /// <param name="cycleTemplate">Cycle template used for planning. Must not be null.</param>
-        /// <param name="lift">Lift to plan a cycle for. Must be specified.
-        /// Must be the lift <paramref name="cycleTemplate"/> is designed for.</param>
-        /// <param name="referencePoint">Reference point used to plan a cycle. Must not be less than 0.</param>
-        /// <param name="quantizationProvider">Provider of quantization method for weight planning.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="cycleTemplate"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="lift"/> is unspecified or
-        /// <paramref name="lift"/> is not the <see cref="Lift"/> <paramref name="cycleTemplate"/> is designed for.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="referencePoint"/> is less than 0.</exception>
-        /// <exception cref="Exception">Unexpected amount of inserted or updated rows during the operation.</exception>
         public void PlanCycle(
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> cycleTemplate,
             Lift lift,
-            double referencePoint,
+            Weight referencePoint,
             IQuantizationProvider quantizationProvider
             )
         {
@@ -138,8 +99,8 @@ namespace LiftingAtlas.Standard
             if (!cycleTemplate.TemplateLift.HasFlag(lift))
                 throw new ArgumentException("Lift is not the lift the cycle template is designed for.", nameof(lift));
 
-            if (referencePoint < 0.00)
-                throw new ArgumentOutOfRangeException(nameof(referencePoint));
+            if (referencePoint == null)
+                throw new ArgumentNullException(nameof(referencePoint));
 
             string guidString = this.guidProvider.GetGuid().ToString("N");
 
@@ -182,8 +143,8 @@ namespace LiftingAtlas.Standard
                     {
                         object[] arguments = new object[13];
 
-                        arguments[0] = templateSession.Number;
-                        arguments[1] = templateSet.Number;
+                        arguments[0] = templateSession.Number.Value;
+                        arguments[1] = templateSet.Number.Value;
 
                         if (templateSet.PlannedPercentageOfReferencePoint == null)
                         {
@@ -203,11 +164,15 @@ namespace LiftingAtlas.Standard
                         }
                         else
                         {
-                            arguments[4] = templateSet.PlannedRepetitions.LowerBound;
-                            arguments[5] = templateSet.PlannedRepetitions.UpperBound;
+                            arguments[4] = templateSet.PlannedRepetitions.LowerBound.Value;
+                            arguments[5] = templateSet.PlannedRepetitions.UpperBound.Value;
                         }
 
-                        arguments[6] = templateSet.WeightAdjustmentConstant;
+                        if (templateSet.WeightAdjustmentConstant == null)
+                            arguments[6] = null;
+                        else
+                            arguments[6] = templateSet.WeightAdjustmentConstant.Value;
+
                         arguments[7] = templateSet.Note;
 
                         if (templateSet.PlannedPercentageOfReferencePoint == null)
@@ -320,8 +285,8 @@ namespace LiftingAtlas.Standard
                     ",
                     guidString,
                     lift,
-                    referencePoint,
-                    cycleTemplate.CycleTemplateName,
+                    referencePoint.Value,
+                    cycleTemplate.CycleTemplateName.Name,
                     cycleTemplate.TemplateLift
                     );
 
@@ -380,12 +345,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Gets latest planned cycle guid for the <paramref name="lift"/>.
-        /// </summary>
-        /// <param name="lift">Lift to get latest planned cycle guid for.</param>
-        /// <returns>Latest planned cycle guid for the <paramref name="lift"/> or
-        /// null if latest planned cycle for the lift does not exist.</returns>
         public Guid? GetLatestPlannedCycleGuid(Lift lift)
         {
             LatestPlannedCycleListDataset latestPlannedCycleListRow = connection.FindWithQuery<LatestPlannedCycleListDataset>
@@ -402,20 +361,11 @@ namespace LiftingAtlas.Standard
                 );
 
             if (latestPlannedCycleListRow == null || string.IsNullOrWhiteSpace(latestPlannedCycleListRow.plannedCycleGuid))
-                return null; /* No cycle planned for the lift. */
+                return null;        
 
             return Guid.Parse(latestPlannedCycleListRow.plannedCycleGuid);
         }
 
-        /// <summary>
-        /// Gets planned cycle.
-        /// </summary>
-        /// <param name="plannedCycleGuid">Guid of planned cycle to get.
-        /// Must be the guid of existing planned cycle.</param>
-        /// <returns>Planned cycle.</returns>
-        /// <exception cref="ArgumentException">No planned cycle entry, with the specified guid,
-        /// found in the planned cycle list.</exception>
-        /// <exception cref="Exception">Cycle referenced in the planned cycle list not found.</exception>
         public PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> GetPlannedCycle(Guid plannedCycleGuid)
         {
             string guidString = plannedCycleGuid.ToString("N");
@@ -488,7 +438,7 @@ namespace LiftingAtlas.Standard
             {
                 PlannedCycleDataset plannedCycleRow = plannedCycleRows[i];
 
-                if (sessionCounter == null) /* First session. */
+                if (sessionCounter == null)    
                 {
                     countedSessionSetList = new List<PlannedSet>();
                     sessionCounter = plannedCycleRow.sessionNumber;
@@ -497,7 +447,10 @@ namespace LiftingAtlas.Standard
                 if (sessionCounter != plannedCycleRow.sessionNumber)
                 {
                     plannedSessions.Add(
-                        new PlannedSession<PlannedSet>(sessionCounter.Value, countedSessionSetList)
+                        new PlannedSession<PlannedSet>(
+                            new SessionNumber(sessionCounter.Value),
+                            countedSessionSetList
+                            )
                         );
 
                     countedSessionSetList = new List<PlannedSet>();
@@ -506,10 +459,13 @@ namespace LiftingAtlas.Standard
 
                 countedSessionSetList.Add(plannedCycleRow.ToPlannedSet());
 
-                if (i == (plannedCycleRows.Count - 1)) /* Last session. */
+                if (i == (plannedCycleRows.Count - 1))    
                 {
                     plannedSessions.Add(
-                        new PlannedSession<PlannedSet>(sessionCounter.Value, countedSessionSetList)
+                        new PlannedSession<PlannedSet>(
+                            new SessionNumber(sessionCounter.Value),
+                            countedSessionSetList
+                            )
                         );
                 }
             }
@@ -517,27 +473,21 @@ namespace LiftingAtlas.Standard
             return new PlannedCycle<PlannedSession<PlannedSet>, PlannedSet>(
                 Guid.Parse(guidString),
                 plannedCycleListRow.plannedLift,
-                plannedCycleListRow.referencePoint,
-                plannedCycleListRow.cycleTemplateName,
+                new Weight(plannedCycleListRow.referencePoint),
+                new CycleTemplateName(plannedCycleListRow.cycleTemplateName),
                 plannedCycleListRow.templateLift,
                 plannedSessions
                 );
         }
 
-        /// <summary>
-        /// Gets planned session.
-        /// </summary>
-        /// <param name="plannedCycleGuid">Guid of planned cycle, containing planned session to get.
-        /// Must be the guid of existing planned cycle.</param>
-        /// <param name="plannedSessionNumber">Number of planned session to get.
-        /// Must be the number of existing planned session.</param>
-        /// <returns>Planned session.</returns>
-        /// <exception cref="ArgumentException">No planned session with the speified number found.</exception>
         public PlannedSession<PlannedSet> GetPlannedSession(
             Guid plannedCycleGuid,
-            int plannedSessionNumber
+            SessionNumber plannedSessionNumber
             )
         {
+            if (plannedSessionNumber == null)
+                throw new ArgumentNullException(nameof(plannedSessionNumber));
+
             string guidString = plannedCycleGuid.ToString("N");
 
             #region Getting the planned session
@@ -564,7 +514,7 @@ namespace LiftingAtlas.Standard
                 ORDER BY [setNumber] ASC;
 
                 ",
-                plannedSessionNumber
+                plannedSessionNumber.Value
                 );
 
             #endregion
@@ -587,24 +537,18 @@ namespace LiftingAtlas.Standard
                 );
         }
 
-        /// <summary>
-        /// Gets planned set.
-        /// </summary>
-        /// <param name="plannedCycleGuid">Guid of planned cycle, containing planned set to get.
-        /// Must be the guid of existing planned cycle.</param>
-        /// <param name="plannedSessionNumber">Number of planned session, containing planned set to get.
-        /// Must be the number of existing planned session.</param>
-        /// <param name="plannedSetNumber">Number of planned set to get.
-        /// Must be the number of existing planned set.</param>
-        /// <returns>Planned set.</returns>
-        /// <exception cref="ArgumentException">No planned set with the speified number found.</exception>
-        /// <exception cref="Exception">Unexpected amount of rows retrieved.</exception>
         public PlannedSet GetPlannedSet(
             Guid plannedCycleGuid,
-            int plannedSessionNumber,
-            int plannedSetNumber
+            SessionNumber plannedSessionNumber,
+            SetNumber plannedSetNumber
             )
         {
+            if (plannedSessionNumber == null)
+                throw new ArgumentNullException(nameof(plannedSessionNumber));
+
+            if (plannedSetNumber == null)
+                throw new ArgumentNullException(nameof(plannedSetNumber));
+
             string guidString = plannedCycleGuid.ToString("N");
 
             #region Getting the planned set
@@ -630,8 +574,8 @@ namespace LiftingAtlas.Standard
                 WHERE [sessionNumber] = ? AND [setNumber] = ?;
 
                 ",
-                plannedSessionNumber,
-                plannedSetNumber
+                plannedSessionNumber.Value,
+                plannedSetNumber.Value
                 );
 
             #endregion
@@ -650,27 +594,21 @@ namespace LiftingAtlas.Standard
             return plannedSetRows[0].ToPlannedSet();
         }
 
-        /// <summary>
-        /// Updates lifted values of planned set.
-        /// </summary>
-        /// <param name="plannedCycleGuid">Guid of planned cycle, containing planned set to update.
-        /// Must be the guid of existing planned cycle.</param>
-        /// <param name="plannedSessionNumber">Number of planned session, containing planned set to update.
-        /// Must be the number of existing planned session.</param>
-        /// <param name="plannedSetNumber">Number of planned set, to update lifted values of.
-        /// Must be the number of existing planned set.</param>
-        /// <param name="liftedValues">Lifted values. liftedRepetitions, liftedWeight must not be less than 0.</param>
-        /// <exception cref="ArgumentOutOfRangeException">At least one of the
-        /// <paramref name="liftedValues"/> is less than 0.</exception>
         public void UpdatePlannedSetLiftedValues(
             Guid plannedCycleGuid,
-            int plannedSessionNumber,
-            int plannedSetNumber,
-            (int liftedRepetitions, double liftedWeight) liftedValues
+            SessionNumber plannedSessionNumber,
+            SetNumber plannedSetNumber,
+            LiftedValues liftedValues
             )
         {
-            if (liftedValues.liftedRepetitions < 0 || liftedValues.liftedWeight < 0.00)
-                throw new ArgumentOutOfRangeException(nameof(liftedValues));
+            if (plannedSessionNumber == null)
+                throw new ArgumentNullException(nameof(plannedSessionNumber));
+
+            if (plannedSetNumber == null)
+                throw new ArgumentNullException(nameof(plannedSetNumber));
+
+            if (liftedValues == null)
+                throw new ArgumentNullException(nameof(liftedValues));
 
             string guidString = plannedCycleGuid.ToString("N");
 
@@ -694,10 +632,10 @@ namespace LiftingAtlas.Standard
                     [setNumber] = ?;
 
                     ",                    
-                    liftedValues.liftedRepetitions,
-                    liftedValues.liftedWeight,
-                    plannedSessionNumber,
-                    plannedSetNumber
+                    liftedValues.LiftedRepetitions.Value,
+                    liftedValues.LiftedWeight.Value,
+                    plannedSessionNumber.Value,
+                    plannedSetNumber.Value
                     );
 
                 if (!(plannedSetsLiftedValuesUpdated > 0))
@@ -723,15 +661,7 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Gets numbers of current planned session and current planned set.
-        /// </summary>
-        /// <param name="plannedCycleGuid">Guid of planned cycle, to return
-        /// current planned session and current planned set numbers for.
-        /// Must be the guid of existing planned cycle.</param>
-        /// <returns>Current planned session and current planned set numbers
-        /// or null if no planned session and planned set are current.</returns>
-        public (int currentPlannedSessionNumber, int currentPlannedSetNumber)? GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+        public SessionSetNumber GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
             Guid plannedCycleGuid
             )
         {
@@ -770,12 +700,12 @@ namespace LiftingAtlas.Standard
             if (currentPlannedCycleRow == null)
                 return null;
 
-            return (currentPlannedCycleRow.sessionNumber, currentPlannedCycleRow.setNumber);
+            return new SessionSetNumber(
+                new SessionNumber(currentPlannedCycleRow.sessionNumber),
+                new SetNumber(currentPlannedCycleRow.setNumber)
+                );
         }
 
-        /// <summary>
-        /// Cleans up resources.
-        /// </summary>
         public void Dispose()
         {
             connection.Dispose();

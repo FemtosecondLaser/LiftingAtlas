@@ -14,43 +14,18 @@ using LiftingAtlas.Standard;
 
 namespace LiftingAtlas.Droid
 {
-    /// <summary>
-    /// Asset stream-based template cycle provider Master.
-    /// </summary>
     public class AssetStreamBasedTemplateCycleProviderMaster : ITemplateCycleProviderMaster
     {
         #region Private fields
 
-        /// <summary>
-        /// Stream-based template cycle provider.
-        /// </summary>
         private readonly IStreamBasedTemplateCycleProvider streamBasedTemplateCycleProvider;
-
-        /// <summary>
-        /// Context containing template cycles.
-        /// </summary>
         private readonly Context context;
-
-        /// <summary>
-        /// Path to template cycles.
-        /// </summary>
         private readonly string path;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates asset stream-based template cycle provider Master.
-        /// </summary>
-        /// <param name="streamBasedTemplateCycleProvider">Stream-based template cycle provider.
-        /// Must not be null.</param>
-        /// <param name="context">Context containing template cycles.
-        /// Must not be null.</param>
-        /// <param name="path">Path to template cycles directory. Must contain only template cycles.
-        /// Must not be null.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="streamBasedTemplateCycleProvider"/>,
-        /// <paramref name="context"/> or <paramref name="path"/> is null.</exception>
         public AssetStreamBasedTemplateCycleProviderMaster(
             IStreamBasedTemplateCycleProvider streamBasedTemplateCycleProvider,
             Context context,
@@ -75,15 +50,11 @@ namespace LiftingAtlas.Droid
 
         #region Methods
 
-        /// <summary>
-        /// Returns names of all template cycles.
-        /// </summary>
-        /// <returns>Names of all template cycles.</returns>
-        public string[] NamesOfAllTemplateCycles()
+        public CycleTemplateName[] NamesOfAllTemplateCycles()
         {
             string[] templateCycleAssets = this.context.Assets.List(path);
 
-            string[] templateCycleNames = new string[templateCycleAssets.Length];
+            CycleTemplateName[] templateCycleNames = new CycleTemplateName[templateCycleAssets.Length];
 
             for (int i = 0; i < templateCycleAssets.Length; i++)
             {
@@ -91,7 +62,7 @@ namespace LiftingAtlas.Droid
 
                 using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
                 {
-                    (string CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
+                    (CycleTemplateName CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
                         this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(templateCycleStream);
 
                     templateCycleNames[i] = cycleTemplateNameAndLift.CycleTemplateName;
@@ -101,21 +72,14 @@ namespace LiftingAtlas.Droid
             return templateCycleNames;
         }
 
-        /// <summary>
-        /// Returns names of template cycles for the <see cref="Lift"/>. 
-        /// </summary>
-        /// <param name="lift"><see cref="Lift"/>, to return names of template cycles for.
-        /// Must be specified.</param>
-        /// <returns>Names of template cycles for the <see cref="Lift"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="lift"/> is unspecified.</exception>
-        public string[] NamesOfTemplateCyclesForTheLift(Lift lift)
+        public CycleTemplateName[] NamesOfTemplateCyclesForTheLift(Lift lift)
         {
             if (lift == Lift.None)
                 throw new ArgumentException("Unspecified lift.", nameof(lift));
 
             string[] templateCycleAssets = this.context.Assets.List(path);
 
-            List<string> templateCycleNames = new List<string>();
+            List<CycleTemplateName> templateCycleNames = new List<CycleTemplateName>();
 
             for (int i = 0; i < templateCycleAssets.Length; i++)
             {
@@ -123,7 +87,7 @@ namespace LiftingAtlas.Droid
 
                 using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
                 {
-                    (string CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
+                    (CycleTemplateName CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
                         this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(templateCycleStream);
 
                     if (cycleTemplateNameAndLift.TemplateLift.HasFlag(lift))
@@ -134,15 +98,7 @@ namespace LiftingAtlas.Droid
             return templateCycleNames.ToArray();
         }
 
-        /// <summary>
-        /// Returns template cycle.
-        /// </summary>
-        /// <param name="cycleTemplateName">Name of template cycle to return. Must not be null.</param>
-        /// <returns>Template cycle.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="cycleTemplateName"/> is null.</exception>
-        /// <exception cref="ArgumentException">No template cycle with <paramref name="cycleTemplateName"/>
-        /// found.</exception>
-        public TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(string cycleTemplateName)
+        public TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(CycleTemplateName cycleTemplateName)
         {
             if (cycleTemplateName == null)
                 throw new ArgumentNullException(nameof(cycleTemplateName));

@@ -3,20 +3,12 @@ using System.Collections.Generic;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Class containing list of sets.
-    /// </summary>
     public class PlannedSession<T> : TemplateSession<T>, IEquatable<PlannedSession<T>> where T : PlannedSet
     {
         #region Constructors
 
-        /// <summary>
-        /// Creates a session.
-        /// </summary>
-        /// <param name="number">Sequential number. Must not be less than 1.</param>
-        /// <param name="sets">Collection of sets this session consists of. Must not be null. Must contain more than 0 sets.</param>
         public PlannedSession(
-            int number,
+            SessionNumber number,
             List<T> sets
             ) : base(
                 number,
@@ -30,9 +22,6 @@ namespace LiftingAtlas.Standard
 
         #region Properties
 
-        /// <summary>
-        /// Indicates if this session is done.
-        /// </summary>
         public bool Done
         {
             get
@@ -49,11 +38,6 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Compares this instance of the class with an object.
-        /// </summary>
-        /// <param name="obj">An object to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is PlannedSession<T>))
@@ -62,10 +46,6 @@ namespace LiftingAtlas.Standard
             return this.Equals((PlannedSession<T>)obj);
         }
 
-        /// <summary>
-        /// Computes the hash code for this object.
-        /// </summary>
-        /// <returns>Hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -76,11 +56,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an instance of <see cref="PlannedSession{T}"/>.
-        /// </summary>
-        /// <param name="other">An instance of <see cref="PlannedSession{T}"/> to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public bool Equals(PlannedSession<T> other)
         {
             if ((object)other == null)
@@ -97,13 +72,6 @@ namespace LiftingAtlas.Standard
 
         #region Operators
 
-        /// <summary>
-        /// Determines equality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are equal;
-        /// otherwise, false.</returns>
         public static bool operator ==(PlannedSession<T> first, PlannedSession<T> second)
         {
             if (ReferenceEquals(first, second))
@@ -115,13 +83,6 @@ namespace LiftingAtlas.Standard
             return first.Equals(second);
         }
 
-        /// <summary>
-        /// Determines inequality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are unequal;
-        /// otherwise, false.</returns>
         public static bool operator !=(PlannedSession<T> first, PlannedSession<T> second)
         {
             return !(first == second);

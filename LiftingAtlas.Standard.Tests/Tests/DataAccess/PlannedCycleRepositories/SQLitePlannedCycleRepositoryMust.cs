@@ -7,28 +7,15 @@ namespace LiftingAtlas.Standard.Tests
     [TestFixture]
     public class SQLitePlannedCycleRepositoryMust
     {
-        /// <summary>
-        /// Guid provider.
-        /// </summary>
         public IGuidProvider guidProvider;
-
-        /// <summary>
-        /// SQLite planned cycle repository.
-        /// </summary>
         public SQLitePlannedCycleRepository sQLitePlannedCycleRepository;
 
-        /// <summary>
-        /// One time set up.
-        /// </summary>
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             guidProvider = new HexFirstCharFRestZerosGuidProvider();
         }
 
-        /// <summary>
-        /// Set up.
-        /// </summary>
         [SetUp]
         public void SetUp()
         {
@@ -39,9 +26,6 @@ namespace LiftingAtlas.Standard.Tests
                     );
         }
 
-        /// <summary>
-        /// Tear down.
-        /// </summary>
         [TearDown]
         public void TearDown()
         {
@@ -50,16 +34,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region PlanCycle
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to plan a cycle. The cycle, planned by the system under test,
-        /// must match reference planned cycle.
-        /// </summary>
         [Test]
         public void PlanACycle()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -91,10 +70,6 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Enumerable quantization providers.
-        /// </summary>
-        /// <returns>Quantization provider.</returns>
         private static IEnumerable<IQuantizationProvider> QuantizationProviders()
         {
             yield return null;
@@ -102,16 +77,12 @@ namespace LiftingAtlas.Standard.Tests
             yield return new NearestMultipleProvider(new UniformQuantizationInterval(2.50));
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to plan a cycle using supplied quantization provider.
-        /// </summary>
         [Test]
         [TestCaseSource(nameof(QuantizationProviders))]
         public void PlanACycleApplyingQuantizationMethodOfSuppliedQuantizationProvider(IQuantizationProvider quantizationProvider)
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
@@ -143,16 +114,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentNullException"/> if planning a cycle
-        /// and cycle template is null.
-        /// </summary>
         [Test]
         public void ThrowArgumentNullExceptionIfPlanningACycleAndCycleTemplateIsNull()
         {
             Lift plannedLift = Lift.Deadlift;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 null;
@@ -170,15 +136,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if planning a cycle for unspecified lift.
-        /// </summary>
         [Test]
         public void ThrowArgumentExceptionIfPlanningACycleForUnspecifiedLift()
         {
             Lift plannedLift = Lift.None;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -195,16 +157,12 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to not throw exception if planning a cycle for the lift it is designed for.
-        /// </summary>
         [Test]
         [TestCase(Lift.Squat)]
         [TestCase(Lift.BenchPress)]
         public void NotThrowExceptionIfPlanningACycleForTheLiftItIsDesignedFor(Lift plannedLift)
         {
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -220,15 +178,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if planning a cycle for the lift it is not designed for.
-        /// </summary>
         [Test]
         [TestCase(Lift.Deadlift)]
         public void ThrowArgumentExceptionIfPlanningACycleForTheLiftItIsNotDesignedFor(Lift plannedLift)
         {
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -246,43 +200,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentOutOfRangeException"/>
-        /// if planning a cycle using negative reference point.
-        /// </summary>
-        [Test]
-        public void ThrowArgumentOutOfRangeExceptionIfPlanningACycleUsingNegativeReferencePoint()
-        {
-            Lift plannedLift = Lift.Squat;
-            double referencePoint = -1;
-            IQuantizationProvider quantizationProvider = null;
-            TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
-                REFERENCECYCLESB.TemplateCycle();
-
-            Assert.Throws(
-                typeof(ArgumentOutOfRangeException),
-                () => sQLitePlannedCycleRepository.PlanCycle(
-                    templateCycle,
-                    plannedLift,
-                    referencePoint,
-                    quantizationProvider
-                    ),
-                "System under test must throw argument out of range exception " +
-                "if planning a cycle using negative reference point."
-                );
-        }
-
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw exception if planning a cycle with guid
-        /// which is mapped to a stored planned cycle.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfPlanningACycleWithGuidWhichIsMappedToAStoredPlannedCycle()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -312,16 +234,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region GetLatestPlannedCycleGuid
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return non-null latest planned cycle guid for the lift,
-        /// if latest planned cycle for the lift exists.
-        /// </summary>
         [Test]
         public void ReturnNonNullLatestPlannedCycleGuidForTheLiftIfLatestPlannedCycleForTheLiftExists()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -341,11 +258,6 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return null latest planned cycle guid for the lift,
-        /// if latest planned cycle for the lift does not exist.
-        /// </summary>
         [Test]
         [TestCase(Lift.Squat)]
         [TestCase(Lift.BenchPress)]
@@ -365,15 +277,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region GetPlannedCycle
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return non-null planned cycle if provided guid of stored planned cycle.
-        /// </summary>
         [Test]
         public void ReturnNonNullPlannedCycleIfProvidedGuidOfStoredPlannedCycle()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -394,10 +302,6 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if provided guid does not map stored planned cycle.
-        /// </summary>
         [Test]
         public void ThrowArgumentExceptionIfProvidedGuidDoesNotMapStoredPlannedCycle()
         {
@@ -414,16 +318,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region GetPlannedSession
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return planned session. Returned planned session
-        /// must match reference planned session.
-        /// </summary>
         [Test]
         public void ReturnPlannedSession()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -448,11 +347,7 @@ namespace LiftingAtlas.Standard.Tests
                     quantizationProvider
                     );
 
-            foreach (
-                PlannedSession<PlannedSet> referencePlannedSession
-                in
-                referencePlannedCycle.Sessions
-                )
+            foreach (PlannedSession<PlannedSet> referencePlannedSession in referencePlannedCycle.Sessions)
                 Assert.That(
                     sQLitePlannedCycleRepository.GetPlannedSession(
                         systemUnderTestPlannedCycle.PlannedCycleGuid,
@@ -464,18 +359,13 @@ namespace LiftingAtlas.Standard.Tests
                     );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw exception if requesting to return planned session,
-        /// specifying planned cycle guid which is not mapped to a stored planned cycle.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfRequestingToReturnPlannedSessionWithUnmappedPlannedCycleGuid()
         {
             Assert.That(
                 () => sQLitePlannedCycleRepository.GetPlannedSession(
                     guidProvider.GetGuid(),
-                    1
+                    new SessionNumber(1)
                     ),
                 Throws.Exception,
                 "System under test must throw exception if requesting " +
@@ -484,16 +374,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if requesting
-        /// to return planned session, which does not exist.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfRequestingToReturnPlannedSessionWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -514,7 +399,7 @@ namespace LiftingAtlas.Standard.Tests
                 typeof(ArgumentException),
                 () => sQLitePlannedCycleRepository.GetPlannedSession(
                     systemUnderTestPlannedCycle.PlannedCycleGuid,
-                    397
+                    new SessionNumber(397)
                     ),
                 "System under test must throw argument exception if requesting " +
                 "to return planned session which does not exist."
@@ -525,16 +410,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region GetPlannedSet
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return planned set. Returned planned set
-        /// must match reference planned set.
-        /// </summary>
         [Test]
         public void ReturnPlannedSet()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -559,16 +439,8 @@ namespace LiftingAtlas.Standard.Tests
                     quantizationProvider
                     );
 
-            foreach (
-                PlannedSession<PlannedSet> referencePlannedSession
-                in
-                referencePlannedCycle.Sessions
-                )
-                foreach (
-                    PlannedSet referencePlannedSet
-                    in
-                    referencePlannedSession.Sets
-                    )
+            foreach (PlannedSession<PlannedSet> referencePlannedSession in referencePlannedCycle.Sessions)
+                foreach (PlannedSet referencePlannedSet in referencePlannedSession.Sets)
                     Assert.That(
                         sQLitePlannedCycleRepository.GetPlannedSet(
                             systemUnderTestPlannedCycle.PlannedCycleGuid,
@@ -581,19 +453,14 @@ namespace LiftingAtlas.Standard.Tests
                         );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw exception if requesting to return planned set,
-        /// specifying planned cycle guid which is not mapped to a stored planned cycle.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfRequestingToReturnPlannedSetWithUnmappedPlannedCycleGuid()
         {
             Assert.That(
                 () => sQLitePlannedCycleRepository.GetPlannedSet(
                     guidProvider.GetGuid(),
-                    1,
-                    1
+                    new SessionNumber(1),
+                    new SetNumber(1)
                     ),
                 Throws.Exception,
                 "System under test must throw exception if requesting " +
@@ -602,16 +469,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if requesting
-        /// to return planned set, which does not exist.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfRequestingToReturnPlannedSetWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -632,8 +494,8 @@ namespace LiftingAtlas.Standard.Tests
                 typeof(ArgumentException),
                 () => sQLitePlannedCycleRepository.GetPlannedSet(
                     systemUnderTestPlannedCycle.PlannedCycleGuid,
-                    397,
-                    397
+                    new SessionNumber(397),
+                    new SetNumber(397)
                     ),
                 "System under test must throw argument exception if requesting " +
                 "to return planned set which does not exist."
@@ -644,15 +506,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region UpdatePlannedSetLiftedValues
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to update lifted values of planned set.
-        /// </summary>
         [Test]
         public void UpdateLiftedValuesOfPlannedSet()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -667,8 +525,8 @@ namespace LiftingAtlas.Standard.Tests
             Guid guidOfCycleToUpdateSetOf =
                 sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
 
-            int sessionToUpdate = 1;
-            int setToUpdate = 1;
+            SessionNumber sessionToUpdate = new SessionNumber(1);
+            SetNumber setToUpdate = new SetNumber(1);
 
             PlannedSet plannedSetToUpdate =
                 sQLitePlannedCycleRepository.GetPlannedSet(
@@ -677,11 +535,11 @@ namespace LiftingAtlas.Standard.Tests
                     setToUpdate
                     );
 
-            (int liftedRepetitions, double liftedWeight) liftedValues =
-                (
-                plannedSetToUpdate.PlannedRepetitions.UpperBound,
-                plannedSetToUpdate.PlannedWeight.UpperBound
-                );
+            LiftedValues liftedValues =
+                new LiftedValues(
+                    new Repetitions(plannedSetToUpdate.PlannedRepetitions.UpperBound),
+                    new Weight(plannedSetToUpdate.PlannedWeight.UpperBound)
+                    );
 
             sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
                 guidOfCycleToUpdateSetOf,
@@ -702,20 +560,15 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw exception if requesting to update lifted values of planned set,
-        /// specifying planned cycle guid which is not mapped to a stored planned cycle.
-        /// </summary>
         [Test]
         public void ThrowExceptionIfRequestingToUpdateLiftedValuesOfPlannedSetWithUnmappedPlannedCycleGuid()
         {
             Assert.That(
                 () => sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
                     guidProvider.GetGuid(),
-                    1,
-                    1,
-                    (1, 1.00)
+                    new SessionNumber(1),
+                    new SetNumber(1),
+                    new LiftedValues(new Repetitions(1), new Weight(1.00))
                     ),
                 Throws.Exception,
                 "System under test must throw exception if requesting " +
@@ -724,16 +577,11 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentException"/> if updating lifted values
-        /// of planned set which does not exist.
-        /// </summary>
         [Test]
         public void ThrowArgumentExceptionIfUpdatingLiftedValuesOfPlannedSetWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -752,65 +600,12 @@ namespace LiftingAtlas.Standard.Tests
                 typeof(ArgumentException),
                 () => sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
                     guidOfCycleToUpdateSetOf,
-                    397,
-                    397,
-                    (1, 1.00)
+                    new SessionNumber(397),
+                    new SetNumber(397),
+                    new LiftedValues(new Repetitions(1), new Weight(1.00))
                     ),
                 "System under test must throw argument exception " +
                 "if updating lifted values of planned set which does not exist."
-                );
-        }
-
-        /// <summary>
-        /// Enumerable lifted values with at least a single value less than zero.
-        /// </summary>
-        /// <returns>Lifted values with at least a single value less than zero.</returns>
-        private static IEnumerable<TestCaseData> LiftedValuesWithAtLeastASingleValueLessThanZero()
-        {
-            yield return new TestCaseData((-1, 1.00));
-            yield return new TestCaseData((1, -1.00));
-            yield return new TestCaseData((-1, -1.00));
-        }
-
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to throw <see cref="ArgumentOutOfRangeException"/>
-        /// if updating lifted values of planned set and
-        /// at least a single lifted value is less than zero.
-        /// </summary>
-        [Test]
-        [TestCaseSource(nameof(LiftedValuesWithAtLeastASingleValueLessThanZero))]
-        public void ThrowArgumentOutOfRangeExceptionIfUpdatingLiftedValuesOfPlannedSetAndAtLeastASingleLiftedValueIsLessThanZero(
-            (int liftedRepetitions, double liftedWeight) liftedValues
-            )
-        {
-            Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
-            IQuantizationProvider quantizationProvider = null;
-            TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
-                REFERENCECYCLESB.TemplateCycle();
-
-            sQLitePlannedCycleRepository.PlanCycle(
-                templateCycle,
-                plannedLift,
-                referencePoint,
-                quantizationProvider
-                );
-
-            Guid guidOfCycleToUpdateSetOf =
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
-
-            Assert.Throws(
-                typeof(ArgumentOutOfRangeException),
-                () => sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
-                    guidOfCycleToUpdateSetOf,
-                    1,
-                    1,
-                    liftedValues
-                    ),
-                "System under test must throw argument out of range exception " +
-                "if updating lifted values of planned set " +
-                "and at least a single lifted value is less than zero."
                 );
         }
 
@@ -818,16 +613,11 @@ namespace LiftingAtlas.Standard.Tests
 
         #region GetCurrentPlannedSessionAndCurrentPlannedSetNumbers
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return current planned session and current planned set numbers
-        /// if the cycle is not done.
-        /// </summary>
         [Test]
         public void ReturnCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsNotDone()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -842,26 +632,21 @@ namespace LiftingAtlas.Standard.Tests
             Guid plannedCycleGuid =
                 sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
 
-            (int currentPlannedSessionNumber, int currentPlannedSetNumber)? currentPlannedSessionAndCurrentPlannedSetNumbers =
+            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
                 sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(plannedCycleGuid);
 
             Assert.That(
-                currentPlannedSessionAndCurrentPlannedSetNumbers.Value,
+                currentPlannedSessionAndCurrentPlannedSetNumbers,
                 Is.Not.Null,
                 "Current planned session and current planned set numbers must be returned."
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="SQLitePlannedCycleRepository"/>
-        /// to return null current planned session and current planned set numbers
-        /// if the cycle is done.
-        /// </summary>
         [Test]
         public void ReturnNullCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsDone()
         {
             Lift plannedLift = Lift.Squat;
-            double referencePoint = 137.5;
+            Weight referencePoint = new Weight(137.5);
             IQuantizationProvider quantizationProvider = null;
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
@@ -882,11 +667,11 @@ namespace LiftingAtlas.Standard.Tests
             foreach (PlannedSession<PlannedSet> plannedSession in plannedCycle.Sessions)
                 foreach (PlannedSet plannedSet in plannedSession.Sets)
                 {
-                    (int liftedRepetitions, double liftedWeight) liftedValues =
-                        (
-                        plannedSet.PlannedRepetitions?.UpperBound ?? 1,
-                        plannedSet.PlannedWeight?.UpperBound ?? 1
-                        );
+                    LiftedValues liftedValues =
+                        new LiftedValues(
+                            new Repetitions(plannedSet.PlannedRepetitions?.UpperBound ?? 1),
+                            new Weight(plannedSet.PlannedWeight?.UpperBound ?? 1.00)
+                            );
 
                     sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
                         plannedCycleGuid,
@@ -896,7 +681,7 @@ namespace LiftingAtlas.Standard.Tests
                         );
                 }
 
-            (int currentPlannedSessionNumber, int currentPlannedSetNumber)? currentPlannedSessionAndCurrentPlannedSetNumbers =
+            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
                 sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(plannedCycleGuid);
 
             Assert.That(

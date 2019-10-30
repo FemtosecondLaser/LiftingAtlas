@@ -7,25 +7,14 @@ namespace LiftingAtlas.Standard.Tests
     [TestFixture]
     public class XMLStreamBasedTemplateCycleProviderMust
     {
-        /// <summary>
-        /// XML stream-based template cycle provider.
-        /// </summary>
         XMLStreamBasedTemplateCycleProvider streamBasedTemplateCycleProvider;
 
-        /// <summary>
-        /// One time set up.
-        /// </summary>
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
             streamBasedTemplateCycleProvider = new XMLStreamBasedTemplateCycleProvider();
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="XMLStreamBasedTemplateCycleProvider"/>
-        /// to provide cycle template name and lift of
-        /// cycle as supplied via XML.
-        /// </summary>
         [Test]
         public void ProvideTemplateCycleNameAndLiftAsSuppliedViaXML()
         {
@@ -38,11 +27,6 @@ namespace LiftingAtlas.Standard.Tests
                     );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="XMLStreamBasedTemplateCycleProvider"/>
-        /// to provide <see cref="TemplateCycle{T1, T2}"/> version of
-        /// cycle as supplied via XML.
-        /// </summary>
         [Test]
         public void ProvideTemplateCycleAsSuppliedViaXML()
         {

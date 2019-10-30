@@ -3,16 +3,8 @@ using System.Collections.Generic;
 
 namespace LiftingAtlas.Standard.Tests
 {
-    /// <summary>
-    /// Class containing REFERENCECYCLESB cycle data.
-    /// The cycle is designed for squat and bench press.
-    /// </summary>
     public static class REFERENCECYCLESB
     {
-        /// <summary>
-        /// Template cycle XML string.
-        /// </summary>
-        /// <returns>Template cycle XML string.</returns>
         public static string XML()
         {
             return
@@ -270,31 +262,31 @@ namespace LiftingAtlas.Standard.Tests
                 ".Trim();
         }
 
-        /// <summary>
-        /// Cycle template name and lift.
-        /// </summary>
-        /// <returns>Cycle template name and lift.</returns>
-        public static (string CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift()
+        public static (CycleTemplateName CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift()
         {
-            return ("REFERENCECYCLESB", Lift.Squat | Lift.BenchPress);
+            return (new CycleTemplateName("REFERENCECYCLESB"), Lift.Squat | Lift.BenchPress);
         }
 
-        /// <summary>
-        /// Template cycle.
-        /// </summary>
-        /// <returns>Template cycle.</returns>
         public static TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle()
         {
             Lift lift = Lift.Squat | Lift.BenchPress;
 
-            TemplateSet cycleS01S01 = new TemplateSet(1, new NonNegativeI32Range(20, 20), new NonNegativeI32Range(8, 8));
-            TemplateSet cycleS01S02 = new TemplateSet(2, new NonNegativeI32Range(30, 30), new NonNegativeI32Range(7, 7));
-            TemplateSet cycleS01S03 = new TemplateSet(3, new NonNegativeI32Range(40, 40), new NonNegativeI32Range(6, 6));
-            TemplateSet cycleS01S04 = new TemplateSet(4, new NonNegativeI32Range(50, 50), new NonNegativeI32Range(5, 5));
-            TemplateSet cycleS01S05 = new TemplateSet(5, new NonNegativeI32Range(60, 60), new NonNegativeI32Range(4, 4));
-            TemplateSet cycleS01S06 = new TemplateSet(6, new NonNegativeI32Range(70, 70), new NonNegativeI32Range(4, 4));
-            TemplateSet cycleS01S07 = new TemplateSet(7, new NonNegativeI32Range(70, 70), new NonNegativeI32Range(4, 4));
-            TemplateSet cycleS01S08 = new TemplateSet(8, new NonNegativeI32Range(70, 70), new NonNegativeI32Range(4, 4));
+            TemplateSet cycleS01S01 =
+                new TemplateSet(new SetNumber(1), new PlannedPercentageOfReferencePoint(20, 20), new PlannedRepetitions(new Repetitions(8), new Repetitions(8)));
+            TemplateSet cycleS01S02 =
+                new TemplateSet(new SetNumber(2), new PlannedPercentageOfReferencePoint(30, 30), new PlannedRepetitions(new Repetitions(7), new Repetitions(7)));
+            TemplateSet cycleS01S03 =
+                new TemplateSet(new SetNumber(3), new PlannedPercentageOfReferencePoint(40, 40), new PlannedRepetitions(new Repetitions(6), new Repetitions(6)));
+            TemplateSet cycleS01S04 =
+                new TemplateSet(new SetNumber(4), new PlannedPercentageOfReferencePoint(50, 50), new PlannedRepetitions(new Repetitions(5), new Repetitions(5)));
+            TemplateSet cycleS01S05 =
+                new TemplateSet(new SetNumber(5), new PlannedPercentageOfReferencePoint(60, 60), new PlannedRepetitions(new Repetitions(4), new Repetitions(4)));
+            TemplateSet cycleS01S06 =
+                new TemplateSet(new SetNumber(6), new PlannedPercentageOfReferencePoint(70, 70), new PlannedRepetitions(new Repetitions(4), new Repetitions(4)));
+            TemplateSet cycleS01S07 =
+                new TemplateSet(new SetNumber(7), new PlannedPercentageOfReferencePoint(70, 70), new PlannedRepetitions(new Repetitions(4), new Repetitions(4)));
+            TemplateSet cycleS01S08 =
+                new TemplateSet(new SetNumber(8), new PlannedPercentageOfReferencePoint(70, 70), new PlannedRepetitions(new Repetitions(4), new Repetitions(4)));
             List<TemplateSet> cycleS01SList = new List<TemplateSet>();
             cycleS01SList.Add(cycleS01S01);
             cycleS01SList.Add(cycleS01S02);
@@ -304,18 +296,28 @@ namespace LiftingAtlas.Standard.Tests
             cycleS01SList.Add(cycleS01S06);
             cycleS01SList.Add(cycleS01S07);
             cycleS01SList.Add(cycleS01S08);
-            TemplateSession<TemplateSet> cycleS01 = new TemplateSession<TemplateSet>(1, cycleS01SList);
+            TemplateSession<TemplateSet> cycleS01 = new TemplateSession<TemplateSet>(new SessionNumber(1), cycleS01SList);
 
-            TemplateSet cycleS02S01 = new TemplateSet(1, new NonNegativeI32Range(20, 20), new NonNegativeI32Range(8, 8));
-            TemplateSet cycleS02S02 = new TemplateSet(2, new NonNegativeI32Range(40, 40), new NonNegativeI32Range(6, 6));
-            TemplateSet cycleS02S03 = new TemplateSet(3, new NonNegativeI32Range(60, 60), new NonNegativeI32Range(4, 4));
-            TemplateSet cycleS02S04 = new TemplateSet(4, new NonNegativeI32Range(70, 70), new NonNegativeI32Range(3, 3));
-            TemplateSet cycleS02S05 = new TemplateSet(5, new NonNegativeI32Range(80, 80), new NonNegativeI32Range(2, 2));
-            TemplateSet cycleS02S06 = new TemplateSet(6, new NonNegativeI32Range(85, 85), new NonNegativeI32Range(1, 1));
-            TemplateSet cycleS02S07 = new TemplateSet(7, new NonNegativeI32Range(90, 90), new NonNegativeI32Range(1, 1));
-            TemplateSet cycleS02S08 = new TemplateSet(8, new NonNegativeI32Range(95, 95), new NonNegativeI32Range(1, 1));
-            TemplateSet cycleS02S09 = new TemplateSet(9, new NonNegativeI32Range(100, 100), new NonNegativeI32Range(1, 1));
-            TemplateSet cycleS02S10 = new TemplateSet(10, null, new NonNegativeI32Range(1, 1), note: "Maximum");
+            TemplateSet cycleS02S01 =
+                new TemplateSet(new SetNumber(1), new PlannedPercentageOfReferencePoint(20, 20), new PlannedRepetitions(new Repetitions(8), new Repetitions(8)));
+            TemplateSet cycleS02S02 =
+                new TemplateSet(new SetNumber(2), new PlannedPercentageOfReferencePoint(40, 40), new PlannedRepetitions(new Repetitions(6), new Repetitions(6)));
+            TemplateSet cycleS02S03 =
+                new TemplateSet(new SetNumber(3), new PlannedPercentageOfReferencePoint(60, 60), new PlannedRepetitions(new Repetitions(4), new Repetitions(4)));
+            TemplateSet cycleS02S04 =
+                new TemplateSet(new SetNumber(4), new PlannedPercentageOfReferencePoint(70, 70), new PlannedRepetitions(new Repetitions(3), new Repetitions(3)));
+            TemplateSet cycleS02S05 =
+                new TemplateSet(new SetNumber(5), new PlannedPercentageOfReferencePoint(80, 80), new PlannedRepetitions(new Repetitions(2), new Repetitions(2)));
+            TemplateSet cycleS02S06 =
+                new TemplateSet(new SetNumber(6), new PlannedPercentageOfReferencePoint(85, 85), new PlannedRepetitions(new Repetitions(1), new Repetitions(1)));
+            TemplateSet cycleS02S07 =
+                new TemplateSet(new SetNumber(7), new PlannedPercentageOfReferencePoint(90, 90), new PlannedRepetitions(new Repetitions(1), new Repetitions(1)));
+            TemplateSet cycleS02S08 =
+                new TemplateSet(new SetNumber(8), new PlannedPercentageOfReferencePoint(95, 95), new PlannedRepetitions(new Repetitions(1), new Repetitions(1)));
+            TemplateSet cycleS02S09 =
+                new TemplateSet(new SetNumber(9), new PlannedPercentageOfReferencePoint(100, 100), new PlannedRepetitions(new Repetitions(1), new Repetitions(1)));
+            TemplateSet cycleS02S10 =
+                new TemplateSet(new SetNumber(10), null, new PlannedRepetitions(new Repetitions(1), new Repetitions(1)), note: "Maximum");
             List<TemplateSet> cycleS02SList = new List<TemplateSet>();
             cycleS02SList.Add(cycleS02S01);
             cycleS02SList.Add(cycleS02S02);
@@ -327,32 +329,19 @@ namespace LiftingAtlas.Standard.Tests
             cycleS02SList.Add(cycleS02S08);
             cycleS02SList.Add(cycleS02S09);
             cycleS02SList.Add(cycleS02S10);
-            TemplateSession<TemplateSet> cycleS02 = new TemplateSession<TemplateSet>(2, cycleS02SList);
+            TemplateSession<TemplateSet> cycleS02 = new TemplateSession<TemplateSet>(new SessionNumber(2), cycleS02SList);
 
             List<TemplateSession<TemplateSet>> cycleSessions = new List<TemplateSession<TemplateSet>>();
             cycleSessions.Add(cycleS01);
             cycleSessions.Add(cycleS02);
 
-            return new TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>("REFERENCECYCLESB", lift, cycleSessions);
+            return new TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>(new CycleTemplateName("REFERENCECYCLESB"), lift, cycleSessions);
         }
 
-        /// <summary>
-        /// Planned cycle.
-        /// </summary>
-        /// <param name="guidProvider">Guid provider. Must not be null.</param>
-        /// <param name="lift">Lift to plan a cycle for. Must be specified.
-        /// Must be the lift the cycle template is designed for.</param>
-        /// <param name="referencePoint">Reference point used to plan a cycle. Must not be less than 0.</param>
-        /// <param name="quantizationProvider">Provider of quantization method for weight planning.</param>
-        /// <returns>Planned cycle.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="guidProvider"/> is null.
-        /// <exception cref="ArgumentException"><paramref name="lift"/> is unspecified or
-        /// <paramref name="lift"/> is not the lift the cycle template is designed for.</exception>
-        /// <exception cref="ArgumentOutOfRangeException"><paramref name="referencePoint"/> is less than 0.</exception>
         public static PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> PlannedCycle(
             IGuidProvider guidProvider,
             Lift lift,
-            double referencePoint,
+            Weight referencePoint,
             IQuantizationProvider quantizationProvider
             )
         {
@@ -367,8 +356,8 @@ namespace LiftingAtlas.Standard.Tests
             if (!templateCycle.TemplateLift.HasFlag(lift))
                 throw new ArgumentException("Lift is not the lift the cycle template is designed for.", nameof(lift));
 
-            if (referencePoint < 0.00)
-                throw new ArgumentOutOfRangeException(nameof(referencePoint));
+            if (referencePoint == null)
+                throw new ArgumentNullException(nameof(referencePoint));
 
             List<PlannedSession<PlannedSet>> plannedSessions = new List<PlannedSession<PlannedSet>>(templateCycle.Sessions.Count);
 
@@ -378,7 +367,7 @@ namespace LiftingAtlas.Standard.Tests
 
                 foreach (TemplateSet templateSet in templateSession.Sets)
                 {
-                    NonNegativeDBLRange plannedWeight;
+                    PlannedWeight plannedWeight;
 
                     if (templateSet.PlannedPercentageOfReferencePoint == null)
                     {
@@ -403,7 +392,7 @@ namespace LiftingAtlas.Standard.Tests
                             plannedWeightUpperBound = quantizationProvider.Quantize(plannedWeightUpperBound);
                         }
 
-                        plannedWeight = new NonNegativeDBLRange(plannedWeightLowerBound, plannedWeightUpperBound);
+                        plannedWeight = new PlannedWeight(new Weight(plannedWeightLowerBound), new Weight(plannedWeightUpperBound));
                     }
 
                     PlannedSet plannedSet =

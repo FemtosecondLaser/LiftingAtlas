@@ -4789,11 +4789,11 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d0028
 			public const int appbar_scrolling_view_behavior = 2131558440;
 			
-			// aapt resource value: 0x7f0d0061
-			public const int are_you_sure_question_mark = 2131558497;
+			// aapt resource value: 0x7f0d0063
+			public const int are_you_sure_question_mark = 2131558499;
 			
-			// aapt resource value: 0x7f0d0074
-			public const int bench_press = 2131558516;
+			// aapt resource value: 0x7f0d0076
+			public const int bench_press = 2131558518;
 			
 			// aapt resource value: 0x7f0d0029
 			public const int bottom_sheet_behavior = 2131558441;
@@ -4804,26 +4804,26 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d002b
 			public const int character_counter_pattern = 2131558443;
 			
-			// aapt resource value: 0x7f0d0049
-			public const int current = 2131558473;
+			// aapt resource value: 0x7f0d004a
+			public const int current = 2131558474;
 			
-			// aapt resource value: 0x7f0d0067
-			public const int current_bench_press_cycle = 2131558503;
+			// aapt resource value: 0x7f0d0069
+			public const int current_bench_press_cycle = 2131558505;
 			
 			// aapt resource value: 0x7f0d0038
 			public const int current_cycle = 2131558456;
 			
-			// aapt resource value: 0x7f0d0068
-			public const int current_deadlift_cycle = 2131558504;
+			// aapt resource value: 0x7f0d006a
+			public const int current_deadlift_cycle = 2131558506;
 			
 			// aapt resource value: 0x7f0d0039
 			public const int current_planned_cycle = 2131558457;
 			
-			// aapt resource value: 0x7f0d0066
-			public const int current_squat_cycle = 2131558502;
+			// aapt resource value: 0x7f0d0068
+			public const int current_squat_cycle = 2131558504;
 			
-			// aapt resource value: 0x7f0d0064
-			public const int cycle_template = 2131558500;
+			// aapt resource value: 0x7f0d0066
+			public const int cycle_template = 2131558502;
 			
 			// aapt resource value: 0x7f0d003c
 			public const int cycle_template_colon = 2131558460;
@@ -4834,26 +4834,26 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d003d
 			public const int cycle_templates = 2131558461;
 			
-			// aapt resource value: 0x7f0d0075
-			public const int deadlift = 2131558517;
+			// aapt resource value: 0x7f0d0077
+			public const int deadlift = 2131558519;
 			
-			// aapt resource value: 0x7f0d0062
-			public const int done = 2131558498;
+			// aapt resource value: 0x7f0d0064
+			public const int done = 2131558500;
+			
+			// aapt resource value: 0x7f0d005d
+			public const int enter_lifted_repetitions_dot = 2131558493;
 			
 			// aapt resource value: 0x7f0d005c
-			public const int enter_lifted_repetitions_dot = 2131558492;
-			
-			// aapt resource value: 0x7f0d005b
-			public const int enter_lifted_weight_dot = 2131558491;
+			public const int enter_lifted_weight_dot = 2131558492;
 			
 			// aapt resource value: 0x7f0d0046
 			public const int enter_reference_point_dot = 2131558470;
 			
-			// aapt resource value: 0x7f0d0077
-			public const int enter_uniform_quantization_interval_dot = 2131558519;
+			// aapt resource value: 0x7f0d0079
+			public const int enter_uniform_quantization_interval_dot = 2131558521;
 			
-			// aapt resource value: 0x7f0d0072
-			public const int every = 2131558514;
+			// aapt resource value: 0x7f0d0074
+			public const int every = 2131558516;
 			
 			// aapt resource value: 0x7f0d002c
 			public const int fab_transformation_scrim_behavior = 2131558444;
@@ -4864,59 +4864,62 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d002e
 			public const int hide_bottom_view_on_scroll_behavior = 2131558446;
 			
-			// aapt resource value: 0x7f0d0065
-			public const int lift = 2131558501;
-			
-			// aapt resource value: 0x7f0d0057
-			public const int lifted_repetitions = 2131558487;
-			
-			// aapt resource value: 0x7f0d0060
-			public const int lifted_repetitions_are_outside_of_planned_range_dot = 2131558496;
+			// aapt resource value: 0x7f0d0067
+			public const int lift = 2131558503;
 			
 			// aapt resource value: 0x7f0d0058
-			public const int lifted_repetitions_colon = 2131558488;
+			public const int lifted_repetitions = 2131558488;
 			
-			// aapt resource value: 0x7f0d005e
-			public const int lifted_repetitions_must_not_be_less_than_0_dot = 2131558494;
+			// aapt resource value: 0x7f0d0062
+			public const int lifted_repetitions_are_outside_of_planned_range_dot = 2131558498;
 			
-			// aapt resource value: 0x7f0d0055
-			public const int lifted_weight = 2131558485;
+			// aapt resource value: 0x7f0d0059
+			public const int lifted_repetitions_colon = 2131558489;
+			
+			// aapt resource value: 0x7f0d0060
+			public const int lifted_repetitions_must_not_be_less_than_0_dot = 2131558496;
 			
 			// aapt resource value: 0x7f0d0056
-			public const int lifted_weight_colon = 2131558486;
+			public const int lifted_weight = 2131558486;
+			
+			// aapt resource value: 0x7f0d0057
+			public const int lifted_weight_colon = 2131558487;
+			
+			// aapt resource value: 0x7f0d0061
+			public const int lifted_weight_is_outside_of_planned_range_dot = 2131558497;
+			
+			// aapt resource value: 0x7f0d005e
+			public const int lifted_weight_must_be_a_finite_number = 2131558494;
 			
 			// aapt resource value: 0x7f0d005f
-			public const int lifted_weight_is_outside_of_planned_range_dot = 2131558495;
-			
-			// aapt resource value: 0x7f0d005d
-			public const int lifted_weight_must_not_be_less_than_0_dot = 2131558493;
+			public const int lifted_weight_must_not_be_less_than_0_dot = 2131558495;
 			
 			// aapt resource value: 0x7f0d002f
 			public const int mtrl_chip_close_icon_content_description = 2131558447;
 			
-			// aapt resource value: 0x7f0d006a
-			public const int new_bench_press_cycle = 2131558506;
+			// aapt resource value: 0x7f0d006c
+			public const int new_bench_press_cycle = 2131558508;
 			
 			// aapt resource value: 0x7f0d003a
 			public const int new_cycle = 2131558458;
 			
-			// aapt resource value: 0x7f0d006b
-			public const int new_deadlift_cycle = 2131558507;
+			// aapt resource value: 0x7f0d006d
+			public const int new_deadlift_cycle = 2131558509;
 			
 			// aapt resource value: 0x7f0d003b
 			public const int new_planned_cycle = 2131558459;
 			
-			// aapt resource value: 0x7f0d0069
-			public const int new_squat_cycle = 2131558505;
+			// aapt resource value: 0x7f0d006b
+			public const int new_squat_cycle = 2131558507;
 			
 			// aapt resource value: 0x7f0d0044
 			public const int no = 2131558468;
 			
-			// aapt resource value: 0x7f0d004a
-			public const int not_available = 2131558474;
+			// aapt resource value: 0x7f0d004b
+			public const int not_available = 2131558475;
 			
-			// aapt resource value: 0x7f0d0059
-			public const int note_colon = 2131558489;
+			// aapt resource value: 0x7f0d005a
+			public const int note_colon = 2131558490;
 			
 			// aapt resource value: 0x7f0d0042
 			public const int ok = 2131558466;
@@ -4939,38 +4942,38 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d0041
 			public const int plan_new_cycle = 2131558465;
 			
-			// aapt resource value: 0x7f0d006d
-			public const int planned_bench_press_session = 2131558509;
+			// aapt resource value: 0x7f0d006f
+			public const int planned_bench_press_session = 2131558511;
+			
+			// aapt resource value: 0x7f0d0072
+			public const int planned_bench_press_set = 2131558514;
 			
 			// aapt resource value: 0x7f0d0070
-			public const int planned_bench_press_set = 2131558512;
+			public const int planned_deadlift_session = 2131558512;
 			
-			// aapt resource value: 0x7f0d006e
-			public const int planned_deadlift_session = 2131558510;
+			// aapt resource value: 0x7f0d0073
+			public const int planned_deadlift_set = 2131558515;
 			
-			// aapt resource value: 0x7f0d0071
-			public const int planned_deadlift_set = 2131558513;
+			// aapt resource value: 0x7f0d0052
+			public const int planned_percentage_of_reference_point_colon = 2131558482;
 			
-			// aapt resource value: 0x7f0d0051
-			public const int planned_percentage_of_reference_point_colon = 2131558481;
-			
-			// aapt resource value: 0x7f0d0054
-			public const int planned_repetitions_colon = 2131558484;
-			
-			// aapt resource value: 0x7f0d004e
-			public const int planned_session = 2131558478;
+			// aapt resource value: 0x7f0d0055
+			public const int planned_repetitions_colon = 2131558485;
 			
 			// aapt resource value: 0x7f0d004f
-			public const int planned_set = 2131558479;
+			public const int planned_session = 2131558479;
 			
-			// aapt resource value: 0x7f0d006c
-			public const int planned_squat_session = 2131558508;
+			// aapt resource value: 0x7f0d0050
+			public const int planned_set = 2131558480;
 			
-			// aapt resource value: 0x7f0d006f
-			public const int planned_squat_set = 2131558511;
+			// aapt resource value: 0x7f0d006e
+			public const int planned_squat_session = 2131558510;
 			
-			// aapt resource value: 0x7f0d0053
-			public const int planned_weight_colon = 2131558483;
+			// aapt resource value: 0x7f0d0071
+			public const int planned_squat_set = 2131558513;
+			
+			// aapt resource value: 0x7f0d0054
+			public const int planned_weight_colon = 2131558484;
 			
 			// aapt resource value: 0x7f0d003f
 			public const int reference_point = 2131558463;
@@ -4979,10 +4982,13 @@ namespace LiftingAtlas.Droid
 			public const int reference_point_colon = 2131558464;
 			
 			// aapt resource value: 0x7f0d0047
-			public const int reference_point_must_not_be_less_than_0_dot = 2131558471;
+			public const int reference_point_must_be_a_finite_number = 2131558471;
 			
-			// aapt resource value: 0x7f0d005a
-			public const int register_lifted_values = 2131558490;
+			// aapt resource value: 0x7f0d0048
+			public const int reference_point_must_not_be_less_than_0_dot = 2131558472;
+			
+			// aapt resource value: 0x7f0d005b
+			public const int register_lifted_values = 2131558491;
 			
 			// aapt resource value: 0x7f0d001b
 			public const int search_menu_title = 2131558427;
@@ -4990,41 +4996,41 @@ namespace LiftingAtlas.Droid
 			// aapt resource value: 0x7f0d0045
 			public const int select_cycle_template_dot = 2131558469;
 			
-			// aapt resource value: 0x7f0d004d
-			public const int session_number_colon = 2131558477;
+			// aapt resource value: 0x7f0d004e
+			public const int session_number_colon = 2131558478;
 			
-			// aapt resource value: 0x7f0d0048
-			public const int sessions = 2131558472;
+			// aapt resource value: 0x7f0d0049
+			public const int sessions = 2131558473;
 			
-			// aapt resource value: 0x7f0d0050
-			public const int set_number_colon = 2131558480;
-			
-			// aapt resource value: 0x7f0d004b
-			public const int sets = 2131558475;
+			// aapt resource value: 0x7f0d0051
+			public const int set_number_colon = 2131558481;
 			
 			// aapt resource value: 0x7f0d004c
-			public const int sets_colon = 2131558476;
+			public const int sets = 2131558476;
 			
-			// aapt resource value: 0x7f0d0073
-			public const int squat = 2131558515;
+			// aapt resource value: 0x7f0d004d
+			public const int sets_colon = 2131558477;
+			
+			// aapt resource value: 0x7f0d0075
+			public const int squat = 2131558517;
 			
 			// aapt resource value: 0x7f0d0035
 			public const int status_bar_notification_info_overflow = 2131558453;
 			
-			// aapt resource value: 0x7f0d0076
-			public const int uniform_quantization_interval = 2131558518;
-			
 			// aapt resource value: 0x7f0d0078
-			public const int uniform_quantization_interval_must_be_a_finite_number = 2131558520;
+			public const int uniform_quantization_interval = 2131558520;
 			
-			// aapt resource value: 0x7f0d0079
-			public const int uniform_quantization_interval_must_be_greater_than_0 = 2131558521;
+			// aapt resource value: 0x7f0d007a
+			public const int uniform_quantization_interval_must_be_a_finite_number = 2131558522;
 			
-			// aapt resource value: 0x7f0d0063
-			public const int view = 2131558499;
+			// aapt resource value: 0x7f0d007b
+			public const int uniform_quantization_interval_must_be_greater_than_0 = 2131558523;
 			
-			// aapt resource value: 0x7f0d0052
-			public const int weight_adjustment_constant_colon = 2131558482;
+			// aapt resource value: 0x7f0d0065
+			public const int view = 2131558501;
+			
+			// aapt resource value: 0x7f0d0053
+			public const int weight_adjustment_constant_colon = 2131558483;
 			
 			// aapt resource value: 0x7f0d0043
 			public const int yes = 2131558467;

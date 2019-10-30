@@ -17,7 +17,7 @@ namespace LiftingAtlas.Droid
     {
         private Activity activity;
         private IList<PlannedSession<PlannedSet>> plannedSessions;
-        private int? currentPlannedSessionNumber;
+        private SessionNumber currentPlannedSessionNumber;
 
         public PlannedSessionAdapter(Activity activity) : base()
         {
@@ -76,7 +76,7 @@ namespace LiftingAtlas.Droid
 
         public void SetPlannedSessions(
             IList<PlannedSession<PlannedSet>> plannedSessions,
-            int? currentPlannedSessionNumber
+            SessionNumber currentPlannedSessionNumber
             )
         {
             if (plannedSessions == null && currentPlannedSessionNumber != null)
@@ -106,7 +106,7 @@ namespace LiftingAtlas.Droid
             if (this.currentPlannedSessionNumber == null)
                 return false;
 
-            return plannedSession.Number == this.currentPlannedSessionNumber.Value;
+            return plannedSession.Number == this.currentPlannedSessionNumber;
         }
     }
 }

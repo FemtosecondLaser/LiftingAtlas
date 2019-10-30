@@ -76,7 +76,7 @@ namespace LiftingAtlas.Droid
 
             this.plannedSessionPresenter.PresentPlannedSessionData(
                 this.plannedCycleGuid,
-                this.plannedSessionNumber
+                new SessionNumber(this.plannedSessionNumber)
                 );
 
             this.setsListView.ItemClick += SetsListView_ItemClick;
@@ -110,13 +110,13 @@ namespace LiftingAtlas.Droid
             IList<PlannedSet> plannedSessionSets
             )
         {
-            (int currentPlannedSessionNumber, int currentPlannedSetNumber)? currentPlannedSessionAndCurrentPlannedSetNumbers =
+            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
                 this.plannedSessionPresenter.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
                     this.plannedCycleGuid
                     );
 
             this.plannedSetAdapter.SetPlannedSets(
-                this.plannedSessionNumber,
+                new SessionNumber(this.plannedSessionNumber),
                 plannedSessionSets,
                 currentPlannedSessionAndCurrentPlannedSetNumbers
                 );

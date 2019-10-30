@@ -117,7 +117,7 @@ namespace LiftingAtlas.Droid
             base.StartActivity(intent);
         }
 
-        public void OutputCurrentPlannedCycleTemplateName(string currentPlannedCycleTemplateName)
+        public void OutputCurrentPlannedCycleTemplateName(CycleTemplateName currentPlannedCycleTemplateName)
         {
             this.currentPlannedCycleTemplateName = currentPlannedCycleTemplateName;
 
@@ -125,9 +125,10 @@ namespace LiftingAtlas.Droid
                 this.currentPlannedCycleTemplateName ?? this.GetString(Resource.String.not_available);
         }
 
-        public void OutputCurrentPlannedCycleReferencePoint(string currentPlannedCycleReferencePoint)
+        public void OutputCurrentPlannedCycleReferencePoint(Weight currentPlannedCycleReferencePoint)
         {
-            this.currentPlannedCycleReferencePoint = currentPlannedCycleReferencePoint;
+            this.currentPlannedCycleReferencePoint =
+                currentPlannedCycleReferencePoint == null ? null : currentPlannedCycleReferencePoint.ToString();
 
             this.referencePointTextView.Text =
                 this.currentPlannedCycleReferencePoint ?? this.GetString(Resource.String.not_available);
@@ -137,7 +138,7 @@ namespace LiftingAtlas.Droid
             IList<PlannedSession<PlannedSet>> currentPlannedCycleSessions
             )
         {
-            int? currentPlannedSessionNumber;
+            SessionNumber currentPlannedSessionNumber;
 
             if (this.currentPlannedCycleGuid == null)
                 currentPlannedSessionNumber = null;

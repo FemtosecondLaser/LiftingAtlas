@@ -104,7 +104,7 @@ namespace LiftingAtlas.Droid
             this.lifetimeScope.Dispose();
         }
 
-        public void OutputNamesOfTemplateCycles(IList<string> namesOfTemplateCycles)
+        public void OutputNamesOfTemplateCycles(IList<CycleTemplateName> namesOfTemplateCycles)
         {
             this.templateCycleAdapter.SetCycleTemplateNames(namesOfTemplateCycles);
         }

@@ -4,28 +4,16 @@ using System.Collections.ObjectModel;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Class containing list of sessions.
-    /// </summary>
     public abstract class BaseCycle<T1, T2> : IEquatable<BaseCycle<T1, T2>> where T1 : BaseSession<T2> where T2 : BaseSet
     {
         #region Private fields
 
-        /// <summary>
-        /// A field behind <see cref="Sessions"/>.
-        /// </summary>
         private readonly List<T1> sessions;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a cycle.
-        /// </summary>
-        /// <param name="sessions">Collection of sessions this cycle consists of. Must not be null. Must contain more than 0 sessions.</param>
-        /// <exception cref="ArgumentNullException"><paramref name="sessions"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="sessions"/> does not contain more than 0 sessions.</exception>
         public BaseCycle(List<T1> sessions)
         {
             if (sessions == null)
@@ -41,9 +29,6 @@ namespace LiftingAtlas.Standard
 
         #region Properties
 
-        /// <summary>
-        /// Collection of sessions this cycle consists of.
-        /// </summary>
         public ReadOnlyCollection<T1> Sessions
         {
             get
@@ -56,11 +41,6 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Compares this instance of the class with an object.
-        /// </summary>
-        /// <param name="obj">An object to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is BaseCycle<T1, T2>))
@@ -69,10 +49,6 @@ namespace LiftingAtlas.Standard
             return this.Equals((BaseCycle<T1, T2>)obj);
         }
 
-        /// <summary>
-        /// Computes the hash code for this object.
-        /// </summary>
-        /// <returns>Hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -87,11 +63,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an instance of <see cref="BaseCycle{T1, T2}"/>.
-        /// </summary>
-        /// <param name="other">An instance of <see cref="BaseCycle{T1, T2}"/> to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public bool Equals(BaseCycle<T1, T2> other)
         {
             if ((object)other == null)
@@ -104,13 +75,6 @@ namespace LiftingAtlas.Standard
 
         #region Operators
 
-        /// <summary>
-        /// Determines equality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are equal;
-        /// otherwise, false.</returns>
         public static bool operator ==(BaseCycle<T1, T2> first, BaseCycle<T1, T2> second)
         {
             if (ReferenceEquals(first, second))
@@ -122,13 +86,6 @@ namespace LiftingAtlas.Standard
             return first.Equals(second);
         }
 
-        /// <summary>
-        /// Determines inequality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are unequal;
-        /// otherwise, false.</returns>
         public static bool operator !=(BaseCycle<T1, T2> first, BaseCycle<T1, T2> second)
         {
             return !(first == second);

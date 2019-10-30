@@ -9,13 +9,14 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using LiftingAtlas.Standard;
 
 namespace LiftingAtlas.Droid
 {
-    public class TemplateCycleAdapter : BaseAdapter<string>
+    public class TemplateCycleAdapter : BaseAdapter<CycleTemplateName>
     {
         private Activity activity;
-        private IList<string> cycleTemplateNames;
+        private IList<CycleTemplateName> cycleTemplateNames;
 
         public TemplateCycleAdapter(Activity activity) : base()
         {
@@ -24,10 +25,10 @@ namespace LiftingAtlas.Droid
 
             this.activity = activity;
 
-            this.cycleTemplateNames = new List<string>();
+            this.cycleTemplateNames = new List<CycleTemplateName>();
         }
 
-        public override string this[int position]
+        public override CycleTemplateName this[int position]
         {
             get
             {
@@ -65,14 +66,14 @@ namespace LiftingAtlas.Droid
             return view;
         }
 
-        public void SetCycleTemplateNames(IList<string> cycleTemplateNames)
+        public void SetCycleTemplateNames(IList<CycleTemplateName> cycleTemplateNames)
         {
             NotifyDataSetInvalidated();
 
             this.cycleTemplateNames.Clear();
 
             if (cycleTemplateNames != null)
-                foreach (string cycleTemplateName in cycleTemplateNames)
+                foreach (CycleTemplateName cycleTemplateName in cycleTemplateNames)
                     this.cycleTemplateNames.Add(cycleTemplateName);
 
             NotifyDataSetChanged();

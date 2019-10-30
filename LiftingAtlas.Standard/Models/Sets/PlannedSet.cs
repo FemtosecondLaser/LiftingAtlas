@@ -2,47 +2,24 @@
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Minimal planning unit of cycle.
-    /// </summary>
     public class PlannedSet : TemplateSet, IEquatable<PlannedSet>
     {
         #region Private fields
 
-        /// <summary>
-        /// A field behind <see cref="PlannedWeight"/>.
-        /// </summary>
-        private readonly NonNegativeDBLRange plannedWeight;
-
-        /// <summary>
-        /// A field behind <see cref="LiftedValues"/>.
-        /// </summary>
-        private (int liftedRepetitions, double liftedWeight)? liftedValues;
+        private readonly PlannedWeight plannedWeight;
+        private LiftedValues liftedValues;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates a set.
-        /// </summary>
-        /// <param name="number">Sequential number. Must not be less than 1.</param>
-        /// <param name="plannedPercentageOfReferencePoint">Planned percentage of reference point.</param>
-        /// <param name="plannedRepetitions">Amount of repetitions.</param>
-        /// <param name="plannedWeight">Planned weight.</param>
-        /// <param name="liftedValues">Lifted values. If not null - liftedRepetitions, liftedWeight must not be less than 0.</param>
-        /// <param name="weightAdjustmentConstant">Constant to add to weight range in order to derive planned weight.</param>
-        /// <param name="note">A note.</param>
-        /// <exception cref="ArgumentOutOfRangeException">At least one of the following is not null and less than 0:
-        /// <paramref name="plannedWeight"/>, <paramref name="liftedValues"/>.liftedRepetitions,
-        /// <paramref name="liftedValues"/>.liftedWeight.</exception>
         public PlannedSet(
-            int number,
-            NonNegativeI32Range plannedPercentageOfReferencePoint,
-            NonNegativeI32Range plannedRepetitions,
-            NonNegativeDBLRange plannedWeight,
-            (int liftedRepetitions, double liftedWeight)? liftedValues,
-            double? weightAdjustmentConstant = null,
+            SetNumber number,
+            PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint,
+            PlannedRepetitions plannedRepetitions,
+            PlannedWeight plannedWeight,
+            LiftedValues liftedValues,
+            WeightAdjustmentConstant weightAdjustmentConstant = null,
             string note = null
             ) : base(
                 number,
@@ -52,9 +29,6 @@ namespace LiftingAtlas.Standard
                 note
                 )
         {
-            if (liftedValues != null && (liftedValues.Value.liftedRepetitions < 0 || liftedValues.Value.liftedWeight < 0.00))
-                throw new ArgumentOutOfRangeException(nameof(liftedValues));
-
             this.plannedWeight = plannedWeight;
             this.liftedValues = liftedValues;
         }
@@ -63,10 +37,7 @@ namespace LiftingAtlas.Standard
 
         #region Properties
 
-        /// <summary>
-        /// Planned weight.
-        /// </summary>
-        public NonNegativeDBLRange PlannedWeight
+        public PlannedWeight PlannedWeight
         {
             get
             {
@@ -74,10 +45,7 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Lifted values.
-        /// </summary>
-        public (int liftedRepetitions, double liftedWeight)? LiftedValues
+        public LiftedValues LiftedValues
         {
             get
             {
@@ -85,9 +53,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Indicates if this set is done.
-        /// </summary>
         public bool Done
         {
             get
@@ -100,26 +65,17 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Determines if <paramref name="weight"/> falls within planned range.
-        /// </summary>
-        /// <param name="weight">Weight.</param>
-        /// <returns>True if <paramref name="weight"/> falls within planned range
-        /// or if planned range does not exist;
-        /// otherwise, false.</returns>
-        public bool WeightWithinPlannedRange(double weight)
+        public bool WeightWithinPlannedRange(Weight weight)
         {
+            if (weight == null)
+                throw new ArgumentNullException(nameof(weight));
+
             if (this.PlannedWeight == null)
                 return true;
 
-            return this.PlannedWeight.InRange(weight, true, true);
+            return this.PlannedWeight.InRange(weight);
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an object.
-        /// </summary>
-        /// <param name="obj">An object to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public override bool Equals(object obj)
         {
             if (!(obj is PlannedSet))
@@ -128,10 +84,6 @@ namespace LiftingAtlas.Standard
             return this.Equals((PlannedSet)obj);
         }
 
-        /// <summary>
-        /// Computes the hash code for this object.
-        /// </summary>
-        /// <returns>Hash code.</returns>
         public override int GetHashCode()
         {
             unchecked
@@ -144,11 +96,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Compares this instance of the class with an instance of <see cref="PlannedSet"/>.
-        /// </summary>
-        /// <param name="other">An instance of <see cref="PlannedSet"/> to compare with.</param>
-        /// <returns>Comparison result.</returns>
         public bool Equals(PlannedSet other)
         {
             if ((object)other == null)
@@ -169,13 +116,6 @@ namespace LiftingAtlas.Standard
 
         #region Operators
 
-        /// <summary>
-        /// Determines equality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are equal;
-        /// otherwise, false.</returns>
         public static bool operator ==(PlannedSet first, PlannedSet second)
         {
             if (ReferenceEquals(first, second))
@@ -187,13 +127,6 @@ namespace LiftingAtlas.Standard
             return first.Equals(second);
         }
 
-        /// <summary>
-        /// Determines inequality of operands.
-        /// </summary>
-        /// <param name="first">First operand.</param>
-        /// <param name="second">Second operand.</param>
-        /// <returns>True if operands are unequal;
-        /// otherwise, false.</returns>
         public static bool operator !=(PlannedSet first, PlannedSet second)
         {
             return !(first == second);

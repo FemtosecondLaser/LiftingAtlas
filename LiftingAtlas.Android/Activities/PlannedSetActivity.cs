@@ -131,14 +131,14 @@ namespace LiftingAtlas.Droid
 
             this.plannedSetPresenter.PresentPlannedSetData(
                 this.plannedCycleGuid,
-                this.plannedSessionNumber,
-                this.plannedSetNumber
+                new SessionNumber(this.plannedSessionNumber),
+                new SetNumber(this.plannedSetNumber)
                 );
 
             if (!this.plannedSetPresenter.PlannedSetIsCurrent(
                 this.plannedCycleGuid,
-                this.plannedSessionNumber,
-                this.plannedSetNumber
+                new SessionNumber(this.plannedSessionNumber),
+                new SetNumber(this.plannedSetNumber)
                 ))
             {
                 this.liftedWeightTextInputLayout.Visibility = ViewStates.Gone;
@@ -287,6 +287,11 @@ namespace LiftingAtlas.Droid
                     );
             else
             {
+                if (double.IsNaN(liftedWeight) || double.IsInfinity(liftedWeight))
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.lifted_weight_must_be_a_finite_number)
+                        );
+
                 if (liftedWeight < 0.00)
                     this.registerLiftedValuesErrorStringBuilder.AppendLine(
                         this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
@@ -322,17 +327,17 @@ namespace LiftingAtlas.Droid
             liftedWeightWithinPlannedRange =
                 this.plannedSetPresenter.WeightWithinPlannedRange(
                     this.plannedCycleGuid,
-                    this.plannedSessionNumber,
-                    this.plannedSetNumber,
-                    liftedWeight
+                    new SessionNumber(this.plannedSessionNumber),
+                    new SetNumber(this.plannedSetNumber),
+                    new Weight(liftedWeight)
                     );
 
             liftedRepetitionsWithinPlannedRange =
                 this.plannedSetPresenter.RepetitionsWithinPlannedRange(
                     this.plannedCycleGuid,
-                    this.plannedSessionNumber,
-                    this.plannedSetNumber,
-                    liftedRepetitions
+                    new SessionNumber(this.plannedSessionNumber),
+                    new SetNumber(this.plannedSetNumber),
+                    new Repetitions(liftedRepetitions)
                     );
 
             if (!liftedWeightWithinPlannedRange)
@@ -362,9 +367,9 @@ namespace LiftingAtlas.Droid
 
             this.plannedSetPresenter.UpdatePlannedSetLiftedValues(
                 this.plannedCycleGuid,
-                this.plannedSessionNumber,
-                this.plannedSetNumber,
-                (liftedRepetitions, liftedWeight)
+                new SessionNumber(this.plannedSessionNumber),
+                new SetNumber(this.plannedSetNumber),
+                new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
                 );
 
             this.Finish();
@@ -380,6 +385,11 @@ namespace LiftingAtlas.Droid
             if (!double.TryParse(this.liftedWeightTextInputEditText.Text, out liftedWeight))
                 this.registerLiftedValuesErrorStringBuilder.AppendLine(
                     this.GetString(Resource.String.enter_lifted_weight_dot)
+                    );
+
+            if (double.IsNaN(liftedWeight) || double.IsInfinity(liftedWeight))
+                this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                    this.GetString(Resource.String.lifted_weight_must_be_a_finite_number)
                     );
 
             if (liftedWeight < 0.00)
@@ -410,9 +420,9 @@ namespace LiftingAtlas.Droid
 
             this.plannedSetPresenter.UpdatePlannedSetLiftedValues(
                 this.plannedCycleGuid,
-                this.plannedSessionNumber,
-                this.plannedSetNumber,
-                (liftedRepetitions, liftedWeight)
+                new SessionNumber(this.plannedSessionNumber),
+                new SetNumber(this.plannedSetNumber),
+                new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
                 );
 
             this.Finish();
@@ -445,37 +455,43 @@ namespace LiftingAtlas.Droid
                 inputMethodManager.HideSoftInputFromWindow(currentlyFocusedView.WindowToken, HideSoftInputFlags.None);
         }
 
-        public void OutputPlannedPercentageOfReferencePoint(string plannedPercentageOfReferencePoint)
+        public void OutputPlannedPercentageOfReferencePoint(PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint)
         {
             this.plannedPercentageOfReferencePointTextView.Text =
-                plannedPercentageOfReferencePoint ?? this.GetString(Resource.String.not_available);
+                plannedPercentageOfReferencePoint != null ?
+                plannedPercentageOfReferencePoint.ToString() : this.GetString(Resource.String.not_available);
         }
 
-        public void OutputWeightAdjustmentConstant(string weightAdjustmentConstant)
+        public void OutputWeightAdjustmentConstant(WeightAdjustmentConstant weightAdjustmentConstant)
         {
             this.weightAdjustmentConstantTextView.Text =
-                weightAdjustmentConstant ?? this.GetString(Resource.String.not_available);
+                weightAdjustmentConstant != null ?
+                weightAdjustmentConstant.ToString("+#;-#") : this.GetString(Resource.String.not_available);
         }
 
-        public void OutputPlannedWeight(string plannedWeight)
+        public void OutputPlannedWeight(PlannedWeight plannedWeight)
         {
             this.plannedWeightTextView.Text =
-                plannedWeight ?? this.GetString(Resource.String.not_available);
+                plannedWeight != null ?
+                plannedWeight.ToString() : this.GetString(Resource.String.not_available);
         }
 
-        public void OutputPlannedRepetitions(string plannedRepetitions)
+        public void OutputPlannedRepetitions(PlannedRepetitions plannedRepetitions)
         {
             this.plannedRepetitionsTextView.Text =
-                plannedRepetitions ?? this.GetString(Resource.String.not_available);
+                plannedRepetitions != null ?
+                plannedRepetitions.ToString() : this.GetString(Resource.String.not_available);
         }
 
-        public void OutputLiftedValues(string liftedWeight, string liftedRepetitions)
+        public void OutputLiftedValues(LiftedValues liftedValues)
         {
             this.liftedWeightTextView.Text =
-                liftedWeight ?? this.GetString(Resource.String.not_available);
+                liftedValues != null ?
+                liftedValues.LiftedWeight.ToString() : this.GetString(Resource.String.not_available);
 
             this.liftedRepetitionsTextView.Text =
-                liftedRepetitions ?? this.GetString(Resource.String.not_available);
+                liftedValues != null ?
+                liftedValues.LiftedRepetitions.ToString() : this.GetString(Resource.String.not_available);
         }
 
         public void OutputNote(string note)

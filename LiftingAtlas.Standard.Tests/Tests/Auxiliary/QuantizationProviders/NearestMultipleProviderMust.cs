@@ -5,15 +5,8 @@ namespace LiftingAtlas.Standard.Tests
     [TestFixture]
     public class NearestMultipleProviderMust
     {
-        /// <summary>
-        /// Nearest multiple provider.
-        /// </summary>
         NearestMultipleProvider nearestMultipleProvider;
 
-        /// <summary>
-        /// Tests ability of <see cref="NearestMultipleProvider"/>
-        /// to round to nearest multiple.
-        /// </summary>
         [Test]
         [TestCase(3.97, 2.50, 5.00)]
         [TestCase(-3.97, 2.50, -5.00)]
@@ -42,10 +35,6 @@ namespace LiftingAtlas.Standard.Tests
                 );
         }
 
-        /// <summary>
-        /// Tests ability of <see cref="NearestMultipleProvider"/>
-        /// to round half away from zero.
-        /// </summary>
         [Test]
         [TestCase(1.25, 2.50, 2.50)]
         [TestCase(-1.25, 2.50, -2.50)]

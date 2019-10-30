@@ -16,9 +16,9 @@ namespace LiftingAtlas.Droid
     public class PlannedSetAdapter : BaseAdapter<PlannedSet>
     {
         private Activity activity;
-        private int plannedSessionNumber;
+        private SessionNumber plannedSessionNumber;
         private IList<PlannedSet> plannedSets;
-        private (int currentPlannedSessionNumber, int currentPlannedSetNumber)? currentPlannedSessionAndCurrentPlannedSetNumbers;
+        private SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers;
 
         public PlannedSetAdapter(Activity activity) : base()
         {
@@ -92,11 +92,14 @@ namespace LiftingAtlas.Droid
         }
 
         public void SetPlannedSets(
-            int plannedSessionNumber,
+            SessionNumber plannedSessionNumber,
             IList<PlannedSet> plannedSets,
-            (int currentPlannedSessionNumber, int currentPlannedSetNumber)? currentPlannedSessionAndCurrentPlannedSetNumbers
+            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers
             )
         {
+            if (plannedSessionNumber == null)
+                throw new ArgumentNullException(nameof(plannedSessionNumber));
+
             if (plannedSets == null && currentPlannedSessionAndCurrentPlannedSetNumbers != null)
                 throw new ArgumentException(
                     $"{nameof(currentPlannedSessionAndCurrentPlannedSetNumbers)} can not be non-null " +
@@ -128,9 +131,9 @@ namespace LiftingAtlas.Droid
                 return false;
 
             return (
-                (this.plannedSessionNumber == this.currentPlannedSessionAndCurrentPlannedSetNumbers.Value.currentPlannedSessionNumber)
+                (this.plannedSessionNumber == this.currentPlannedSessionAndCurrentPlannedSetNumbers.SessionNumber)
                 &&
-                (plannedSet.Number == this.currentPlannedSessionAndCurrentPlannedSetNumbers.Value.currentPlannedSetNumber)
+                (plannedSet.Number == this.currentPlannedSessionAndCurrentPlannedSetNumbers.SetNumber)
                 );
         }
     }

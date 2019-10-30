@@ -4,18 +4,8 @@ using System.Text;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Extension methods.
-    /// </summary>
     public static class Extensions
     {
-        /// <summary>
-        /// Determines equality of <see cref="IList"/>s.
-        /// </summary>
-        /// <param name="thisList">This list.</param>
-        /// <param name="otherList">Other list.</param>
-        /// <returns>True if operands are equal;
-        /// otherwise, false.</returns>
         public static bool ListEquals(this IList thisList, IList otherList)
         {
             if (thisList is null)
@@ -40,16 +30,6 @@ namespace LiftingAtlas.Standard
             return true;
         }
 
-        /// <summary>
-        /// Returns superscript equivalent of <paramref name="decimalDigit"/>.
-        /// </summary>
-        /// <param name="decimalDigit">Decimal digit,
-        /// to return superscript equivalent of. Must be a decimal digit.</param>
-        /// <returns>Superscript equivalent of <paramref name="decimalDigit"/>.</returns>
-        /// <exception cref="ArgumentException"><paramref name="decimalDigit"/>
-        /// is not a decimal digit.</exception
-        /// <exception cref="NotImplementedException"><paramref name="decimalDigit"/>
-        /// is unexpected decimal digit with no superscript equivalent defined.</exception>
         public static char DecimalDigitToSuperscriptEquivalent(this char decimalDigit)
         {
             if (!char.IsDigit(decimalDigit))
@@ -97,15 +77,6 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        /// <summary>
-        /// Returns superscript equivalent of <paramref name="decimalDigitString"/>.
-        /// </summary>
-        /// <param name="decimalDigitString">Decimal digit string,
-        /// to return superscript equivalent of. Must consist only of decimal digits.</param>
-        /// <returns>Superscript equivalent of <paramref name="decimalDigitString"/>.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="decimalDigitString"/> is null.</exception>
-        /// <exception cref="ArgumentException"><paramref name="decimalDigitString"/>
-        /// does not consist only of decimal digits.</exception>
         public static string DecimalDigitStringToSuperscriptEquivalent(this string decimalDigitString)
         {
             if (decimalDigitString == null)
@@ -129,34 +100,27 @@ namespace LiftingAtlas.Standard
             return decimalDigitStringSuperscriptEquivalentBuilder.ToString();
         }
 
-        /// <summary>
-        /// Creates an instance of <see cref="PlannedSet"/>
-        /// based on an instance of <see cref="PlannedCycleDataset"/>.
-        /// </summary>
-        /// <param name="plannedCycleDataset">Planned cycle dataset. Must not be null.</param>
-        /// <returns>Planned set.</returns>
-        /// <exception cref="ArgumentNullException"><paramref name="plannedCycleDataset"/> is null.</exception>
         public static PlannedSet ToPlannedSet(this PlannedCycleDataset plannedCycleDataset)
         {
             if (plannedCycleDataset == null)
                 throw new ArgumentNullException(nameof(plannedCycleDataset));
 
-            int number;
-            NonNegativeI32Range plannedPercentageOfReferencePoint;
-            NonNegativeI32Range plannedRepetitions;
-            NonNegativeDBLRange plannedWeight;
-            (int liftedRepetitions, double liftedWeight)? liftedValues;
-            double? weightAdjustmentConstant;
+            SetNumber number;
+            PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint;
+            PlannedRepetitions plannedRepetitions;
+            PlannedWeight plannedWeight;
+            LiftedValues liftedValues;
+            WeightAdjustmentConstant weightAdjustmentConstant;
             string note;
 
-            number = plannedCycleDataset.setNumber;
+            number =  new SetNumber(plannedCycleDataset.setNumber);
 
             if (plannedCycleDataset.plannedPercentageOfReferencePointLowerBound == null ||
                 plannedCycleDataset.plannedPercentageOfReferencePointUpperBound == null)
                 plannedPercentageOfReferencePoint = null;
             else
                 plannedPercentageOfReferencePoint =
-                    new NonNegativeI32Range(
+                    new PlannedPercentageOfReferencePoint(
                         plannedCycleDataset.plannedPercentageOfReferencePointLowerBound.Value,
                         plannedCycleDataset.plannedPercentageOfReferencePointUpperBound.Value
                         );
@@ -166,9 +130,9 @@ namespace LiftingAtlas.Standard
                 plannedRepetitions = null;
             else
                 plannedRepetitions =
-                    new NonNegativeI32Range(
-                        plannedCycleDataset.plannedRepetitionsLowerBound.Value,
-                        plannedCycleDataset.plannedRepetitionsUpperBound.Value
+                    new PlannedRepetitions(
+                        new Repetitions(plannedCycleDataset.plannedRepetitionsLowerBound.Value),
+                        new Repetitions(plannedCycleDataset.plannedRepetitionsUpperBound.Value)
                         );
 
             if (plannedCycleDataset.plannedWeightLowerBound == null ||
@@ -176,21 +140,28 @@ namespace LiftingAtlas.Standard
                 plannedWeight = null;
             else
                 plannedWeight =
-                    new NonNegativeDBLRange(
-                        plannedCycleDataset.plannedWeightLowerBound.Value,
-                        plannedCycleDataset.plannedWeightUpperBound.Value
+                    new PlannedWeight(
+                        new Weight(plannedCycleDataset.plannedWeightLowerBound.Value),
+                        new Weight(plannedCycleDataset.plannedWeightUpperBound.Value)
                         );
 
             if (plannedCycleDataset.liftedRepetitions == null ||
                 plannedCycleDataset.liftedWeight == null)
                 liftedValues = null;
             else
-                liftedValues = (
-                    plannedCycleDataset.liftedRepetitions.Value,
-                    plannedCycleDataset.liftedWeight.Value
-                    );
+                liftedValues =
+                    new LiftedValues(
+                        new Repetitions(plannedCycleDataset.liftedRepetitions.Value),
+                        new Weight(plannedCycleDataset.liftedWeight.Value)
+                        );
 
-            weightAdjustmentConstant = plannedCycleDataset.weightAdjustmentConstant;
+            if (plannedCycleDataset.weightAdjustmentConstant == null)
+                weightAdjustmentConstant = null;
+            else
+                weightAdjustmentConstant =
+                    new WeightAdjustmentConstant(
+                        plannedCycleDataset.weightAdjustmentConstant.Value
+                        );
 
             note = plannedCycleDataset.note;
 

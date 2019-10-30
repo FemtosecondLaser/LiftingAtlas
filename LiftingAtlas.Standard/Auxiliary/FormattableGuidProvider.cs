@@ -3,26 +3,16 @@ using System.Collections.Generic;
 
 namespace LiftingAtlas.Standard
 {
-    /// <summary>
-    /// Guid provider. Applies optional formatting.
-    /// </summary>
     public class FormattableGuidProvider : IGuidProvider
     {
         #region Private fields
 
-        /// <summary>
-        /// Guid formatters.
-        /// </summary>
         private readonly ICollection<IGuidFormatter> guidFormatters;
 
         #endregion
 
         #region Constructors
 
-        /// <summary>
-        /// Creates formattable guid provider.
-        /// </summary>
-        /// <param name="guidFormatters">Guid formatters.</param>
         public FormattableGuidProvider(ICollection<IGuidFormatter> guidFormatters)
         {
             this.guidFormatters = guidFormatters;
@@ -32,9 +22,6 @@ namespace LiftingAtlas.Standard
 
         #region Properties
 
-        /// <summary>
-        /// Indicates if guid formatting is enabled.
-        /// </summary>
         private bool GuidFormattingEnabled
         {
             get
@@ -47,10 +34,6 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        /// <summary>
-        /// Outputs guid.
-        /// </summary>
-        /// <returns>Guid.</returns>
         public Guid GetGuid()
         {
             Guid guid = Guid.NewGuid();

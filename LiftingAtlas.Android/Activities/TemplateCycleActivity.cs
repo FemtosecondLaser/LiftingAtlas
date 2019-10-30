@@ -65,7 +65,7 @@ namespace LiftingAtlas.Droid
                     );
 
             this.templateCyclePresenter.PresentTemplateCycleData(
-                this.cycleTemplateName
+                new CycleTemplateName(this.cycleTemplateName)
                 );
         }
 
@@ -77,14 +77,14 @@ namespace LiftingAtlas.Droid
         }
 
         public void OutputTemplateSessions(
-            IList<(string templateSession, IList<NonNegativeI32Range> NoteReferencePositions)> templateSessionsAndNoteReferencePositions
+            IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
             )
         {
             this.templateSessionAdapter.SetTemplateSessionsAndNoteReferencePositions(templateSessionsAndNoteReferencePositions);
         }
 
         public void OutputTemplateSetNotes(
-            IList<(string templateSetNote, NonNegativeI32Range NoteReferencePosition)> templateSetNotesAndNoteReferencePositions
+            IList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions
             )
         {
             this.templateSetNoteAdapter.SetTemplateSetNotes(templateSetNotesAndNoteReferencePositions);
