@@ -46,6 +46,21 @@ namespace LiftingAtlas.Droid
             }
         }
 
+        public int? CurrentPlannedSetPosition
+        {
+            get
+            {
+                int? position = null;
+
+                if (this.currentPlannedSessionAndCurrentPlannedSetNumbers != null)
+                    for (int i = 0; i < this.Count; i++)
+                        if (SetIsCurrent(this[i]))
+                            return position = i;
+
+                return position;
+            }
+        }
+
         public override long GetItemId(int position)
         {
             return position;

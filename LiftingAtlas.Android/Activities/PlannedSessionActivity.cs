@@ -32,6 +32,7 @@ namespace LiftingAtlas.Droid
         private PlannedSetAdapter plannedSetAdapter;
         private IPlannedSessionPresenter plannedSessionPresenter;
         private ILifetimeScope lifetimeScope;
+        private bool mustSelectCurrentSet;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -61,6 +62,8 @@ namespace LiftingAtlas.Droid
 
             this.plannedSetAdapter = new PlannedSetAdapter(this);
             this.setsListView.Adapter = this.plannedSetAdapter;
+
+            this.mustSelectCurrentSet = true;
         }
 
         protected override void OnResume()
@@ -80,6 +83,23 @@ namespace LiftingAtlas.Droid
                 );
 
             this.setsListView.ItemClick += SetsListView_ItemClick;
+
+            this.setsListView.Post(
+                () =>
+                {
+                    if (this.mustSelectCurrentSet)
+                    {
+                        int? currentPlannedSetPosition = this.plannedSetAdapter.CurrentPlannedSetPosition;
+
+                        if (currentPlannedSetPosition != null)
+                            this.setsListView.SetSelection(
+                                currentPlannedSetPosition.Value
+                                );
+
+                        this.mustSelectCurrentSet = false;
+                    }
+                }
+                );
         }
 
         protected override void OnPause()

@@ -45,6 +45,21 @@ namespace LiftingAtlas.Droid
             }
         }
 
+        public int? CurrentPlannedSessionPosition
+        {
+            get
+            {
+                int? position = null;
+
+                if (this.currentPlannedSessionNumber != null)
+                    for (int i = 0; i < this.Count; i++)
+                        if (SessionIsCurrent(this[i]))
+                            return position = i;
+
+                return position;
+            }
+        }
+
         public override long GetItemId(int position)
         {
             return position;

@@ -26,6 +26,7 @@ namespace LiftingAtlas.Droid
         private PlannedSessionAdapter plannedSessionAdapter;
         private ICurrentPlannedCyclePresenter currentPlannedCyclePresenter;
         private ILifetimeScope lifetimeScope;
+        private bool mustSelectCurrentSession;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -46,6 +47,8 @@ namespace LiftingAtlas.Droid
 
             this.plannedSessionAdapter = new PlannedSessionAdapter(this);
             this.sessionsListView.Adapter = this.plannedSessionAdapter;
+
+            this.mustSelectCurrentSession = true;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -92,6 +95,23 @@ namespace LiftingAtlas.Droid
                 );
 
             this.sessionsListView.ItemClick += SessionsListView_ItemClick;
+
+            this.sessionsListView.Post(
+                () =>
+                {
+                    if (this.mustSelectCurrentSession)
+                    {
+                        int? currentPlannedSessionPosition = this.plannedSessionAdapter.CurrentPlannedSessionPosition;
+
+                        if (currentPlannedSessionPosition != null)
+                            this.sessionsListView.SetSelection(
+                                currentPlannedSessionPosition.Value
+                                );
+
+                        this.mustSelectCurrentSession = false;
+                    }
+                }
+                );
         }
 
         protected override void OnPause()
