@@ -103,7 +103,7 @@ namespace LiftingAtlas.Droid
             this.liftedRepetitionsTextView = this.FindViewById<TextView>(Resource.Id.lifted_repetitions_textview);
             this.noteLabelTextView = this.FindViewById<TextView>(Resource.Id.note_label_textview);
             this.noteTextView = this.FindViewById<TextView>(Resource.Id.note_textview);
-            this.liftedWeightTextInputLayout= this.FindViewById<TextInputLayout>(Resource.Id.lifted_weight_textinputlayout);
+            this.liftedWeightTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.lifted_weight_textinputlayout);
             this.liftedWeightTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.lifted_weight_textinputedittext);
             this.liftedRepetitionsTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.lifted_repetitions_textinputlayout);
             this.liftedRepetitionsTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.lifted_repetitions_textinputedittext);
@@ -118,7 +118,7 @@ namespace LiftingAtlas.Droid
             this.setNumberTextView.Text = this.plannedSetNumber.ToString();
         }
 
-        protected override void OnResume()
+        protected async override void OnResume()
         {
             base.OnResume();
 
@@ -129,13 +129,13 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(IPlannedSetView), this)
                     );
 
-            this.plannedSetPresenter.PresentPlannedSetData(
+            await this.plannedSetPresenter.PresentPlannedSetDataAsync(
                 this.plannedCycleGuid,
                 new SessionNumber(this.plannedSessionNumber),
                 new SetNumber(this.plannedSetNumber)
                 );
 
-            if (!this.plannedSetPresenter.PlannedSetIsCurrent(
+            if (!await this.plannedSetPresenter.PlannedSetIsCurrentAsync(
                 this.plannedCycleGuid,
                 new SessionNumber(this.plannedSessionNumber),
                 new SetNumber(this.plannedSetNumber)
@@ -273,20 +273,140 @@ namespace LiftingAtlas.Droid
             }
         }
 
-        private void RegisterLiftedValuesButton_Click(object sender, EventArgs e)
+        private async void RegisterLiftedValuesButton_Click(object sender, EventArgs e)
         {
-            this.registerLiftedValuesErrorStringBuilder = new StringBuilder();
-            this.registerLiftedValuesWarningStringBuilder = new StringBuilder();
+            View senderView = sender as View;
 
-            double liftedWeight;
-            int liftedRepetitions;
+            if (senderView != null)
+                senderView.Enabled = false;
 
-            if (!double.TryParse(this.liftedWeightTextInputEditText.Text, out liftedWeight))
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_lifted_weight_dot)
-                    );
-            else
+            try
             {
+                this.registerLiftedValuesErrorStringBuilder = new StringBuilder();
+                this.registerLiftedValuesWarningStringBuilder = new StringBuilder();
+
+                double liftedWeight;
+                int liftedRepetitions;
+
+                if (!double.TryParse(this.liftedWeightTextInputEditText.Text, out liftedWeight))
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.enter_lifted_weight_dot)
+                        );
+                else
+                {
+                    if (double.IsNaN(liftedWeight) || double.IsInfinity(liftedWeight))
+                        this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.lifted_weight_must_be_a_finite_number)
+                            );
+
+                    if (liftedWeight < 0.00)
+                        this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
+                            );
+                }
+
+                if (!int.TryParse(this.liftedRepetitionsTextInputEditText.Text, out liftedRepetitions))
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.enter_lifted_repetitions_dot)
+                        );
+                else
+                {
+                    if (liftedRepetitions < 0)
+                        this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.lifted_repetitions_must_not_be_less_than_0_dot)
+                            );
+                }
+
+                if (this.registerLiftedValuesErrorStringBuilder.Length > 0)
+                {
+                    this.registerLiftedValuesErrorAlertDialog.SetMessage(
+                        this.registerLiftedValuesErrorStringBuilder.ToString().TrimEnd()
+                        );
+
+                    this.registerLiftedValuesErrorAlertDialog.Show();
+
+                    return;
+                }
+
+                bool liftedWeightWithinPlannedRange;
+                bool liftedRepetitionsWithinPlannedRange;
+
+                liftedWeightWithinPlannedRange =
+                    await this.plannedSetPresenter.WeightWithinPlannedRangeAsync(
+                        this.plannedCycleGuid,
+                        new SessionNumber(this.plannedSessionNumber),
+                        new SetNumber(this.plannedSetNumber),
+                        new Weight(liftedWeight)
+                        );
+
+                liftedRepetitionsWithinPlannedRange =
+                    await this.plannedSetPresenter.RepetitionsWithinPlannedRangeAsync(
+                        this.plannedCycleGuid,
+                        new SessionNumber(this.plannedSessionNumber),
+                        new SetNumber(this.plannedSetNumber),
+                        new Repetitions(liftedRepetitions)
+                        );
+
+                if (!liftedWeightWithinPlannedRange)
+                    this.registerLiftedValuesWarningStringBuilder.AppendLine(
+                        this.GetString(Resource.String.lifted_weight_is_outside_of_planned_range_dot)
+                        );
+
+                if (!liftedRepetitionsWithinPlannedRange)
+                    this.registerLiftedValuesWarningStringBuilder.AppendLine(
+                        this.GetString(Resource.String.lifted_repetitions_are_outside_of_planned_range_dot)
+                        );
+
+                if (this.registerLiftedValuesWarningStringBuilder.Length > 0)
+                {
+                    this.registerLiftedValuesWarningStringBuilder.AppendLine(
+                        this.GetString(Resource.String.are_you_sure_question_mark)
+                        );
+
+                    this.registerLiftedValuesWarningAlertDialog.SetMessage(
+                        this.registerLiftedValuesWarningStringBuilder.ToString().TrimEnd()
+                        );
+
+                    this.registerLiftedValuesWarningAlertDialog.Show();
+
+                    return;
+                }
+
+                await this.plannedSetPresenter.UpdatePlannedSetLiftedValuesAsync(
+                    this.plannedCycleGuid,
+                    new SessionNumber(this.plannedSessionNumber),
+                    new SetNumber(this.plannedSetNumber),
+                    new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
+                    );
+
+                this.Finish();
+            }
+            finally
+            {
+                if (senderView != null)
+                    senderView.Enabled = true;
+            }
+        }
+
+        private async void RegisterLiftedValuesWarningAlertDialogYes(object sender, DialogClickEventArgs e)
+        {
+            View senderView = sender as View;
+
+            if (senderView != null)
+                senderView.Enabled = false;
+
+            try
+            {
+                this.registerLiftedValuesErrorStringBuilder = new StringBuilder();
+
+                double liftedWeight;
+                int liftedRepetitions;
+
+                if (!double.TryParse(this.liftedWeightTextInputEditText.Text, out liftedWeight))
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.enter_lifted_weight_dot)
+                        );
+
                 if (double.IsNaN(liftedWeight) || double.IsInfinity(liftedWeight))
                     this.registerLiftedValuesErrorStringBuilder.AppendLine(
                         this.GetString(Resource.String.lifted_weight_must_be_a_finite_number)
@@ -296,136 +416,42 @@ namespace LiftingAtlas.Droid
                     this.registerLiftedValuesErrorStringBuilder.AppendLine(
                         this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
                         );
-            }
 
-            if (!int.TryParse(this.liftedRepetitionsTextInputEditText.Text, out liftedRepetitions))
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_lifted_repetitions_dot)
-                    );
-            else
-            {
+                if (!int.TryParse(this.liftedRepetitionsTextInputEditText.Text, out liftedRepetitions))
+                    this.registerLiftedValuesErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.enter_lifted_repetitions_dot)
+                        );
+
                 if (liftedRepetitions < 0)
                     this.registerLiftedValuesErrorStringBuilder.AppendLine(
                         this.GetString(Resource.String.lifted_repetitions_must_not_be_less_than_0_dot)
                         );
-            }
 
-            if (this.registerLiftedValuesErrorStringBuilder.Length > 0)
-            {
-                this.registerLiftedValuesErrorAlertDialog.SetMessage(
-                    this.registerLiftedValuesErrorStringBuilder.ToString().TrimEnd()
-                    );
+                if (this.registerLiftedValuesErrorStringBuilder.Length > 0)
+                {
+                    this.registerLiftedValuesErrorAlertDialog.SetMessage(
+                        this.registerLiftedValuesErrorStringBuilder.ToString().TrimEnd()
+                        );
 
-                this.registerLiftedValuesErrorAlertDialog.Show();
+                    this.registerLiftedValuesErrorAlertDialog.Show();
 
-                return;
-            }
+                    return;
+                }
 
-            bool liftedWeightWithinPlannedRange;
-            bool liftedRepetitionsWithinPlannedRange;
-
-            liftedWeightWithinPlannedRange =
-                this.plannedSetPresenter.WeightWithinPlannedRange(
+                await this.plannedSetPresenter.UpdatePlannedSetLiftedValuesAsync(
                     this.plannedCycleGuid,
                     new SessionNumber(this.plannedSessionNumber),
                     new SetNumber(this.plannedSetNumber),
-                    new Weight(liftedWeight)
+                    new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
                     );
 
-            liftedRepetitionsWithinPlannedRange =
-                this.plannedSetPresenter.RepetitionsWithinPlannedRange(
-                    this.plannedCycleGuid,
-                    new SessionNumber(this.plannedSessionNumber),
-                    new SetNumber(this.plannedSetNumber),
-                    new Repetitions(liftedRepetitions)
-                    );
-
-            if (!liftedWeightWithinPlannedRange)
-                this.registerLiftedValuesWarningStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_weight_is_outside_of_planned_range_dot)
-                    );
-
-            if (!liftedRepetitionsWithinPlannedRange)
-                this.registerLiftedValuesWarningStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_repetitions_are_outside_of_planned_range_dot)
-                    );
-
-            if (this.registerLiftedValuesWarningStringBuilder.Length > 0)
-            {
-                this.registerLiftedValuesWarningStringBuilder.AppendLine(
-                    this.GetString(Resource.String.are_you_sure_question_mark)
-                    );
-
-                this.registerLiftedValuesWarningAlertDialog.SetMessage(
-                    this.registerLiftedValuesWarningStringBuilder.ToString().TrimEnd()
-                    );
-
-                this.registerLiftedValuesWarningAlertDialog.Show();
-
-                return;
+                this.Finish();
             }
-
-            this.plannedSetPresenter.UpdatePlannedSetLiftedValues(
-                this.plannedCycleGuid,
-                new SessionNumber(this.plannedSessionNumber),
-                new SetNumber(this.plannedSetNumber),
-                new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
-                );
-
-            this.Finish();
-        }
-
-        private void RegisterLiftedValuesWarningAlertDialogYes(object sender, DialogClickEventArgs e)
-        {
-            this.registerLiftedValuesErrorStringBuilder = new StringBuilder();
-
-            double liftedWeight;
-            int liftedRepetitions;
-
-            if (!double.TryParse(this.liftedWeightTextInputEditText.Text, out liftedWeight))
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_lifted_weight_dot)
-                    );
-
-            if (double.IsNaN(liftedWeight) || double.IsInfinity(liftedWeight))
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_weight_must_be_a_finite_number)
-                    );
-
-            if (liftedWeight < 0.00)
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_weight_must_not_be_less_than_0_dot)
-                    );
-
-            if (!int.TryParse(this.liftedRepetitionsTextInputEditText.Text, out liftedRepetitions))
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_lifted_repetitions_dot)
-                    );
-
-            if (liftedRepetitions < 0)
-                this.registerLiftedValuesErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.lifted_repetitions_must_not_be_less_than_0_dot)
-                    );
-
-            if (this.registerLiftedValuesErrorStringBuilder.Length > 0)
+            finally
             {
-                this.registerLiftedValuesErrorAlertDialog.SetMessage(
-                    this.registerLiftedValuesErrorStringBuilder.ToString().TrimEnd()
-                    );
-
-                this.registerLiftedValuesErrorAlertDialog.Show();
-
-                return;
+                if (senderView != null)
+                    senderView.Enabled = true;
             }
-
-            this.plannedSetPresenter.UpdatePlannedSetLiftedValues(
-                this.plannedCycleGuid,
-                new SessionNumber(this.plannedSessionNumber),
-                new SetNumber(this.plannedSetNumber),
-                new LiftedValues(new Repetitions(liftedRepetitions), new Weight(liftedWeight))
-                );
-
-            this.Finish();
         }
 
         protected override void OnPause()

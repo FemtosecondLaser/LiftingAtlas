@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
 using System.Xml;
 
 namespace LiftingAtlas.Standard
 {
     public class XMLStreamBasedTemplateCycleProvider : IStreamBasedTemplateCycleProvider
     {
-        public (CycleTemplateName CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift(Stream stream)
+        public async Task<(CycleTemplateName CycleTemplateName, Lift TemplateLift)> CycleTemplateNameAndLiftAsync(Stream stream)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -16,10 +17,11 @@ namespace LiftingAtlas.Standard
             Lift? templateCycleLift = null;
 
             XmlReaderSettings readerSettings = new XmlReaderSettings();
+            readerSettings.Async = true;
             readerSettings.IgnoreWhitespace = true;
 
             using (XmlReader reader = XmlReader.Create(stream, readerSettings))
-                while (reader.Read())
+                while (await reader.ReadAsync().ConfigureAwait(false))
                 {
                     if (reader.IsStartElement())
                         switch (reader.Name)
@@ -27,13 +29,17 @@ namespace LiftingAtlas.Standard
                             case "Cycle":
                                 if (cycleTemplateName == null)
                                     cycleTemplateName =
-                                        new CycleTemplateName(reader.GetAttribute("CycleTemplateName"));
+                                        new CycleTemplateName(
+                                            reader.GetAttribute("CycleTemplateName")
+                                            );
                                 break;
 
                             case "Lifts":
                                 if (templateCycleLift == null)
                                     using (XmlReader subReader = reader.ReadSubtree())
-                                        templateCycleLift = ReadLifts(subReader);
+                                        templateCycleLift =
+                                            await ReadLiftsAsync(subReader)
+                                            .ConfigureAwait(false);
                                 break;
 
                             default:
@@ -47,7 +53,7 @@ namespace LiftingAtlas.Standard
             return (cycleTemplateName, templateCycleLift.Value);
         }
 
-        public TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(Stream stream)
+        public async Task<TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>> TemplateCycleAsync(Stream stream)
         {
             if (stream == null)
                 throw new ArgumentNullException(nameof(stream));
@@ -58,10 +64,11 @@ namespace LiftingAtlas.Standard
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle = null;
 
             XmlReaderSettings readerSettings = new XmlReaderSettings();
+            readerSettings.Async = true;
             readerSettings.IgnoreWhitespace = true;
 
             using (XmlReader reader = XmlReader.Create(stream, readerSettings))
-                while (reader.Read())
+                while (await reader.ReadAsync().ConfigureAwait(false))
                 {
                     if (reader.IsStartElement())
                         switch (reader.Name)
@@ -69,19 +76,25 @@ namespace LiftingAtlas.Standard
                             case "Cycle":
                                 if (cycleTemplateName == null)
                                     cycleTemplateName =
-                                        new CycleTemplateName(reader.GetAttribute("CycleTemplateName"));
+                                        new CycleTemplateName(
+                                            reader.GetAttribute("CycleTemplateName")
+                                            );
                                 break;
 
                             case "Lifts":
                                 if (templateCycleLift == null)
                                     using (XmlReader subReader = reader.ReadSubtree())
-                                        templateCycleLift = ReadLifts(subReader);
+                                        templateCycleLift =
+                                            await ReadLiftsAsync(subReader)
+                                            .ConfigureAwait(false);
                                 break;
 
                             case "Sessions":
                                 if (templateSessions == null)
                                     using (XmlReader subReader = reader.ReadSubtree())
-                                        templateSessions = ReadSessions(subReader);
+                                        templateSessions =
+                                            await ReadSessionsAsync(subReader)
+                                            .ConfigureAwait(false);
                                 break;
 
                             default:
@@ -101,23 +114,25 @@ namespace LiftingAtlas.Standard
             return templateCycle;
         }
 
-        private Lift ReadLifts(XmlReader reader)
+        private async Task<Lift> ReadLiftsAsync(XmlReader reader)
         {
             Lift templateCycleLifts = Lift.None;
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement() && reader.Name == "Lift")
                     using (XmlReader subReader = reader.ReadSubtree())
-                        templateCycleLifts |= ReadElementContentAsLift(subReader);
+                        templateCycleLifts |=
+                            await ReadElementContentAsLiftAsync(subReader)
+                            .ConfigureAwait(false);
             return templateCycleLifts;
         }
 
-        private Lift ReadElementContentAsLift(XmlReader reader)
+        private async Task<Lift> ReadElementContentAsLiftAsync(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)
-                reader.Read();
+                await reader.ReadAsync().ConfigureAwait(false);
 
-            switch (reader.ReadElementContentAsString())
+            switch (await reader.ReadElementContentAsStringAsync().ConfigureAwait(false))
             {
                 case "Squat":
                     return Lift.Squat;
@@ -133,36 +148,42 @@ namespace LiftingAtlas.Standard
             }
         }
 
-        private List<TemplateSession<TemplateSet>> ReadSessions(XmlReader reader)
+        private async Task<List<TemplateSession<TemplateSet>>> ReadSessionsAsync(XmlReader reader)
         {
             List<TemplateSession<TemplateSet>> templateSessions = new List<TemplateSession<TemplateSet>>();
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement() && reader.Name == "Session")
                     using (XmlReader subReader = reader.ReadSubtree())
-                        templateSessions.Add(ReadSession(subReader));
+                        templateSessions.Add(await ReadSessionAsync(subReader).ConfigureAwait(false));
 
             return templateSessions;
         }
 
-        private TemplateSession<TemplateSet> ReadSession(XmlReader reader)
+        private async Task<TemplateSession<TemplateSet>> ReadSessionAsync(XmlReader reader)
         {
             TemplateSession<TemplateSet> templateSession = null;
             SessionNumber number = null;
             List<TemplateSet> templateSets = null;
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement())
                     switch (reader.Name)
                     {
                         case "Number":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                number = new SessionNumber(ReadElementContentAsInt(subReader));
+                                number =
+                                    new SessionNumber(
+                                        await ReadElementContentAsIntAsync(subReader)
+                                        .ConfigureAwait(false)
+                                        );
                             break;
 
                         case "Sets":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                templateSets = ReadSets(subReader);
+                                templateSets =
+                                    await ReadSetsAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         default:
@@ -174,19 +195,19 @@ namespace LiftingAtlas.Standard
             return templateSession;
         }
 
-        private List<TemplateSet> ReadSets(XmlReader reader)
+        private async Task<List<TemplateSet>> ReadSetsAsync(XmlReader reader)
         {
             List<TemplateSet> templateSets = new List<TemplateSet>();
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement() && reader.Name == "Set")
                     using (XmlReader subReader = reader.ReadSubtree())
-                        templateSets.Add(ReadSet(subReader));
+                        templateSets.Add(await ReadSetAsync(subReader).ConfigureAwait(false));
 
             return templateSets;
         }
 
-        private TemplateSet ReadSet(XmlReader reader)
+        private async Task<TemplateSet> ReadSetAsync(XmlReader reader)
         {
             TemplateSet templateSet = null;
             SetNumber number = null;
@@ -195,29 +216,39 @@ namespace LiftingAtlas.Standard
             WeightAdjustmentConstant weightAdjustmentConstant = null;
             string note = null;
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement())
                     switch (reader.Name)
                     {
                         case "Number":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                number = new SetNumber(ReadElementContentAsInt(subReader));
+                                number =
+                                    new SetNumber(
+                                        await ReadElementContentAsIntAsync(subReader)
+                                        .ConfigureAwait(false)
+                                        );
                             break;
 
                         case "PlannedPercentageOfReferencePoint":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                plannedPercentageOfReferencePoint = ReadPlannedPercentageOfReferencePoint(subReader);
+                                plannedPercentageOfReferencePoint =
+                                    await ReadPlannedPercentageOfReferencePointAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         case "PlannedRepetitions":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                plannedRepetitions = ReadPlannedRepetitions(subReader);
+                                plannedRepetitions =
+                                    await ReadPlannedRepetitionsAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         case "WeightAdjustmentConstant":
                             string weightAdjustmentConstantString;
                             using (XmlReader subReader = reader.ReadSubtree())
-                                weightAdjustmentConstantString = ReadElementContentAsString(subReader);
+                                weightAdjustmentConstantString =
+                                    await ReadElementContentAsStringAsync(subReader)
+                                    .ConfigureAwait(false);
                             if (!string.IsNullOrEmpty(weightAdjustmentConstantString))
                                 weightAdjustmentConstant =
                                     new WeightAdjustmentConstant(double.Parse(weightAdjustmentConstantString));
@@ -226,7 +257,9 @@ namespace LiftingAtlas.Standard
                         case "Note":
                             string noteString;
                             using (XmlReader subReader = reader.ReadSubtree())
-                                noteString = ReadElementContentAsString(subReader);
+                                noteString =
+                                    await ReadElementContentAsStringAsync(subReader)
+                                    .ConfigureAwait(false);
                             if (!string.IsNullOrEmpty(noteString))
                                 note = noteString;
                             break;
@@ -246,23 +279,27 @@ namespace LiftingAtlas.Standard
             return templateSet;
         }
 
-        private PlannedPercentageOfReferencePoint ReadPlannedPercentageOfReferencePoint(XmlReader reader)
+        private async Task<PlannedPercentageOfReferencePoint> ReadPlannedPercentageOfReferencePointAsync(XmlReader reader)
         {
             PlannedPercentageOfReferencePoint plannedPercentageOfReferencePoint = null;
             int? lowerBound = null, upperBound = null;
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement())
                     switch (reader.Name)
                     {
                         case "LowerBound":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                lowerBound = ReadElementContentAsInt(subReader);
+                                lowerBound =
+                                    await ReadElementContentAsIntAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         case "UpperBound":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                upperBound = ReadElementContentAsInt(subReader);
+                                upperBound =
+                                    await ReadElementContentAsIntAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         default:
@@ -276,23 +313,27 @@ namespace LiftingAtlas.Standard
             return plannedPercentageOfReferencePoint;
         }
 
-        private PlannedRepetitions ReadPlannedRepetitions(XmlReader reader)
+        private async Task<PlannedRepetitions> ReadPlannedRepetitionsAsync(XmlReader reader)
         {
             PlannedRepetitions plannedRepetitions = null;
             int? lowerBound = null, upperBound = null;
 
-            while (reader.Read())
+            while (await reader.ReadAsync().ConfigureAwait(false))
                 if (reader.IsStartElement())
                     switch (reader.Name)
                     {
                         case "LowerBound":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                lowerBound = ReadElementContentAsInt(subReader);
+                                lowerBound =
+                                    await ReadElementContentAsIntAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         case "UpperBound":
                             using (XmlReader subReader = reader.ReadSubtree())
-                                upperBound = ReadElementContentAsInt(subReader);
+                                upperBound =
+                                    await ReadElementContentAsIntAsync(subReader)
+                                    .ConfigureAwait(false);
                             break;
 
                         default:
@@ -309,20 +350,24 @@ namespace LiftingAtlas.Standard
             return plannedRepetitions;
         }
 
-        private int ReadElementContentAsInt(XmlReader reader)
+        private async Task<int> ReadElementContentAsIntAsync(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)
-                reader.Read();
+                await reader.ReadAsync()
+                    .ConfigureAwait(false);
 
-            return reader.ReadElementContentAsInt();
+            return (int)await reader.ReadElementContentAsAsync(typeof(int), null)
+                .ConfigureAwait(false);
         }
 
-        private string ReadElementContentAsString(XmlReader reader)
+        private async Task<string> ReadElementContentAsStringAsync(XmlReader reader)
         {
             if (reader.ReadState == ReadState.Initial)
-                reader.Read();
+                await reader.ReadAsync()
+                    .ConfigureAwait(false);
 
-            return reader.ReadElementContentAsString();
+            return await reader.ReadElementContentAsStringAsync()
+                .ConfigureAwait(false);
         }
     }
 }

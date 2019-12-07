@@ -17,10 +17,10 @@ using LiftingAtlas.Standard;
 
 namespace LiftingAtlas.Droid
 {
-    public class TemplateSessionAdapter : BaseAdapter<(string templateSession, IList<(int start, int end)> noteReferencePositions)>
+    public class TemplateSessionAdapter : BaseAdapter<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)>
     {
         private Activity activity;
-        private IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions;
+        private List<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions;
 
         public TemplateSessionAdapter(Activity activity) : base()
         {
@@ -30,10 +30,10 @@ namespace LiftingAtlas.Droid
             this.activity = activity;
 
             this.templateSessionsAndNoteReferencePositions =
-                new List<(string templateSession, IList<(int start, int end)> noteReferencePositions)>();
+                new List<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)>();
         }
 
-        public override (string templateSession, IList<(int start, int end)> noteReferencePositions) this[int position]
+        public override (string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions) this[int position]
         {
             get
             {
@@ -70,7 +70,7 @@ namespace LiftingAtlas.Droid
                     false
                     );
 
-            (string templateSession, IList<(int start, int end)> noteReferencePositions) templateSessionAndNoteReferencePositions =
+            (string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions) templateSessionAndNoteReferencePositions =
                 this.templateSessionsAndNoteReferencePositions[position];
 
             SpannableString templateSession = new SpannableString(templateSessionAndNoteReferencePositions.templateSession);
@@ -89,7 +89,7 @@ namespace LiftingAtlas.Droid
         }
 
         public void SetTemplateSessionsAndNoteReferencePositions(
-            IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
+            IReadOnlyList<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
             )
         {
             this.NotifyDataSetInvalidated();
@@ -98,7 +98,7 @@ namespace LiftingAtlas.Droid
 
             if (templateSessionsAndNoteReferencePositions != null)
                 foreach (
-                    (string, IList<(int start, int end)>) templateSessionAndNoteReferencePositions
+                    (string, IReadOnlyList<(int start, int end)>) templateSessionAndNoteReferencePositions
                     in
                     templateSessionsAndNoteReferencePositions
                     )

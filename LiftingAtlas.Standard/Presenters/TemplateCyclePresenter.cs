@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -35,17 +36,17 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PresentTemplateCycleData(CycleTemplateName cycleTemplateName)
+        public async Task PresentTemplateCycleDataAsync(CycleTemplateName cycleTemplateName)
         {
             if (cycleTemplateName == null)
                 throw new ArgumentNullException(nameof(cycleTemplateName));
 
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
-                this.templateCycleProviderMaster.TemplateCycle(cycleTemplateName);
+                await this.templateCycleProviderMaster.TemplateCycleAsync(cycleTemplateName);
 
             StringBuilder templateSessionsBuilder = new StringBuilder();
-            List<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions =
-                new List<(string templateSession, IList<(int start, int end)> noteReferencePositions)>();
+            List<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions =
+                new List<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)>();
 
             StringBuilder templateSetNoteBuilder = new StringBuilder();
             Dictionary<string, int> templateSetNoteDictionary = new Dictionary<string, int>();

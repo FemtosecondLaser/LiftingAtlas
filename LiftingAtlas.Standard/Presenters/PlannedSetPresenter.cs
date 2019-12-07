@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -32,17 +33,18 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PresentPlannedSetData(
+        public async Task PresentPlannedSetDataAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber
             )
         {
-            PlannedSet plannedSet = this.plannedCycleRepository.GetPlannedSet(
-                plannedCycleGuid,
-                plannedSessionNumber,
-                plannedSetNumber
-                );
+            PlannedSet plannedSet =
+                await this.plannedCycleRepository.GetPlannedSetAsync(
+                    plannedCycleGuid,
+                    plannedSessionNumber,
+                    plannedSetNumber
+                    );
 
             this.plannedSetView.OutputPlannedPercentageOfReferencePoint(
                 plannedSet.PlannedPercentageOfReferencePoint
@@ -69,16 +71,16 @@ namespace LiftingAtlas.Standard
                 );
         }
 
-        public bool PlannedSetIsCurrent(
+        public async Task<bool> PlannedSetIsCurrentAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber
             )
         {
             SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
-                this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+                await this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
                     plannedCycleGuid
-                    );
+                    ).ConfigureAwait(false);
 
             if (currentPlannedSessionAndCurrentPlannedSetNumbers == null)
                 return false;
@@ -90,51 +92,53 @@ namespace LiftingAtlas.Standard
                 );
         }
 
-        public bool RepetitionsWithinPlannedRange(
+        public async Task<bool> RepetitionsWithinPlannedRangeAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             Repetitions repetitions
             )
         {
-            PlannedSet plannedSet = this.plannedCycleRepository.GetPlannedSet(
-                plannedCycleGuid,
-                plannedSessionNumber,
-                plannedSetNumber
-                );
+            PlannedSet plannedSet =
+                await this.plannedCycleRepository.GetPlannedSetAsync(
+                    plannedCycleGuid,
+                    plannedSessionNumber,
+                    plannedSetNumber
+                    ).ConfigureAwait(false);
 
             return plannedSet.RepetitionsWithinPlannedRange(repetitions);
         }
 
-        public bool WeightWithinPlannedRange(
+        public async Task<bool> WeightWithinPlannedRangeAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             Weight weight
             )
         {
-            PlannedSet plannedSet = this.plannedCycleRepository.GetPlannedSet(
-                plannedCycleGuid,
-                plannedSessionNumber,
-                plannedSetNumber
-                );
+            PlannedSet plannedSet =
+                await this.plannedCycleRepository.GetPlannedSetAsync(
+                    plannedCycleGuid,
+                    plannedSessionNumber,
+                    plannedSetNumber
+                    ).ConfigureAwait(false);
 
             return plannedSet.WeightWithinPlannedRange(weight);
         }
 
-        public void UpdatePlannedSetLiftedValues(
+        public async Task UpdatePlannedSetLiftedValuesAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             LiftedValues liftedValues
             )
         {
-            this.plannedCycleRepository.UpdatePlannedSetLiftedValues(
+            await this.plannedCycleRepository.UpdatePlannedSetLiftedValuesAsync(
                 plannedCycleGuid,
                 plannedSessionNumber,
                 plannedSetNumber,
                 liftedValues
-                );
+                ).ConfigureAwait(false);
         }
 
         #endregion

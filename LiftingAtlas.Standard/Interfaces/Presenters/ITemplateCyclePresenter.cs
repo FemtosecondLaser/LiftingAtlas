@@ -1,8 +1,10 @@
-﻿namespace LiftingAtlas.Standard
+﻿using System.Threading.Tasks;
+
+namespace LiftingAtlas.Standard
 {
     public interface ITemplateCyclePresenter
     {
-        void PresentTemplateCycleData(
+        Task PresentTemplateCycleDataAsync(
             CycleTemplateName cycleTemplateName
             );
     }

@@ -1,11 +1,16 @@
-﻿namespace LiftingAtlas.Standard
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace LiftingAtlas.Standard
 {
     public interface ITemplateCycleProviderMaster
     {
-        CycleTemplateName[] NamesOfAllTemplateCycles();
+        Task<IReadOnlyList<CycleTemplateName>> NamesOfAllTemplateCyclesAsync();
 
-        CycleTemplateName[] NamesOfTemplateCyclesForTheLift(Lift lift);
+        Task<IReadOnlyList<CycleTemplateName>> NamesOfTemplateCyclesForTheLiftAsync(Lift lift);
 
-        TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(CycleTemplateName cycleTemplateName);
+        Task<TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>> TemplateCycleAsync(
+            CycleTemplateName cycleTemplateName
+            );
     }
 }

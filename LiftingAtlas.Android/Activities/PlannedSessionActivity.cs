@@ -66,7 +66,7 @@ namespace LiftingAtlas.Droid
             this.mustSelectCurrentSet = true;
         }
 
-        protected override void OnResume()
+        protected async override void OnResume()
         {
             base.OnResume();
 
@@ -77,7 +77,7 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(IPlannedSessionView), this)
                     );
 
-            this.plannedSessionPresenter.PresentPlannedSessionData(
+            await this.plannedSessionPresenter.PresentPlannedSessionDataAsync(
                 this.plannedCycleGuid,
                 new SessionNumber(this.plannedSessionNumber)
                 );
@@ -110,6 +110,7 @@ namespace LiftingAtlas.Droid
 
             this.lifetimeScope.Dispose();
         }
+
         private void SetsListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             PlannedSet plannedSet = this.plannedSetAdapter[e.Position];
@@ -127,14 +128,10 @@ namespace LiftingAtlas.Droid
         }
 
         public void OutputPlannedSessionSets(
-            IList<PlannedSet> plannedSessionSets
+            IReadOnlyList<PlannedSet> plannedSessionSets,
+            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers
             )
         {
-            SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
-                this.plannedSessionPresenter.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
-                    this.plannedCycleGuid
-                    );
-
             this.plannedSetAdapter.SetPlannedSets(
                 new SessionNumber(this.plannedSessionNumber),
                 plannedSessionSets,

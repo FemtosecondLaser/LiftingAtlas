@@ -1,11 +1,12 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
     public interface IStreamBasedTemplateCycleProvider
     {
-        (CycleTemplateName CycleTemplateName, Lift TemplateLift) CycleTemplateNameAndLift(Stream stream);
+        Task<(CycleTemplateName CycleTemplateName, Lift TemplateLift)> CycleTemplateNameAndLiftAsync(Stream stream);
 
-        TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(Stream stream);
+        Task<TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>> TemplateCycleAsync(Stream stream);
     }
 }

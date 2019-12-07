@@ -1,39 +1,42 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
     public interface IPlannedCycleRepository
     {
-        void PlanCycle(
+        Task PlanCycleAsync(
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> cycleTemplate,
             Lift lift,
             Weight referencePoint,
             IQuantizationProvider quantizationProvider
             );
 
-        Guid? GetLatestPlannedCycleGuid(Lift lift);
+        Task<Guid?> GetLatestPlannedCycleGuidAsync(Lift lift);
 
-        PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> GetPlannedCycle(Guid plannedCycleGuid);
+        Task<PlannedCycle<PlannedSession<PlannedSet>, PlannedSet>> GetPlannedCycleAsync(
+            Guid plannedCycleGuid
+            );
 
-        PlannedSession<PlannedSet> GetPlannedSession(
+        Task<PlannedSession<PlannedSet>> GetPlannedSessionAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber
             );
 
-        PlannedSet GetPlannedSet(
+        Task<PlannedSet> GetPlannedSetAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber
             );
 
-        void UpdatePlannedSetLiftedValues(
+        Task UpdatePlannedSetLiftedValuesAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             LiftedValues liftedValues
             );
 
-        SessionSetNumber GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+        Task<SessionSetNumber> GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
             Guid plannedCycleGuid
             );
     }

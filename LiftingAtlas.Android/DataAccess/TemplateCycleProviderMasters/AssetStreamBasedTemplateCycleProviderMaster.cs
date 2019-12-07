@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -50,7 +50,7 @@ namespace LiftingAtlas.Droid
 
         #region Methods
 
-        public CycleTemplateName[] NamesOfAllTemplateCycles()
+        public async Task<IReadOnlyList<CycleTemplateName>> NamesOfAllTemplateCyclesAsync()
         {
             string[] templateCycleAssets = this.context.Assets.List(path);
 
@@ -63,7 +63,8 @@ namespace LiftingAtlas.Droid
                 using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
                 {
                     (CycleTemplateName CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
-                        this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(templateCycleStream);
+                        await this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLiftAsync(templateCycleStream)
+                        .ConfigureAwait(false);
 
                     templateCycleNames[i] = cycleTemplateNameAndLift.CycleTemplateName;
                 }
@@ -72,7 +73,7 @@ namespace LiftingAtlas.Droid
             return templateCycleNames;
         }
 
-        public CycleTemplateName[] NamesOfTemplateCyclesForTheLift(Lift lift)
+        public async Task<IReadOnlyList<CycleTemplateName>> NamesOfTemplateCyclesForTheLiftAsync(Lift lift)
         {
             if (lift == Lift.None)
                 throw new ArgumentException("Unspecified lift.", nameof(lift));
@@ -88,17 +89,20 @@ namespace LiftingAtlas.Droid
                 using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
                 {
                     (CycleTemplateName CycleTemplateName, Lift TemplateLift) cycleTemplateNameAndLift =
-                        this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(templateCycleStream);
+                        await this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLiftAsync(templateCycleStream)
+                        .ConfigureAwait(false);
 
                     if (cycleTemplateNameAndLift.TemplateLift.HasFlag(lift))
                         templateCycleNames.Add(cycleTemplateNameAndLift.CycleTemplateName);
                 }
             }
 
-            return templateCycleNames.ToArray();
+            return templateCycleNames;
         }
 
-        public TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> TemplateCycle(CycleTemplateName cycleTemplateName)
+        public async Task<TemplateCycle<TemplateSession<TemplateSet>, TemplateSet>> TemplateCycleAsync(
+            CycleTemplateName cycleTemplateName
+            )
         {
             if (cycleTemplateName == null)
                 throw new ArgumentNullException(nameof(cycleTemplateName));
@@ -112,11 +116,13 @@ namespace LiftingAtlas.Droid
 
                 using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
                     cycleTemplateNameAndLift =
-                        this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(templateCycleStream);
+                        await this.streamBasedTemplateCycleProvider.CycleTemplateNameAndLiftAsync(templateCycleStream)
+                        .ConfigureAwait(false);
 
                 if (cycleTemplateNameAndLift.CycleTemplateName == cycleTemplateName)
                     using (Stream templateCycleStream = this.context.Assets.Open(templateCycleAssetPath))
-                        return this.streamBasedTemplateCycleProvider.TemplateCycle(templateCycleStream);
+                        return await this.streamBasedTemplateCycleProvider.TemplateCycleAsync(templateCycleStream)
+                            .ConfigureAwait(false);
             }
 
             throw new ArgumentException(

@@ -66,7 +66,7 @@ namespace LiftingAtlas.Droid
             string connectionString =
                 $"{Path.Combine(personalFolderPath, "LiftingAtlas.db")}";
             containerBuilder
-                .RegisterType<SQLitePlannedCycleRepository>()
+                .RegisterType<SQLiteNETPlannedCycleRepository>()
                 .As<IPlannedCycleRepository>()
                 .SingleInstance()
                 .AutoActivate()

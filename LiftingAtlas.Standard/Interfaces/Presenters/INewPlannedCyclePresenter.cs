@@ -1,12 +1,14 @@
-﻿namespace LiftingAtlas.Standard
+﻿using System.Threading.Tasks;
+
+namespace LiftingAtlas.Standard
 {
     public interface INewPlannedCyclePresenter
     {
-        void PresentNamesOfTemplateCyclesForTheLift(
+        Task PresentNamesOfTemplateCyclesForTheLiftAsync(
             Lift lift
             );
 
-        void PlanNewCycle(
+        Task PlanNewCycleAsync(
             CycleTemplateName cycleTemplateName,
             Lift lift,
             Weight referencePoint,

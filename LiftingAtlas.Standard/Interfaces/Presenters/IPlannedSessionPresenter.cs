@@ -1,16 +1,13 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
     public interface IPlannedSessionPresenter
     {
-        void PresentPlannedSessionData(
+        Task PresentPlannedSessionDataAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber
-            );
-
-        SessionSetNumber GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
-            Guid plannedCycleGuid
             );
     }
 }

@@ -58,7 +58,7 @@ namespace LiftingAtlas.Droid
             this.cycleTemplatesListView.Adapter = this.choosableTemplateCycleAdapter;
         }
 
-        protected override void OnResume()
+        protected async override void OnResume()
         {
             base.OnResume();
 
@@ -69,7 +69,7 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(INewPlannedCycleView), this)
                     );
 
-            this.newPlannedCyclePresenter.PresentNamesOfTemplateCyclesForTheLift(this.lift);
+            await this.newPlannedCyclePresenter.PresentNamesOfTemplateCyclesForTheLiftAsync(this.lift);
 
             using (AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this))
             {
@@ -82,76 +82,89 @@ namespace LiftingAtlas.Droid
             this.choosableTemplateCycleAdapter.ViewTemplateCycleRequested += ChoosableTemplateCycleAdapter_ViewTemplateCycleRequested;
         }
 
-        private void PlanNewCycleButton_Click(object sender, EventArgs e)
+        private async void PlanNewCycleButton_Click(object sender, EventArgs e)
         {
-            this.planNewCycleErrorStringBuilder = new StringBuilder();
+            View senderView = sender as View;
 
-            int checkedItemPosition = this.cycleTemplatesListView.CheckedItemPosition;
+            if (senderView != null)
+                senderView.Enabled = false;
 
-            if (checkedItemPosition == -1)
-                this.planNewCycleErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.select_cycle_template_dot)
-                    );
-
-            double referencePoint;
-
-            if (!double.TryParse(this.referencePointTextInputEditText.Text, out referencePoint))
-                this.planNewCycleErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_reference_point_dot)
-                    );
-            else
+            try
             {
-                if (double.IsNaN(referencePoint) || double.IsInfinity(referencePoint))
+                this.planNewCycleErrorStringBuilder = new StringBuilder();
+
+                int checkedItemPosition = this.cycleTemplatesListView.CheckedItemPosition;
+
+                if (checkedItemPosition == -1)
                     this.planNewCycleErrorStringBuilder.AppendLine(
-                        this.GetString(Resource.String.reference_point_must_be_a_finite_number)
+                        this.GetString(Resource.String.select_cycle_template_dot)
                         );
 
-                if (referencePoint < 0.00)
+                double referencePoint;
+
+                if (!double.TryParse(this.referencePointTextInputEditText.Text, out referencePoint))
                     this.planNewCycleErrorStringBuilder.AppendLine(
-                        this.GetString(Resource.String.reference_point_must_not_be_less_than_0_dot)
+                        this.GetString(Resource.String.enter_reference_point_dot)
                         );
-            }
+                else
+                {
+                    if (double.IsNaN(referencePoint) || double.IsInfinity(referencePoint))
+                        this.planNewCycleErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.reference_point_must_be_a_finite_number)
+                            );
 
-            double uniformQuantizationInterval;
+                    if (referencePoint < 0.00)
+                        this.planNewCycleErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.reference_point_must_not_be_less_than_0_dot)
+                            );
+                }
 
-            if (!double.TryParse(this.uniformQuantizationIntervalTextInputEditText.Text, out uniformQuantizationInterval))
-                this.planNewCycleErrorStringBuilder.AppendLine(
-                    this.GetString(Resource.String.enter_uniform_quantization_interval_dot)
+                double uniformQuantizationInterval;
+
+                if (!double.TryParse(this.uniformQuantizationIntervalTextInputEditText.Text, out uniformQuantizationInterval))
+                    this.planNewCycleErrorStringBuilder.AppendLine(
+                        this.GetString(Resource.String.enter_uniform_quantization_interval_dot)
+                        );
+                else
+                {
+                    if (double.IsNaN(uniformQuantizationInterval) || double.IsInfinity(uniformQuantizationInterval))
+                        this.planNewCycleErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.uniform_quantization_interval_must_be_a_finite_number)
+                            );
+
+                    if (!(uniformQuantizationInterval > 0.00))
+                        this.planNewCycleErrorStringBuilder.AppendLine(
+                            this.GetString(Resource.String.uniform_quantization_interval_must_be_greater_than_0)
+                            );
+                }
+
+                if (this.planNewCycleErrorStringBuilder.Length > 0)
+                {
+                    this.planNewCycleErrorAlertDialog.SetMessage(
+                        this.planNewCycleErrorStringBuilder.ToString().TrimEnd()
+                        );
+
+                    this.planNewCycleErrorAlertDialog.Show();
+
+                    return;
+                }
+
+                CycleTemplateName selectedCycleTemplateName = this.choosableTemplateCycleAdapter[checkedItemPosition];
+
+                await this.newPlannedCyclePresenter.PlanNewCycleAsync(
+                    selectedCycleTemplateName,
+                    this.lift,
+                    new Weight(referencePoint),
+                    new UniformQuantizationInterval(uniformQuantizationInterval)
                     );
-            else
-            {
-                if (double.IsNaN(uniformQuantizationInterval) || double.IsInfinity(uniformQuantizationInterval))
-                    this.planNewCycleErrorStringBuilder.AppendLine(
-                        this.GetString(Resource.String.uniform_quantization_interval_must_be_a_finite_number)
-                        );
 
-                if (!(uniformQuantizationInterval > 0.00))
-                    this.planNewCycleErrorStringBuilder.AppendLine(
-                        this.GetString(Resource.String.uniform_quantization_interval_must_be_greater_than_0)
-                        );
+                this.Finish();
             }
-
-            if (this.planNewCycleErrorStringBuilder.Length > 0)
+            finally
             {
-                this.planNewCycleErrorAlertDialog.SetMessage(
-                    this.planNewCycleErrorStringBuilder.ToString().TrimEnd()
-                    );
-
-                this.planNewCycleErrorAlertDialog.Show();
-
-                return;
+                if (senderView != null)
+                    senderView.Enabled = true;
             }
-
-            CycleTemplateName selectedCycleTemplateName = this.choosableTemplateCycleAdapter[checkedItemPosition];
-
-            this.newPlannedCyclePresenter.PlanNewCycle(
-                selectedCycleTemplateName,
-                this.lift,
-                new Weight(referencePoint),
-                new UniformQuantizationInterval(uniformQuantizationInterval)
-                );
-
-            this.Finish();
         }
 
         private void ChoosableTemplateCycleAdapter_ViewTemplateCycleRequested(
@@ -191,7 +204,7 @@ namespace LiftingAtlas.Droid
                 inputMethodManager.HideSoftInputFromWindow(currentlyFocusedView.WindowToken, HideSoftInputFlags.None);
         }
 
-        public void OutputNamesOfTemplateCycles(IList<CycleTemplateName> namesOfTemplateCycles)
+        public void OutputNamesOfTemplateCycles(IReadOnlyList<CycleTemplateName> namesOfTemplateCycles)
         {
             this.choosableTemplateCycleAdapter.SetCycleTemplateNames(namesOfTemplateCycles);
         }

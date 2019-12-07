@@ -5,7 +5,7 @@ namespace LiftingAtlas.Standard
     public interface INewPlannedCycleView
     {
         void OutputNamesOfTemplateCycles(
-            IList<CycleTemplateName> namesOfTemplateCycles
+            IReadOnlyList<CycleTemplateName> namesOfTemplateCycles
             );
     }
 }

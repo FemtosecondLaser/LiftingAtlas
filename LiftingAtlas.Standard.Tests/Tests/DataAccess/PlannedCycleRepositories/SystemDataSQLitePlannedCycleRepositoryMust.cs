@@ -1,28 +1,37 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Data.SQLite;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard.Tests
 {
     [TestFixture]
-    public class SQLitePlannedCycleRepositoryMust
+    public class SystemDataSQLitePlannedCycleRepositoryMust
     {
         public IGuidProvider guidProvider;
-        public SQLitePlannedCycleRepository sQLitePlannedCycleRepository;
+        public SystemDataSQLitePlannedCycleRepository sQLitePlannedCycleRepository;
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            guidProvider = new HexFirstCharFRestZerosGuidProvider();
+            Mock<IGuidProvider> guidProviderMock = new Mock<IGuidProvider>();
+
+            guidProviderMock
+                .Setup(guidProvider => guidProvider.GetGuid())
+                .Returns(new Guid(new byte[16] { 0, 0, 0, 240, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }));
+
+            guidProvider = guidProviderMock.Object;
         }
 
         [SetUp]
         public void SetUp()
         {
             sQLitePlannedCycleRepository =
-                new SQLitePlannedCycleRepository(
+                new SystemDataSQLitePlannedCycleRepository(
                     guidProvider,
-                    ":memory:"
+                    "Data Source=:memory:;"
                     );
         }
 
@@ -35,7 +44,7 @@ namespace LiftingAtlas.Standard.Tests
         #region PlanCycle
 
         [Test]
-        public void PlanACycle()
+        public async Task PlanACycle()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -43,16 +52,19 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> referencePlannedCycle =
@@ -79,23 +91,26 @@ namespace LiftingAtlas.Standard.Tests
 
         [Test]
         [TestCaseSource(nameof(QuantizationProviders))]
-        public void PlanACycleApplyingQuantizationMethodOfSuppliedQuantizationProvider(IQuantizationProvider quantizationProvider)
+        public async Task PlanACycleApplyingQuantizationMethodOfSuppliedQuantizationProvider(IQuantizationProvider quantizationProvider)
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> referencePlannedCycle =
@@ -123,9 +138,8 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 null;
 
-            Assert.Throws(
-                typeof(ArgumentNullException),
-                () => sQLitePlannedCycleRepository.PlanCycle(
+            Assert.ThrowsAsync<ArgumentNullException>(
+                async () => await sQLitePlannedCycleRepository.PlanCycleAsync(
                     templateCycle,
                     plannedLift,
                     referencePoint,
@@ -145,9 +159,8 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.PlanCycle(
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.PlanCycleAsync(
                     templateCycle,
                     plannedLift,
                     referencePoint,
@@ -167,8 +180,8 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            Assert.DoesNotThrow(
-                () => sQLitePlannedCycleRepository.PlanCycle(
+            Assert.DoesNotThrowAsync(
+                async () => await sQLitePlannedCycleRepository.PlanCycleAsync(
                     templateCycle,
                     plannedLift,
                     referencePoint,
@@ -187,9 +200,8 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.PlanCycle(
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.PlanCycleAsync(
                     templateCycle,
                     plannedLift,
                     referencePoint,
@@ -201,7 +213,7 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowExceptionIfPlanningACycleWithGuidWhichIsMappedToAStoredPlannedCycle()
+        public async Task ThrowSQLiteExceptionIfPlanningACycleWithGuidWhichIsMappedToAStoredPlannedCycle()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -209,33 +221,31 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
-            Assert.That(
-                () => sQLitePlannedCycleRepository.PlanCycle(
+            Assert.ThrowsAsync<SQLiteException>(
+                async () => await sQLitePlannedCycleRepository.PlanCycleAsync(
                     templateCycle,
                     plannedLift,
                     referencePoint,
                     quantizationProvider
                     ),
-                Throws.Exception,
                 "System under test must throw exception if planning a cycle " +
                 "with guid which is mapped to a stored planned cycle."
                 );
         }
 
-        
         #endregion
 
         #region GetLatestPlannedCycleGuid
 
         [Test]
-        public void ReturnNonNullLatestPlannedCycleGuidForTheLiftIfLatestPlannedCycleForTheLiftExists()
+        public async Task ReturnNonNullLatestPlannedCycleGuidForTheLiftIfLatestPlannedCycleForTheLiftExists()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -243,7 +253,7 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
@@ -251,7 +261,7 @@ namespace LiftingAtlas.Standard.Tests
                 );
 
             Assert.That(
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift),
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift),
                 Is.Not.EqualTo(null),
                 "System under test must return non-null latest planned cycle guid for the lift " +
                 "if latest planned cycle for the lift exists."
@@ -262,23 +272,22 @@ namespace LiftingAtlas.Standard.Tests
         [TestCase(Lift.Squat)]
         [TestCase(Lift.BenchPress)]
         [TestCase(Lift.Deadlift)]
-        public void ReturnNullLatestPlannedCycleGuidForTheLiftIfLatestPlannedCycleForTheLiftDoesNotExist(Lift lift)
+        public async Task ReturnNullLatestPlannedCycleGuidForTheLiftIfLatestPlannedCycleForTheLiftDoesNotExist(Lift lift)
         {
             Assert.That(
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(lift),
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(lift),
                 Is.EqualTo(null),
                 "System under test must return null latest planned cycle guid for the lift " +
                 "if latest planned cycle for the lift does not exist."
                 );
         }
 
-        
         #endregion
 
         #region GetPlannedCycle
 
         [Test]
-        public void ReturnNonNullPlannedCycleIfProvidedGuidOfStoredPlannedCycle()
+        public async Task ReturnNonNullPlannedCycleIfProvidedGuidOfStoredPlannedCycle()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -286,16 +295,19 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             Assert.That(
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     ),
                 Is.Not.EqualTo(null),
                 "Must return non-null planned cycle if provided guid of stored planned cycle."
@@ -305,9 +317,8 @@ namespace LiftingAtlas.Standard.Tests
         [Test]
         public void ThrowArgumentExceptionIfProvidedGuidDoesNotMapStoredPlannedCycle()
         {
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.GetPlannedCycle(
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
                     guidProvider.GetGuid()
                     ),
                 "Must throw argument exception if provided guid does not map stored planned cycle."
@@ -319,7 +330,7 @@ namespace LiftingAtlas.Standard.Tests
         #region GetPlannedSession
 
         [Test]
-        public void ReturnPlannedSession()
+        public async Task ReturnPlannedSession()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -327,16 +338,19 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> referencePlannedCycle =
@@ -349,7 +363,7 @@ namespace LiftingAtlas.Standard.Tests
 
             foreach (PlannedSession<PlannedSet> referencePlannedSession in referencePlannedCycle.Sessions)
                 Assert.That(
-                    sQLitePlannedCycleRepository.GetPlannedSession(
+                    await sQLitePlannedCycleRepository.GetPlannedSessionAsync(
                         systemUnderTestPlannedCycle.PlannedCycleGuid,
                         referencePlannedSession.Number
                         ),
@@ -360,14 +374,13 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowExceptionIfRequestingToReturnPlannedSessionWithUnmappedPlannedCycleGuid()
+        public void ThrowSQLiteExceptionIfRequestingToReturnPlannedSessionWithUnmappedPlannedCycleGuid()
         {
-            Assert.That(
-                () => sQLitePlannedCycleRepository.GetPlannedSession(
+            Assert.ThrowsAsync<SQLiteException>(
+                async () => await sQLitePlannedCycleRepository.GetPlannedSessionAsync(
                     guidProvider.GetGuid(),
                     new SessionNumber(1)
                     ),
-                Throws.Exception,
                 "System under test must throw exception if requesting " +
                 "to return planned session, specifying planned cycle guid " +
                 "which is not mapped to a stored planned cycle."
@@ -375,7 +388,7 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowExceptionIfRequestingToReturnPlannedSessionWhichDoesNotExist()
+        public async Task ThrowArgumentExceptionIfRequestingToReturnPlannedSessionWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -383,21 +396,23 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.GetPlannedSession(
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.GetPlannedSessionAsync(
                     systemUnderTestPlannedCycle.PlannedCycleGuid,
                     new SessionNumber(397)
                     ),
@@ -411,7 +426,7 @@ namespace LiftingAtlas.Standard.Tests
         #region GetPlannedSet
 
         [Test]
-        public void ReturnPlannedSet()
+        public async Task ReturnPlannedSet()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -419,16 +434,19 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> referencePlannedCycle =
@@ -442,7 +460,7 @@ namespace LiftingAtlas.Standard.Tests
             foreach (PlannedSession<PlannedSet> referencePlannedSession in referencePlannedCycle.Sessions)
                 foreach (PlannedSet referencePlannedSet in referencePlannedSession.Sets)
                     Assert.That(
-                        sQLitePlannedCycleRepository.GetPlannedSet(
+                        await sQLitePlannedCycleRepository.GetPlannedSetAsync(
                             systemUnderTestPlannedCycle.PlannedCycleGuid,
                             referencePlannedSession.Number,
                             referencePlannedSet.Number
@@ -454,15 +472,14 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowExceptionIfRequestingToReturnPlannedSetWithUnmappedPlannedCycleGuid()
+        public void ThrowSQLiteExceptionIfRequestingToReturnPlannedSetWithUnmappedPlannedCycleGuid()
         {
-            Assert.That(
-                () => sQLitePlannedCycleRepository.GetPlannedSet(
+            Assert.ThrowsAsync<SQLiteException>(
+                async () => await sQLitePlannedCycleRepository.GetPlannedSetAsync(
                     guidProvider.GetGuid(),
                     new SessionNumber(1),
                     new SetNumber(1)
                     ),
-                Throws.Exception,
                 "System under test must throw exception if requesting " +
                 "to return planned set, specifying planned cycle guid " +
                 "which is not mapped to a stored planned cycle."
@@ -470,7 +487,7 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowExceptionIfRequestingToReturnPlannedSetWhichDoesNotExist()
+        public async Task ThrowArgumentExceptionIfRequestingToReturnPlannedSetWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -478,21 +495,23 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
+            Guid? latestPlannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
+
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> systemUnderTestPlannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(
-                    sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(
+                    latestPlannedCycleGuid.Value
                     );
 
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.GetPlannedSet(
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.GetPlannedSetAsync(
                     systemUnderTestPlannedCycle.PlannedCycleGuid,
                     new SessionNumber(397),
                     new SetNumber(397)
@@ -507,7 +526,7 @@ namespace LiftingAtlas.Standard.Tests
         #region UpdatePlannedSetLiftedValues
 
         [Test]
-        public void UpdateLiftedValuesOfPlannedSet()
+        public async Task UpdateLiftedValuesOfPlannedSet()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -515,22 +534,22 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
-            Guid guidOfCycleToUpdateSetOf =
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
+            Guid? guidOfCycleToUpdateSetOf =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
 
             SessionNumber sessionToUpdate = new SessionNumber(1);
             SetNumber setToUpdate = new SetNumber(1);
 
             PlannedSet plannedSetToUpdate =
-                sQLitePlannedCycleRepository.GetPlannedSet(
-                    guidOfCycleToUpdateSetOf,
+                await sQLitePlannedCycleRepository.GetPlannedSetAsync(
+                    guidOfCycleToUpdateSetOf.Value,
                     sessionToUpdate,
                     setToUpdate
                     );
@@ -541,36 +560,36 @@ namespace LiftingAtlas.Standard.Tests
                     new Weight(plannedSetToUpdate.PlannedWeight.UpperBound)
                     );
 
-            sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
-                guidOfCycleToUpdateSetOf,
+            await sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValuesAsync(
+                guidOfCycleToUpdateSetOf.Value,
                 sessionToUpdate,
                 setToUpdate,
                 liftedValues
                 );
 
-            Assert.That(
-                 sQLitePlannedCycleRepository.GetPlannedSet(
-                    guidOfCycleToUpdateSetOf,
+            PlannedSet plannedSet =
+                await sQLitePlannedCycleRepository.GetPlannedSetAsync(
+                    guidOfCycleToUpdateSetOf.Value,
                     sessionToUpdate,
                     setToUpdate
-                    )
-                 .LiftedValues,
+                    );
+
+            Assert.That(plannedSet.LiftedValues,
                 Is.EqualTo(liftedValues),
                 "Lifted values of planned set must be updated."
                 );
         }
 
         [Test]
-        public void ThrowExceptionIfRequestingToUpdateLiftedValuesOfPlannedSetWithUnmappedPlannedCycleGuid()
+        public void ThrowSQLiteExceptionIfRequestingToUpdateLiftedValuesOfPlannedSetWithUnmappedPlannedCycleGuid()
         {
-            Assert.That(
-                () => sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
+            Assert.ThrowsAsync<SQLiteException>(
+                async () => await sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValuesAsync(
                     guidProvider.GetGuid(),
                     new SessionNumber(1),
                     new SetNumber(1),
                     new LiftedValues(new Repetitions(1), new Weight(1.00))
                     ),
-                Throws.Exception,
                 "System under test must throw exception if requesting " +
                 "to update lifted values of planned set, specifying planned cycle guid " +
                 "which is not mapped to a stored planned cycle."
@@ -578,7 +597,7 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ThrowArgumentExceptionIfUpdatingLiftedValuesOfPlannedSetWhichDoesNotExist()
+        public async Task ThrowArgumentExceptionIfUpdatingLiftedValuesOfPlannedSetWhichDoesNotExist()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -586,20 +605,19 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
-            Guid guidOfCycleToUpdateSetOf =
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
+            Guid? guidOfCycleToUpdateSetOf =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
 
-            Assert.Throws(
-                typeof(ArgumentException),
-                () => sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
-                    guidOfCycleToUpdateSetOf,
+            Assert.ThrowsAsync<ArgumentException>(
+                async () => await sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValuesAsync(
+                    guidOfCycleToUpdateSetOf.Value,
                     new SessionNumber(397),
                     new SetNumber(397),
                     new LiftedValues(new Repetitions(1), new Weight(1.00))
@@ -614,7 +632,7 @@ namespace LiftingAtlas.Standard.Tests
         #region GetCurrentPlannedSessionAndCurrentPlannedSetNumbers
 
         [Test]
-        public void ReturnCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsNotDone()
+        public async Task ReturnCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsNotDone()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -622,18 +640,20 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
-            Guid plannedCycleGuid =
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
+            Guid? plannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
 
             SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
-                sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(plannedCycleGuid);
+                await sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
+                    plannedCycleGuid.Value
+                    );
 
             Assert.That(
                 currentPlannedSessionAndCurrentPlannedSetNumbers,
@@ -643,7 +663,7 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ReturnNullCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsDone()
+        public async Task ReturnNullCurrentPlannedSessionAndCurrentPlannedSetNumbersIfTheCycleIsDone()
         {
             Lift plannedLift = Lift.Squat;
             Weight referencePoint = new Weight(137.5);
@@ -651,18 +671,18 @@ namespace LiftingAtlas.Standard.Tests
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
                 REFERENCECYCLESB.TemplateCycle();
 
-            sQLitePlannedCycleRepository.PlanCycle(
+            await sQLitePlannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 plannedLift,
                 referencePoint,
                 quantizationProvider
                 );
 
-            Guid plannedCycleGuid =
-                sQLitePlannedCycleRepository.GetLatestPlannedCycleGuid(plannedLift).Value;
+            Guid? plannedCycleGuid =
+                await sQLitePlannedCycleRepository.GetLatestPlannedCycleGuidAsync(plannedLift);
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> plannedCycle =
-                sQLitePlannedCycleRepository.GetPlannedCycle(plannedCycleGuid);
+                await sQLitePlannedCycleRepository.GetPlannedCycleAsync(plannedCycleGuid.Value);
 
             foreach (PlannedSession<PlannedSet> plannedSession in plannedCycle.Sessions)
                 foreach (PlannedSet plannedSet in plannedSession.Sets)
@@ -673,8 +693,8 @@ namespace LiftingAtlas.Standard.Tests
                             new Weight(plannedSet.PlannedWeight?.UpperBound ?? 1.00)
                             );
 
-                    sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValues(
-                        plannedCycleGuid,
+                    await sQLitePlannedCycleRepository.UpdatePlannedSetLiftedValuesAsync(
+                        plannedCycleGuid.Value,
                         plannedSession.Number,
                         plannedSet.Number,
                         liftedValues
@@ -682,7 +702,9 @@ namespace LiftingAtlas.Standard.Tests
                 }
 
             SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
-                sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(plannedCycleGuid);
+                await sQLitePlannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
+                    plannedCycleGuid.Value
+                    );
 
             Assert.That(
                 currentPlannedSessionAndCurrentPlannedSetNumbers,

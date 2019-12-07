@@ -15,7 +15,7 @@ namespace LiftingAtlas.Droid
     public class LiftAdapter : BaseAdapter<string>, ISpinnerAdapter
     {
         private Activity activity;
-        private IList<string> lifts;
+        private List<string> lifts;
 
         public LiftAdapter(Activity activity) : base()
         {

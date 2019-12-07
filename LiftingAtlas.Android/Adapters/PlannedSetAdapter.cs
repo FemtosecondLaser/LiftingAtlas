@@ -17,7 +17,7 @@ namespace LiftingAtlas.Droid
     {
         private Activity activity;
         private SessionNumber plannedSessionNumber;
-        private IList<PlannedSet> plannedSets;
+        private List<PlannedSet> plannedSets;
         private SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers;
 
         public PlannedSetAdapter(Activity activity) : base()
@@ -108,7 +108,7 @@ namespace LiftingAtlas.Droid
 
         public void SetPlannedSets(
             SessionNumber plannedSessionNumber,
-            IList<PlannedSet> plannedSets,
+            IReadOnlyList<PlannedSet> plannedSets,
             SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers
             )
         {

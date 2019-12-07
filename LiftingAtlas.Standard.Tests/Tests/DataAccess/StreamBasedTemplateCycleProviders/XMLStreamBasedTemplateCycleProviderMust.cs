@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard.Tests
 {
@@ -16,11 +17,11 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ProvideTemplateCycleNameAndLiftAsSuppliedViaXML()
+        public async Task ProvideTemplateCycleNameAndLiftAsSuppliedViaXML()
         {
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(REFERENCECYCLESB.XML())))
                 Assert.That(
-                    streamBasedTemplateCycleProvider.CycleTemplateNameAndLift(memoryStream),
+                    await streamBasedTemplateCycleProvider.CycleTemplateNameAndLiftAsync(memoryStream),
                     Is.EqualTo(REFERENCECYCLESB.CycleTemplateNameAndLift()),
                     "Template cycle name and lift, provided by the system under test, " +
                     "must match reference template cycle name and lift."
@@ -28,11 +29,11 @@ namespace LiftingAtlas.Standard.Tests
         }
 
         [Test]
-        public void ProvideTemplateCycleAsSuppliedViaXML()
+        public async Task ProvideTemplateCycleAsSuppliedViaXML()
         {
             using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(REFERENCECYCLESB.XML())))
                 Assert.That(
-                    streamBasedTemplateCycleProvider.TemplateCycle(memoryStream),
+                    await streamBasedTemplateCycleProvider.TemplateCycleAsync(memoryStream),
                     Is.EqualTo(REFERENCECYCLESB.TemplateCycle()),
                     "Template cycle, provided by the system under test, must match reference template cycle."
                     );

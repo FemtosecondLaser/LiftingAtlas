@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
     public interface ICurrentPlannedCyclePresenter
     {
-        void PresentCurrentPlannedCycleDataForTheLift(
+        Task PresentCurrentPlannedCycleDataForTheLiftAsync(
             Lift lift
             );
 
-        Guid? GetCurrentPlannedCycleGuid(
+        Task<Guid?> GetCurrentPlannedCycleGuidAsync(
             Lift lift
-            );
-
-        SessionNumber GetCurrentPlannedSessionNumber(
-            Guid plannedCycleGuid
             );
     }
 }

@@ -1,36 +1,37 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
     public interface IPlannedSetPresenter
     {
-        void PresentPlannedSetData(
+        Task PresentPlannedSetDataAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber
             );
 
-        bool PlannedSetIsCurrent(
+        Task<bool> PlannedSetIsCurrentAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber
             );
 
-        bool RepetitionsWithinPlannedRange(
+        Task<bool> RepetitionsWithinPlannedRangeAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             Repetitions repetitions
             );
 
-        bool WeightWithinPlannedRange(
+        Task<bool> WeightWithinPlannedRangeAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,
             Weight weight
             );
 
-        void UpdatePlannedSetLiftedValues(
+        Task UpdatePlannedSetLiftedValuesAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber,

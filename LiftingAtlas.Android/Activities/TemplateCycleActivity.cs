@@ -53,7 +53,7 @@ namespace LiftingAtlas.Droid
             this.templateSetNotesListView.Adapter = this.templateSetNoteAdapter;
         }
 
-        protected override void OnResume()
+        protected async override void OnResume()
         {
             base.OnResume();
 
@@ -64,7 +64,7 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(ITemplateCycleView), this)
                     );
 
-            this.templateCyclePresenter.PresentTemplateCycleData(
+            await this.templateCyclePresenter.PresentTemplateCycleDataAsync(
                 new CycleTemplateName(this.cycleTemplateName)
                 );
         }
@@ -77,14 +77,14 @@ namespace LiftingAtlas.Droid
         }
 
         public void OutputTemplateSessions(
-            IList<(string templateSession, IList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
+            IReadOnlyList<(string templateSession, IReadOnlyList<(int start, int end)> noteReferencePositions)> templateSessionsAndNoteReferencePositions
             )
         {
             this.templateSessionAdapter.SetTemplateSessionsAndNoteReferencePositions(templateSessionsAndNoteReferencePositions);
         }
 
         public void OutputTemplateSetNotes(
-            IList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions
+            IReadOnlyList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions
             )
         {
             this.templateSetNoteAdapter.SetTemplateSetNotes(templateSetNotesAndNoteReferencePositions);

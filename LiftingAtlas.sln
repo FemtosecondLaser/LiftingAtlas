@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LiftingAtlas.Standard", "LiftingAtlas.Standard\LiftingAtlas.Standard.csproj", "{734BD4E6-0C1D-4FAD-B883-0CB7C4FD5BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftingAtlas.Standard.Tests", "LiftingAtlas.Standard.Tests\LiftingAtlas.Standard.Tests.csproj", "{5752BA4F-D10A-44B6-B11F-96E9906DF865}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftingAtlas.Android", "LiftingAtlas.Android\LiftingAtlas.Android.csproj", "{30F41E86-6418-4EC5-828F-3379217EBB24}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiftingAtlas.Standard.Tests", "LiftingAtlas.Standard.Tests\LiftingAtlas.Standard.Tests.csproj", "{7461D467-A8DF-417B-89EB-184EEA23C42C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,16 +19,16 @@ Global
 		{734BD4E6-0C1D-4FAD-B883-0CB7C4FD5BBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{734BD4E6-0C1D-4FAD-B883-0CB7C4FD5BBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{734BD4E6-0C1D-4FAD-B883-0CB7C4FD5BBD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5752BA4F-D10A-44B6-B11F-96E9906DF865}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5752BA4F-D10A-44B6-B11F-96E9906DF865}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5752BA4F-D10A-44B6-B11F-96E9906DF865}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5752BA4F-D10A-44B6-B11F-96E9906DF865}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{30F41E86-6418-4EC5-828F-3379217EBB24}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7461D467-A8DF-417B-89EB-184EEA23C42C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7461D467-A8DF-417B-89EB-184EEA23C42C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7461D467-A8DF-417B-89EB-184EEA23C42C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7461D467-A8DF-417B-89EB-184EEA23C42C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

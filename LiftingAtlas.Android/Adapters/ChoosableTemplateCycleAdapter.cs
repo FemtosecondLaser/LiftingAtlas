@@ -17,7 +17,7 @@ namespace LiftingAtlas.Droid
     public class ChoosableTemplateCycleAdapter : BaseAdapter<CycleTemplateName>, INotifyViewTemplateCycleRequested
     {
         private Activity activity;
-        private IList<CycleTemplateName> cycleTemplateNames;
+        private List<CycleTemplateName> cycleTemplateNames;
 
         public ChoosableTemplateCycleAdapter(Activity activity) : base()
         {
@@ -95,7 +95,7 @@ namespace LiftingAtlas.Droid
                 );
         }
 
-        public void SetCycleTemplateNames(IList<CycleTemplateName> cycleTemplateNames)
+        public void SetCycleTemplateNames(IReadOnlyList<CycleTemplateName> cycleTemplateNames)
         {
             NotifyDataSetInvalidated();
 

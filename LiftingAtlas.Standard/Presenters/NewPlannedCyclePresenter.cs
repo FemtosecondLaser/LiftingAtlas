@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -44,7 +46,7 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PlanNewCycle(
+        public async Task PlanNewCycleAsync(
             CycleTemplateName cycleTemplateName,
             Lift lift,
             Weight referencePoint,
@@ -64,20 +66,21 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentNullException(nameof(uniformQuantizationInterval));
 
             TemplateCycle<TemplateSession<TemplateSet>, TemplateSet> templateCycle =
-                this.templateCycleProviderMaster.TemplateCycle(cycleTemplateName);
+                await this.templateCycleProviderMaster.TemplateCycleAsync(cycleTemplateName)
+                .ConfigureAwait(false);
 
-            this.plannedCycleRepository.PlanCycle(
+            await this.plannedCycleRepository.PlanCycleAsync(
                 templateCycle,
                 lift,
                 referencePoint,
                 this.uniformQuantizationProviderFactory.Create(uniformQuantizationInterval)
-                );
+                ).ConfigureAwait(false);
         }
 
-        public void PresentNamesOfTemplateCyclesForTheLift(Lift lift)
+        public async Task PresentNamesOfTemplateCyclesForTheLiftAsync(Lift lift)
         {
-            CycleTemplateName[] namesOfTemplateCyclesForTheLift =
-                this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLift(lift);
+            IReadOnlyList<CycleTemplateName> namesOfTemplateCyclesForTheLift =
+                await this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLiftAsync(lift);
 
             this.newPlannedCycleView.OutputNamesOfTemplateCycles(namesOfTemplateCyclesForTheLift);
         }

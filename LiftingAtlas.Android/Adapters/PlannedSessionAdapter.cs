@@ -16,7 +16,7 @@ namespace LiftingAtlas.Droid
     public class PlannedSessionAdapter : BaseAdapter<PlannedSession<PlannedSet>>
     {
         private Activity activity;
-        private IList<PlannedSession<PlannedSet>> plannedSessions;
+        private List<PlannedSession<PlannedSet>> plannedSessions;
         private SessionNumber currentPlannedSessionNumber;
 
         public PlannedSessionAdapter(Activity activity) : base()
@@ -90,7 +90,7 @@ namespace LiftingAtlas.Droid
         }
 
         public void SetPlannedSessions(
-            IList<PlannedSession<PlannedSet>> plannedSessions,
+            IReadOnlyList<PlannedSession<PlannedSet>> plannedSessions,
             SessionNumber currentPlannedSessionNumber
             )
         {

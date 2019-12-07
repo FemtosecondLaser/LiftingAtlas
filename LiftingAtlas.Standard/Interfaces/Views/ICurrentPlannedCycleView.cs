@@ -14,7 +14,8 @@ namespace LiftingAtlas.Standard
             );
 
         void OutputCurrentPlannedCycleSessions(
-            IList<PlannedSession<PlannedSet>> currentPlannedCycleSessions
+            IReadOnlyList<PlannedSession<PlannedSet>> currentPlannedCycleSessions,
+            SessionNumber currentPlannedSessionNumber
             );
     }
 }

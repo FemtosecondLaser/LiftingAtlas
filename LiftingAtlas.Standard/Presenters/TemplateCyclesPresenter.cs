@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -35,18 +36,18 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PresentNamesOfAllTemplateCycles()
+        public async Task PresentNamesOfAllTemplateCyclesAsync()
         {
-            CycleTemplateName[] namesOfAllTemplateCycles =
-                this.templateCycleProviderMaster.NamesOfAllTemplateCycles();
+            IReadOnlyList<CycleTemplateName> namesOfAllTemplateCycles =
+                await this.templateCycleProviderMaster.NamesOfAllTemplateCyclesAsync();
 
             this.templateCyclesView.OutputNamesOfTemplateCycles(namesOfAllTemplateCycles);
         }
 
-        public void PresentNamesOfTemplateCyclesForTheLift(Lift lift)
+        public async Task PresentNamesOfTemplateCyclesForTheLiftAsync(Lift lift)
         {
-            CycleTemplateName[] namesOfTemplateCyclesForTheLift =
-                this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLift(lift);
+            IReadOnlyList<CycleTemplateName> namesOfTemplateCyclesForTheLift =
+                await this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLiftAsync(lift);
 
             this.templateCyclesView.OutputNamesOfTemplateCycles(namesOfTemplateCyclesForTheLift);
         }

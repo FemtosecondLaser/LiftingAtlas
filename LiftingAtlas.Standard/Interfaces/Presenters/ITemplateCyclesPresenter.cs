@@ -1,10 +1,12 @@
-﻿namespace LiftingAtlas.Standard
+﻿using System.Threading.Tasks;
+
+namespace LiftingAtlas.Standard
 {
     public interface ITemplateCyclesPresenter
     {
-        void PresentNamesOfAllTemplateCycles();
+        Task PresentNamesOfAllTemplateCyclesAsync();
 
-        void PresentNamesOfTemplateCyclesForTheLift(
+        Task PresentNamesOfTemplateCyclesForTheLiftAsync(
             Lift lift
             );
     }

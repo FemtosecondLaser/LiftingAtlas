@@ -16,7 +16,7 @@ namespace LiftingAtlas.Droid
     public class TemplateCycleAdapter : BaseAdapter<CycleTemplateName>
     {
         private Activity activity;
-        private IList<CycleTemplateName> cycleTemplateNames;
+        private List<CycleTemplateName> cycleTemplateNames;
 
         public TemplateCycleAdapter(Activity activity) : base()
         {
@@ -66,7 +66,7 @@ namespace LiftingAtlas.Droid
             return view;
         }
 
-        public void SetCycleTemplateNames(IList<CycleTemplateName> cycleTemplateNames)
+        public void SetCycleTemplateNames(IReadOnlyList<CycleTemplateName> cycleTemplateNames)
         {
             NotifyDataSetInvalidated();
 

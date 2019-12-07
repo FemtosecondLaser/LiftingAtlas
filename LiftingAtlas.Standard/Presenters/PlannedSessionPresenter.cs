@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -32,7 +33,7 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PresentPlannedSessionData(
+        public async Task PresentPlannedSessionDataAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber
             )
@@ -41,23 +42,24 @@ namespace LiftingAtlas.Standard
                 throw new ArgumentNullException(nameof(plannedSessionNumber));
 
             PlannedSession<PlannedSet> plannedSession =
-                this.plannedCycleRepository.GetPlannedSession(
+                await this.plannedCycleRepository.GetPlannedSessionAsync(
                     plannedCycleGuid,
                     plannedSessionNumber
                     );
 
             this.plannedSessionView.OutputPlannedSessionSets(
-                plannedSession.Sets
+                plannedSession.Sets,
+                await GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(plannedCycleGuid)
                 );
         }
 
-        public SessionSetNumber GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+        private async Task<SessionSetNumber> GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
             Guid plannedCycleGuid
             )
         {
-            return this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+            return await this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
                 plannedCycleGuid
-                );
+                ).ConfigureAwait(false);
         }
 
         #endregion

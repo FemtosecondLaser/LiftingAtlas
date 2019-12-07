@@ -20,7 +20,7 @@ namespace LiftingAtlas.Droid
     public class TemplateSetNoteAdapter : BaseAdapter<(string templateSetNote, (int start, int end) noteReferencePosition)>
     {
         private Activity activity;
-        private IList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions;
+        private List<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions;
 
         public TemplateSetNoteAdapter(Activity activity) : base()
         {
@@ -88,7 +88,7 @@ namespace LiftingAtlas.Droid
         }
 
         public void SetTemplateSetNotes(
-            IList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions
+            IReadOnlyList<(string templateSetNote, (int start, int end) noteReferencePosition)> templateSetNotesAndNoteReferencePositions
             )
         {
             this.NotifyDataSetInvalidated();

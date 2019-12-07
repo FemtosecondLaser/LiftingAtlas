@@ -104,12 +104,12 @@ namespace LiftingAtlas.Droid
             this.lifetimeScope.Dispose();
         }
 
-        public void OutputNamesOfTemplateCycles(IList<CycleTemplateName> namesOfTemplateCycles)
+        public void OutputNamesOfTemplateCycles(IReadOnlyList<CycleTemplateName> namesOfTemplateCycles)
         {
             this.templateCycleAdapter.SetCycleTemplateNames(namesOfTemplateCycles);
         }
 
-        private void CycleTemplatesLiftSpinner_ItemSelected(
+        private async void CycleTemplatesLiftSpinner_ItemSelected(
             object sender,
             AdapterView.ItemSelectedEventArgs e
             )
@@ -118,9 +118,9 @@ namespace LiftingAtlas.Droid
                 this.liftAdapter[e.Position];
 
             if (selectedLift == everyLiftStringRepresentation)
-                this.templateCyclesPresenter.PresentNamesOfAllTemplateCycles();
+                await this.templateCyclesPresenter.PresentNamesOfAllTemplateCyclesAsync();
             else
-                this.templateCyclesPresenter.PresentNamesOfTemplateCyclesForTheLift(
+                await this.templateCyclesPresenter.PresentNamesOfTemplateCyclesForTheLiftAsync(
                     LiftResolver.StringToLift(this.liftStringResourceResolvedLiftDictionary[selectedLift])
                     );
         }

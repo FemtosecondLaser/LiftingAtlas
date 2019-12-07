@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace LiftingAtlas.Standard
 {
@@ -32,20 +33,21 @@ namespace LiftingAtlas.Standard
 
         #region Methods
 
-        public void PresentCurrentPlannedCycleDataForTheLift(Lift lift)
+        public async Task PresentCurrentPlannedCycleDataForTheLiftAsync(Lift lift)
         {
-            Guid? latestPlannedCycleForTheLiftGuid = this.plannedCycleRepository.GetLatestPlannedCycleGuid(lift);
+            Guid? latestPlannedCycleForTheLiftGuid =
+                await this.plannedCycleRepository.GetLatestPlannedCycleGuidAsync(lift);
 
             if (latestPlannedCycleForTheLiftGuid == null)
             {
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleTemplateName(null);
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleReferencePoint(null);
-                this.currentPlannedCycleView.OutputCurrentPlannedCycleSessions(null);
+                this.currentPlannedCycleView.OutputCurrentPlannedCycleSessions(null, null);
                 return;
             }
 
             PlannedCycle<PlannedSession<PlannedSet>, PlannedSet> currentPlannedCycleForTheLift =
-                this.plannedCycleRepository.GetPlannedCycle(latestPlannedCycleForTheLiftGuid.Value);
+                await this.plannedCycleRepository.GetPlannedCycleAsync(latestPlannedCycleForTheLiftGuid.Value);
 
             this.currentPlannedCycleView.OutputCurrentPlannedCycleTemplateName(
                 currentPlannedCycleForTheLift.CycleTemplateName
@@ -56,21 +58,23 @@ namespace LiftingAtlas.Standard
                 );
 
             this.currentPlannedCycleView.OutputCurrentPlannedCycleSessions(
-                currentPlannedCycleForTheLift.Sessions
+                currentPlannedCycleForTheLift.Sessions,
+                await GetCurrentPlannedSessionNumberAsync(latestPlannedCycleForTheLiftGuid.Value)
                 );
         }
 
-        public Guid? GetCurrentPlannedCycleGuid(Lift lift)
+        public async Task<Guid?> GetCurrentPlannedCycleGuidAsync(Lift lift)
         {
-            return this.plannedCycleRepository.GetLatestPlannedCycleGuid(lift);
+            return await this.plannedCycleRepository.GetLatestPlannedCycleGuidAsync(lift)
+                .ConfigureAwait(false);
         }
 
-        public SessionNumber GetCurrentPlannedSessionNumber(Guid plannedCycleGuid)
+        private async Task<SessionNumber> GetCurrentPlannedSessionNumberAsync(Guid plannedCycleGuid)
         {
             SessionSetNumber currentPlannedSessionAndCurrentPlannedSetNumbers =
-                this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbers(
+                await this.plannedCycleRepository.GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(
                     plannedCycleGuid
-                    );
+                    ).ConfigureAwait(false);
 
             if (currentPlannedSessionAndCurrentPlannedSetNumbers != null)
                 return currentPlannedSessionAndCurrentPlannedSetNumbers.SessionNumber;
