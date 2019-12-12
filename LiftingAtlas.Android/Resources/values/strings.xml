@@ -69,4 +69,6 @@
   <string name="enter_uniform_quantization_interval_dot">Enter Uniform Quantization Interval.</string>
   <string name="uniform_quantization_interval_must_be_a_finite_number">Uniform Quantization Interval must be a finite number.</string>
   <string name="uniform_quantization_interval_must_be_greater_than_0">Uniform Quantization Interval must be greater than 0.</string>
+  <string name="no_cycle_planned">No cycle planned.</string>
+  <string name="to_plan_a_cycle_use_option_menu">To plan a cycle — use options menu.</string>
 </resources>

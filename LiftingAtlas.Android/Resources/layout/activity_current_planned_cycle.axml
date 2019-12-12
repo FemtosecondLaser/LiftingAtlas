@@ -118,4 +118,59 @@
         app:layout_constraintRight_toRightOf="parent"
         android:choiceMode="none"/>
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/no_cycle_planned_constraintlayout"
+        android:orientation="vertical"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/left_guideline"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline">
+            
+        <TextView            
+            android:id="@+id/no_cycle_planned_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/to_plan_a_cycle_use_option_menu_textview"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="@string/no_cycle_planned"/>
+
+        <TextView
+            android:id="@+id/to_plan_a_cycle_use_option_menu_textview"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/no_cycle_planned_textview"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:gravity="center"
+            android:textSize="@dimen/abc_text_size_medium_material"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:text="@string/to_plan_a_cycle_use_option_menu"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.Group
+        android:id="@+id/current_planned_cycle_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="
+        cycle_template_name_label_textview,
+        cycle_template_name_space,
+        cycle_template_name_textview,
+        reference_point_label_textview,
+        reference_point_space,
+        reference_point_textview,
+        sessions_textview,
+        sessions_listview
+        "/>
+
 </android.support.constraint.ConstraintLayout>

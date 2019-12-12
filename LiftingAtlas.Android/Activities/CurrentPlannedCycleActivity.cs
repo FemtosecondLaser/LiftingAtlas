@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Support.Constraints;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -23,6 +24,8 @@ namespace LiftingAtlas.Droid
         private TextView cycleTemplateNameTextView;
         private TextView referencePointTextView;
         private ListView sessionsListView;
+        private ConstraintLayout noCyclePlannedConstraintlayout;
+        private Group currentPlannedCycleViewGroup;
         private PlannedSessionAdapter plannedSessionAdapter;
         private ICurrentPlannedCyclePresenter currentPlannedCyclePresenter;
         private ILifetimeScope lifetimeScope;
@@ -41,6 +44,8 @@ namespace LiftingAtlas.Droid
             this.cycleTemplateNameTextView = this.FindViewById<TextView>(Resource.Id.cycle_template_name_textview);
             this.referencePointTextView = this.FindViewById<TextView>(Resource.Id.reference_point_textview);
             this.sessionsListView = this.FindViewById<ListView>(Resource.Id.sessions_listview);
+            this.noCyclePlannedConstraintlayout = this.FindViewById<ConstraintLayout>(Resource.Id.no_cycle_planned_constraintlayout);
+            this.currentPlannedCycleViewGroup = this.FindViewById<Group>(Resource.Id.current_planned_cycle_view_group);
 
             this.SetSupportActionBar(this.toolbar);
             this.SupportActionBar.Title = this.GetString(LiftSpecificStringIdResolver.CurrentLiftCycleStringId(this.lift));
@@ -49,6 +54,7 @@ namespace LiftingAtlas.Droid
             this.sessionsListView.Adapter = this.plannedSessionAdapter;
 
             this.mustSelectCurrentSession = true;
+            this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Gone;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -164,6 +170,22 @@ namespace LiftingAtlas.Droid
                 currentPlannedCycleSessions,
                 currentPlannedSessionNumber
                 );
+        }
+
+        public void OutputCurrentPlannedCycleExists(
+            bool currentPlannedCycleExists
+            )
+        {
+            if (currentPlannedCycleExists)
+            {
+                this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Gone;
+                this.currentPlannedCycleViewGroup.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                this.currentPlannedCycleViewGroup.Visibility = ViewStates.Gone;
+                this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Visible;
+            }
         }
     }
 }

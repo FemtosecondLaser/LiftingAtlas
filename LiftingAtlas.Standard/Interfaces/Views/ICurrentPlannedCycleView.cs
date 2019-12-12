@@ -17,5 +17,9 @@ namespace LiftingAtlas.Standard
             IReadOnlyList<PlannedSession<PlannedSet>> currentPlannedCycleSessions,
             SessionNumber currentPlannedSessionNumber
             );
+
+        void OutputCurrentPlannedCycleExists(
+            bool currentPlannedCycleExists
+            );
     }
 }

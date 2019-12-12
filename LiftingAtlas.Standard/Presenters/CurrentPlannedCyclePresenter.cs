@@ -43,6 +43,7 @@ namespace LiftingAtlas.Standard
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleTemplateName(null);
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleReferencePoint(null);
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleSessions(null, null);
+                this.currentPlannedCycleView.OutputCurrentPlannedCycleExists(false);
                 return;
             }
 
@@ -61,6 +62,8 @@ namespace LiftingAtlas.Standard
                 currentPlannedCycleForTheLift.Sessions,
                 await GetCurrentPlannedSessionNumberAsync(latestPlannedCycleForTheLiftGuid.Value)
                 );
+
+            this.currentPlannedCycleView.OutputCurrentPlannedCycleExists(true);
         }
 
         public async Task<Guid?> GetCurrentPlannedCycleGuidAsync(Lift lift)
