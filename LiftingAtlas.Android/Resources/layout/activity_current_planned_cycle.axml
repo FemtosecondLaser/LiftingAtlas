@@ -120,7 +120,6 @@
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/no_cycle_planned_constraintlayout"
-        android:orientation="vertical"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -157,6 +156,15 @@
             android:text="@string/to_plan_a_cycle_use_option_menu"/>
 
     </android.support.constraint.ConstraintLayout>
+
+    <ProgressBar
+        android:id="@+id/current_planned_cycle_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/left_guideline"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline"/>
 
     <android.support.constraint.Group
         android:id="@+id/current_planned_cycle_view_group"

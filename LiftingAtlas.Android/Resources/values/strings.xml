@@ -71,4 +71,5 @@
   <string name="uniform_quantization_interval_must_be_greater_than_0">Uniform Quantization Interval must be greater than 0.</string>
   <string name="no_cycle_planned">No cycle planned.</string>
   <string name="to_plan_a_cycle_use_option_menu">To plan a cycle — use options menu.</string>
+  <string name="no_cycle_templates_found">No cycle templates found.</string>
 </resources>

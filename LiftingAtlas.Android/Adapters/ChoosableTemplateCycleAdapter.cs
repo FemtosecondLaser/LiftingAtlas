@@ -90,7 +90,6 @@ namespace LiftingAtlas.Droid
                 throw new ArgumentNullException(nameof(cycleTemplateName));
 
             ViewTemplateCycleRequested?.Invoke(
-                this,
                 new ViewTemplateCycleRequestedEventArgs(cycleTemplateName)
                 );
         }

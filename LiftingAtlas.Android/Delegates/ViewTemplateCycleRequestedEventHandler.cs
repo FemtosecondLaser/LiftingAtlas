@@ -13,7 +13,6 @@ using Android.Widget;
 namespace LiftingAtlas.Droid
 {
     public delegate void ViewTemplateCycleRequestedEventHandler(
-        object sender,
         ViewTemplateCycleRequestedEventArgs e
         );
 }

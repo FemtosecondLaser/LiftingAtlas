@@ -5,13 +5,9 @@ namespace LiftingAtlas.Standard
 {
     public interface IPlannedSetPresenter
     {
-        Task PresentPlannedSetDataAsync(
-            Guid plannedCycleGuid,
-            SessionNumber plannedSessionNumber,
-            SetNumber plannedSetNumber
-            );
+        event PlannedSetDataPresentedEventHandler PlannedSetDataPresented;
 
-        Task<bool> PlannedSetIsCurrentAsync(
+        Task PresentPlannedSetDataAsync(
             Guid plannedCycleGuid,
             SessionNumber plannedSessionNumber,
             SetNumber plannedSetNumber

@@ -58,6 +58,7 @@ namespace LiftingAtlas.Droid
         private TextInputLayout liftedRepetitionsTextInputLayout;
         private TextInputEditText liftedRepetitionsTextInputEditText;
         private Button registerLiftedValuesButton;
+        private ProgressBar plannedSetDataProgressBar;
         private AlertDialog registerLiftedValuesErrorAlertDialog;
         private StringBuilder registerLiftedValuesErrorStringBuilder;
         private AlertDialog registerLiftedValuesWarningAlertDialog;
@@ -108,6 +109,7 @@ namespace LiftingAtlas.Droid
             this.liftedRepetitionsTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.lifted_repetitions_textinputlayout);
             this.liftedRepetitionsTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.lifted_repetitions_textinputedittext);
             this.registerLiftedValuesButton = this.FindViewById<Button>(Resource.Id.register_lifted_values_button);
+            this.plannedSetDataProgressBar = this.FindViewById<ProgressBar>(Resource.Id.planned_set_data_progressbar);
 
             this.SetSupportActionBar(this.toolbar);
             this.SupportActionBar.Title = this.GetString(LiftSpecificStringIdResolver.PlannedLiftSetStringId(this.lift));
@@ -122,6 +124,12 @@ namespace LiftingAtlas.Droid
         {
             base.OnResume();
 
+            this.setInformationScrollView.Visibility = ViewStates.Gone;
+            this.liftedWeightTextInputLayout.Visibility = ViewStates.Gone;
+            this.liftedRepetitionsTextInputLayout.Visibility = ViewStates.Gone;
+            this.registerLiftedValuesButton.Visibility = ViewStates.Gone;
+            this.plannedSetDataProgressBar.Visibility = ViewStates.Visible;
+                        
             this.lifetimeScope = App.Container.BeginLifetimeScope();
 
             this.plannedSetPresenter =
@@ -129,22 +137,14 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(IPlannedSetView), this)
                     );
 
+            this.plannedSetPresenter.PlannedSetDataPresented +=
+                PlannedSetPresenter_PlannedSetDataPresented;
+
             await this.plannedSetPresenter.PresentPlannedSetDataAsync(
                 this.plannedCycleGuid,
                 new SessionNumber(this.plannedSessionNumber),
                 new SetNumber(this.plannedSetNumber)
                 );
-
-            if (!await this.plannedSetPresenter.PlannedSetIsCurrentAsync(
-                this.plannedCycleGuid,
-                new SessionNumber(this.plannedSessionNumber),
-                new SetNumber(this.plannedSetNumber)
-                ))
-            {
-                this.liftedWeightTextInputLayout.Visibility = ViewStates.Gone;
-                this.liftedRepetitionsTextInputLayout.Visibility = ViewStates.Gone;
-                this.registerLiftedValuesButton.Visibility = ViewStates.Gone;
-            }
 
             using (AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this))
             {
@@ -207,6 +207,7 @@ namespace LiftingAtlas.Droid
                 return;
             }
         }
+
         private void LiftedRepetitionsTextInputEditText_FocusChange(object sender, View.FocusChangeEventArgs e)
         {
             if (e.HasFocus)
@@ -466,6 +467,9 @@ namespace LiftingAtlas.Droid
             this.registerLiftedValuesErrorAlertDialog.Dispose();
             this.registerLiftedValuesWarningAlertDialog.Dispose();
 
+            this.plannedSetPresenter.PlannedSetDataPresented -=
+                PlannedSetPresenter_PlannedSetDataPresented;
+
             this.lifetimeScope.Dispose();
         }
 
@@ -550,6 +554,25 @@ namespace LiftingAtlas.Droid
             this.liftedRepetitionsTextView.Enabled = true;
             this.noteLabelTextView.Enabled = true;
             this.noteTextView.Enabled = true;
+        }
+
+        private void PlannedSetPresenter_PlannedSetDataPresented(PlannedSetDataPresentedEventArgs e)
+        {
+            this.plannedSetDataProgressBar.Visibility = ViewStates.Gone;
+            this.setInformationScrollView.Visibility = ViewStates.Visible;
+
+            if (e.PlannedSetIsCurrent)
+            {
+                this.liftedWeightTextInputLayout.Visibility = ViewStates.Visible;
+                this.liftedRepetitionsTextInputLayout.Visibility = ViewStates.Visible;
+                this.registerLiftedValuesButton.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                this.liftedWeightTextInputLayout.Visibility = ViewStates.Gone;
+                this.liftedRepetitionsTextInputLayout.Visibility = ViewStates.Gone;
+                this.registerLiftedValuesButton.Visibility = ViewStates.Gone;
+            }
         }
     }
 }

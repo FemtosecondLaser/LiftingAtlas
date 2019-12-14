@@ -111,4 +111,39 @@
         android:ellipsize="end"
         android:text="@string/plan_new_cycle"/>
 
+    <TextView
+        android:id="@+id/no_cycle_templates_found_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/left_guideline"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline"
+        android:gravity="center"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        android:singleLine="true"
+        android:ellipsize="end"
+        android:text="@string/no_cycle_templates_found"/>
+
+    <ProgressBar
+        android:id="@+id/cycle_templates_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/left_guideline"
+        app:layout_constraintRight_toLeftOf="@+id/right_guideline"/>
+
+    <android.support.constraint.Group
+        android:id="@+id/cycle_templates_view_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="
+        cycle_templates_textview,
+        cycle_templates_listview,
+        reference_point_textinputlayout,
+        uniform_quantization_interval_textinputlayout,
+        plan_new_cycle_button
+        "/>
+
 </android.support.constraint.ConstraintLayout>

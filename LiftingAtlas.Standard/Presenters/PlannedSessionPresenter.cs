@@ -31,6 +31,12 @@ namespace LiftingAtlas.Standard
 
         #endregion
 
+        #region Events
+
+        public event PlannedSessionDataPresentedEventHandler PlannedSessionDataPresented;
+
+        #endregion
+
         #region Methods
 
         public async Task PresentPlannedSessionDataAsync(
@@ -51,6 +57,8 @@ namespace LiftingAtlas.Standard
                 plannedSession.Sets,
                 await GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(plannedCycleGuid)
                 );
+
+            this.PlannedSessionDataPresented?.Invoke();
         }
 
         private async Task<SessionSetNumber> GetCurrentPlannedSessionAndCurrentPlannedSetNumbersAsync(

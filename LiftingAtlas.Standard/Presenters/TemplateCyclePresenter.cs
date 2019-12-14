@@ -34,6 +34,12 @@ namespace LiftingAtlas.Standard
 
         #endregion
 
+        #region Events
+
+        public event TemplateCycleDataPresentedEventHandler TemplateCycleDataPresented;
+
+        #endregion
+
         #region Methods
 
         public async Task PresentTemplateCycleDataAsync(CycleTemplateName cycleTemplateName)
@@ -162,6 +168,8 @@ namespace LiftingAtlas.Standard
 
             this.templateCycleView.OutputTemplateSessions(templateSessionsAndNoteReferencePositions);
             this.templateCycleView.OutputTemplateSetNotes(templateSetNotesAndNoteReferencePositions);
+
+            this.TemplateCycleDataPresented?.Invoke();
         }
 
         #endregion

@@ -4,6 +4,7 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Support.Constraints;
+using Android.Support.V4.Widget;
 using Android.Support.V7.App;
 using Android.Views;
 using Android.Widget;
@@ -25,6 +26,7 @@ namespace LiftingAtlas.Droid
         private TextView referencePointTextView;
         private ListView sessionsListView;
         private ConstraintLayout noCyclePlannedConstraintlayout;
+        private ProgressBar currentPlannedCycleProgressBar;
         private Group currentPlannedCycleViewGroup;
         private PlannedSessionAdapter plannedSessionAdapter;
         private ICurrentPlannedCyclePresenter currentPlannedCyclePresenter;
@@ -45,6 +47,7 @@ namespace LiftingAtlas.Droid
             this.referencePointTextView = this.FindViewById<TextView>(Resource.Id.reference_point_textview);
             this.sessionsListView = this.FindViewById<ListView>(Resource.Id.sessions_listview);
             this.noCyclePlannedConstraintlayout = this.FindViewById<ConstraintLayout>(Resource.Id.no_cycle_planned_constraintlayout);
+            this.currentPlannedCycleProgressBar = this.FindViewById<ProgressBar>(Resource.Id.current_planned_cycle_progressbar);
             this.currentPlannedCycleViewGroup = this.FindViewById<Group>(Resource.Id.current_planned_cycle_view_group);
 
             this.SetSupportActionBar(this.toolbar);
@@ -54,7 +57,6 @@ namespace LiftingAtlas.Droid
             this.sessionsListView.Adapter = this.plannedSessionAdapter;
 
             this.mustSelectCurrentSession = true;
-            this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Gone;
         }
 
         public override bool OnCreateOptionsMenu(IMenu menu)
@@ -84,12 +86,19 @@ namespace LiftingAtlas.Droid
         {
             base.OnResume();
 
+            this.currentPlannedCycleViewGroup.Visibility = ViewStates.Gone;
+            this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Gone;
+            this.currentPlannedCycleProgressBar.Visibility = ViewStates.Visible;
+
             this.lifetimeScope = App.Container.BeginLifetimeScope();
 
             this.currentPlannedCyclePresenter =
                 this.lifetimeScope.Resolve<ICurrentPlannedCyclePresenter>(
                     new TypedParameter(typeof(ICurrentPlannedCycleView), this)
                     );
+
+            this.currentPlannedCyclePresenter.CurrentPlannedCycleDataPresented +=
+                CurrentPlannedCyclePresenter_CurrentPlannedCycleDataPresented;
 
             this.currentPlannedCycleGuid =
                 await this.currentPlannedCyclePresenter.GetCurrentPlannedCycleGuidAsync(
@@ -125,6 +134,9 @@ namespace LiftingAtlas.Droid
             base.OnPause();
 
             this.sessionsListView.ItemClick -= SessionsListView_ItemClick;
+
+            this.currentPlannedCyclePresenter.CurrentPlannedCycleDataPresented -=
+                CurrentPlannedCyclePresenter_CurrentPlannedCycleDataPresented;
 
             this.lifetimeScope.Dispose();
         }
@@ -172,11 +184,13 @@ namespace LiftingAtlas.Droid
                 );
         }
 
-        public void OutputCurrentPlannedCycleExists(
-            bool currentPlannedCycleExists
+        private void CurrentPlannedCyclePresenter_CurrentPlannedCycleDataPresented(
+            CurrentPlannedCycleDataPresentedEventArgs e
             )
         {
-            if (currentPlannedCycleExists)
+            this.currentPlannedCycleProgressBar.Visibility = ViewStates.Gone;
+
+            if (e.CurrentPlannedCycleExists)
             {
                 this.noCyclePlannedConstraintlayout.Visibility = ViewStates.Gone;
                 this.currentPlannedCycleViewGroup.Visibility = ViewStates.Visible;

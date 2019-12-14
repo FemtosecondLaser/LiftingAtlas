@@ -14,6 +14,7 @@ using Android.Content;
 using System.Collections.Generic;
 using Android.Views.InputMethods;
 using Android.Views;
+using Android.Support.Constraints;
 
 namespace LiftingAtlas.Droid
 {
@@ -23,12 +24,15 @@ namespace LiftingAtlas.Droid
         private Lift lift;
         private Toolbar toolbar;
         private ListView cycleTemplatesListView;
-        private ChoosableTemplateCycleAdapter choosableTemplateCycleAdapter;
         private TextInputLayout referencePointTextInputLayout;
         private TextInputEditText referencePointTextInputEditText;
         private TextInputLayout uniformQuantizationIntervalTextInputLayout;
         private TextInputEditText uniformQuantizationIntervalTextInputEditText;
         private Button planNewCycleButton;
+        private TextView noCycleTemplatesFoundTextView;
+        private ProgressBar cycleTemplatesProgressBar;
+        private Group cycleTemplatesViewGroup;
+        private ChoosableTemplateCycleAdapter choosableTemplateCycleAdapter;
         private AlertDialog planNewCycleErrorAlertDialog;
         private StringBuilder planNewCycleErrorStringBuilder;
         private INewPlannedCyclePresenter newPlannedCyclePresenter;
@@ -50,6 +54,9 @@ namespace LiftingAtlas.Droid
             this.uniformQuantizationIntervalTextInputLayout = this.FindViewById<TextInputLayout>(Resource.Id.uniform_quantization_interval_textinputlayout);
             this.uniformQuantizationIntervalTextInputEditText = this.FindViewById<TextInputEditText>(Resource.Id.uniform_quantization_interval_textinputedittext);
             this.planNewCycleButton = this.FindViewById<Button>(Resource.Id.plan_new_cycle_button);
+            this.noCycleTemplatesFoundTextView = this.FindViewById<TextView>(Resource.Id.no_cycle_templates_found_textview);
+            this.cycleTemplatesProgressBar = this.FindViewById<ProgressBar>(Resource.Id.cycle_templates_progressbar);
+            this.cycleTemplatesViewGroup = this.FindViewById<Group>(Resource.Id.cycle_templates_view_group);
 
             this.SetSupportActionBar(toolbar);
             this.SupportActionBar.Title = this.GetString(LiftSpecificStringIdResolver.NewLiftCycleStringId(this.lift));
@@ -62,12 +69,19 @@ namespace LiftingAtlas.Droid
         {
             base.OnResume();
 
+            this.cycleTemplatesViewGroup.Visibility = ViewStates.Gone;
+            this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Gone;
+            this.cycleTemplatesProgressBar.Visibility = ViewStates.Visible;
+
             this.lifetimeScope = App.Container.BeginLifetimeScope();
 
             this.newPlannedCyclePresenter =
                 this.lifetimeScope.Resolve<INewPlannedCyclePresenter>(
                     new TypedParameter(typeof(INewPlannedCycleView), this)
                     );
+
+            this.newPlannedCyclePresenter.NamesOfTemplateCyclesPresented +=
+                NewPlannedCyclePresenter_NamesOfTemplateCyclesPresented;
 
             await this.newPlannedCyclePresenter.PresentNamesOfTemplateCyclesForTheLiftAsync(this.lift);
 
@@ -167,10 +181,7 @@ namespace LiftingAtlas.Droid
             }
         }
 
-        private void ChoosableTemplateCycleAdapter_ViewTemplateCycleRequested(
-            object sender,
-            ViewTemplateCycleRequestedEventArgs e
-            )
+        private void ChoosableTemplateCycleAdapter_ViewTemplateCycleRequested(ViewTemplateCycleRequestedEventArgs e)
         {
             Bundle bundle = new Bundle();
             bundle.PutString(BundleKeys.CycleTemplateName, e.CycleTemplateName);
@@ -188,6 +199,9 @@ namespace LiftingAtlas.Droid
             this.planNewCycleButton.Click -= PlanNewCycleButton_Click;
 
             this.planNewCycleErrorAlertDialog.Dispose();
+
+            this.newPlannedCyclePresenter.NamesOfTemplateCyclesPresented -=
+                NewPlannedCyclePresenter_NamesOfTemplateCyclesPresented;
 
             this.lifetimeScope.Dispose();
         }
@@ -207,6 +221,24 @@ namespace LiftingAtlas.Droid
         public void OutputNamesOfTemplateCycles(IReadOnlyList<CycleTemplateName> namesOfTemplateCycles)
         {
             this.choosableTemplateCycleAdapter.SetCycleTemplateNames(namesOfTemplateCycles);
+        }
+
+        private void NewPlannedCyclePresenter_NamesOfTemplateCyclesPresented(
+            NamesOfTemplateCyclesPresentedEventArgs e
+            )
+        {
+            this.cycleTemplatesProgressBar.Visibility = ViewStates.Gone;
+
+            if (e.PresentedTemplateCycleNameCount > 0)
+            {
+                this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Gone;
+                this.cycleTemplatesViewGroup.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                this.cycleTemplatesViewGroup.Visibility = ViewStates.Gone;
+                this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Visible;
+            }
         }
     }
 }

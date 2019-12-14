@@ -25,11 +25,11 @@ namespace LiftingAtlas.Droid
             this.cycleTemplateName = cycleTemplateName;
         }
 
-        public virtual CycleTemplateName CycleTemplateName
+        public CycleTemplateName CycleTemplateName
         {
             get
             {
-                return this.cycleTemplateName;
+                return cycleTemplateName;
             }
         }
     }

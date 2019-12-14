@@ -4,6 +4,8 @@ namespace LiftingAtlas.Standard
 {
     public interface INewPlannedCyclePresenter
     {
+        event NamesOfTemplateCyclesPresentedEventHandler NamesOfTemplateCyclesPresented;
+
         Task PresentNamesOfTemplateCyclesForTheLiftAsync(
             Lift lift
             );

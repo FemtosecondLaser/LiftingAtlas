@@ -29,6 +29,7 @@ namespace LiftingAtlas.Droid
         private TextView referencePointTextView;
         private TextView sessionNumberTextView;
         private ListView setsListView;
+        private ProgressBar setsProgressBar;
         private PlannedSetAdapter plannedSetAdapter;
         private IPlannedSessionPresenter plannedSessionPresenter;
         private ILifetimeScope lifetimeScope;
@@ -52,6 +53,7 @@ namespace LiftingAtlas.Droid
             this.referencePointTextView = this.FindViewById<TextView>(Resource.Id.reference_point_textview);
             this.sessionNumberTextView = this.FindViewById<TextView>(Resource.Id.session_number_textview);
             this.setsListView = this.FindViewById<ListView>(Resource.Id.sets_listview);
+            this.setsProgressBar = this.FindViewById<ProgressBar>(Resource.Id.sets_progressbar);
 
             this.SetSupportActionBar(this.toolbar);
             this.SupportActionBar.Title = this.GetString(LiftSpecificStringIdResolver.PlannedLiftSessionStringId(this.lift));
@@ -70,12 +72,18 @@ namespace LiftingAtlas.Droid
         {
             base.OnResume();
 
+            this.setsListView.Visibility = ViewStates.Gone;
+            this.setsProgressBar.Visibility = ViewStates.Visible;
+
             this.lifetimeScope = App.Container.BeginLifetimeScope();
 
             this.plannedSessionPresenter =
                 this.lifetimeScope.Resolve<IPlannedSessionPresenter>(
                     new TypedParameter(typeof(IPlannedSessionView), this)
                     );
+
+            this.plannedSessionPresenter.PlannedSessionDataPresented +=
+                PlannedSessionPresenter_PlannedSessionDataPresented;
 
             await this.plannedSessionPresenter.PresentPlannedSessionDataAsync(
                 this.plannedCycleGuid,
@@ -108,6 +116,9 @@ namespace LiftingAtlas.Droid
 
             this.setsListView.ItemClick -= SetsListView_ItemClick;
 
+            this.plannedSessionPresenter.PlannedSessionDataPresented -=
+                PlannedSessionPresenter_PlannedSessionDataPresented;
+
             this.lifetimeScope.Dispose();
         }
 
@@ -137,6 +148,12 @@ namespace LiftingAtlas.Droid
                 plannedSessionSets,
                 currentPlannedSessionAndCurrentPlannedSetNumbers
                 );
+        }
+
+        private void PlannedSessionPresenter_PlannedSessionDataPresented()
+        {
+            this.setsProgressBar.Visibility = ViewStates.Gone;
+            this.setsListView.Visibility = ViewStates.Visible;
         }
     }
 }

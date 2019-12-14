@@ -34,6 +34,12 @@ namespace LiftingAtlas.Standard
 
         #endregion
 
+        #region Events
+
+        public event NamesOfTemplateCyclesPresentedEventHandler NamesOfTemplateCyclesPresented;
+
+        #endregion
+
         #region Methods
 
         public async Task PresentNamesOfAllTemplateCyclesAsync()
@@ -42,6 +48,11 @@ namespace LiftingAtlas.Standard
                 await this.templateCycleProviderMaster.NamesOfAllTemplateCyclesAsync();
 
             this.templateCyclesView.OutputNamesOfTemplateCycles(namesOfAllTemplateCycles);
+
+            this.NamesOfTemplateCyclesPresented?.Invoke(
+                new NamesOfTemplateCyclesPresentedEventArgs(
+                    namesOfAllTemplateCycles == null ? 0 : namesOfAllTemplateCycles.Count
+                    ));
         }
 
         public async Task PresentNamesOfTemplateCyclesForTheLiftAsync(Lift lift)
@@ -50,6 +61,11 @@ namespace LiftingAtlas.Standard
                 await this.templateCycleProviderMaster.NamesOfTemplateCyclesForTheLiftAsync(lift);
 
             this.templateCyclesView.OutputNamesOfTemplateCycles(namesOfTemplateCyclesForTheLift);
+
+            this.NamesOfTemplateCyclesPresented?.Invoke(
+                new NamesOfTemplateCyclesPresentedEventArgs(
+                    namesOfTemplateCyclesForTheLift == null ? 0 : namesOfTemplateCyclesForTheLift.Count
+                    ));
         }
 
         #endregion

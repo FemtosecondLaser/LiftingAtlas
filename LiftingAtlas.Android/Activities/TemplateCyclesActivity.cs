@@ -24,6 +24,8 @@ namespace LiftingAtlas.Droid
         private Spinner cycleTemplatesLiftSpinner;
         private LiftAdapter liftAdapter;
         private ListView cycleTemplatesListView;
+        private TextView noCycleTemplatesFoundTextView;
+        private ProgressBar cycleTemplatesProgressBar;
         private TemplateCycleAdapter templateCycleAdapter;
         private ITemplateCyclesPresenter templateCyclesPresenter;
         private ILifetimeScope lifetimeScope;
@@ -38,6 +40,8 @@ namespace LiftingAtlas.Droid
             this.toolbar = this.FindViewById<Toolbar>(Resource.Id.toolbar);
             this.cycleTemplatesLiftSpinner = this.FindViewById<Spinner>(Resource.Id.cycle_templates_lift_spinner);
             this.cycleTemplatesListView = this.FindViewById<ListView>(Resource.Id.cycle_templates_listview);
+            this.noCycleTemplatesFoundTextView = this.FindViewById<TextView>(Resource.Id.no_cycle_templates_found_textview);
+            this.cycleTemplatesProgressBar = this.FindViewById<ProgressBar>(Resource.Id.cycle_templates_progressbar);
 
             this.SetSupportActionBar(this.toolbar);
             this.SupportActionBar.Title = this.GetString(Resource.String.cycle_templates);
@@ -88,6 +92,9 @@ namespace LiftingAtlas.Droid
                     new TypedParameter(typeof(ITemplateCyclesView), this)
                     );
 
+            this.templateCyclesPresenter.NamesOfTemplateCyclesPresented +=
+                TemplateCyclesPresenter_NamesOfTemplateCyclesPresented;
+
             this.cycleTemplatesLiftSpinner.ItemSelected += CycleTemplatesLiftSpinner_ItemSelected;
 
             this.cycleTemplatesListView.ItemClick += CycleTemplatesListView_ItemClick;
@@ -100,6 +107,9 @@ namespace LiftingAtlas.Droid
             this.cycleTemplatesListView.ItemClick -= CycleTemplatesListView_ItemClick;
 
             this.cycleTemplatesLiftSpinner.ItemSelected -= CycleTemplatesLiftSpinner_ItemSelected;
+
+            this.templateCyclesPresenter.NamesOfTemplateCyclesPresented -=
+                TemplateCyclesPresenter_NamesOfTemplateCyclesPresented;
 
             this.lifetimeScope.Dispose();
         }
@@ -114,15 +124,32 @@ namespace LiftingAtlas.Droid
             AdapterView.ItemSelectedEventArgs e
             )
         {
-            string selectedLift =
-                this.liftAdapter[e.Position];
+            View senderView = sender as View;
 
-            if (selectedLift == everyLiftStringRepresentation)
-                await this.templateCyclesPresenter.PresentNamesOfAllTemplateCyclesAsync();
-            else
-                await this.templateCyclesPresenter.PresentNamesOfTemplateCyclesForTheLiftAsync(
-                    LiftResolver.StringToLift(this.liftStringResourceResolvedLiftDictionary[selectedLift])
-                    );
+            if (senderView != null)
+                senderView.Enabled = false;
+
+            try
+            {
+                this.cycleTemplatesListView.Visibility = ViewStates.Gone;
+                this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Gone;
+                this.cycleTemplatesProgressBar.Visibility = ViewStates.Visible;
+
+                string selectedLift =
+                    this.liftAdapter[e.Position];
+
+                if (selectedLift == everyLiftStringRepresentation)
+                    await this.templateCyclesPresenter.PresentNamesOfAllTemplateCyclesAsync();
+                else
+                    await this.templateCyclesPresenter.PresentNamesOfTemplateCyclesForTheLiftAsync(
+                        LiftResolver.StringToLift(this.liftStringResourceResolvedLiftDictionary[selectedLift])
+                        );
+            }
+            finally
+            {
+                if (senderView != null)
+                    senderView.Enabled = true;
+            }
         }
 
         private void CycleTemplatesListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -135,6 +162,24 @@ namespace LiftingAtlas.Droid
             Intent intent = new Intent(this, typeof(TemplateCycleActivity));
             intent.PutExtras(bundle);
             base.StartActivity(intent);
+        }
+
+        private void TemplateCyclesPresenter_NamesOfTemplateCyclesPresented(
+            NamesOfTemplateCyclesPresentedEventArgs e
+            )
+        {
+            this.cycleTemplatesProgressBar.Visibility = ViewStates.Gone;
+
+            if (e.PresentedTemplateCycleNameCount > 0)
+            {
+                this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Gone;
+                this.cycleTemplatesListView.Visibility = ViewStates.Visible;
+            }
+            else
+            {
+                this.cycleTemplatesListView.Visibility = ViewStates.Gone;
+                this.noCycleTemplatesFoundTextView.Visibility = ViewStates.Visible;
+            }
         }
     }
 }

@@ -31,6 +31,12 @@ namespace LiftingAtlas.Standard
 
         #endregion
 
+        #region Events
+
+        public event CurrentPlannedCycleDataPresentedEventHandler CurrentPlannedCycleDataPresented;
+
+        #endregion
+
         #region Methods
 
         public async Task PresentCurrentPlannedCycleDataForTheLiftAsync(Lift lift)
@@ -43,7 +49,9 @@ namespace LiftingAtlas.Standard
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleTemplateName(null);
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleReferencePoint(null);
                 this.currentPlannedCycleView.OutputCurrentPlannedCycleSessions(null, null);
-                this.currentPlannedCycleView.OutputCurrentPlannedCycleExists(false);
+
+                this.CurrentPlannedCycleDataPresented?.Invoke(new CurrentPlannedCycleDataPresentedEventArgs(false));
+
                 return;
             }
 
@@ -63,7 +71,7 @@ namespace LiftingAtlas.Standard
                 await GetCurrentPlannedSessionNumberAsync(latestPlannedCycleForTheLiftGuid.Value)
                 );
 
-            this.currentPlannedCycleView.OutputCurrentPlannedCycleExists(true);
+            this.CurrentPlannedCycleDataPresented?.Invoke(new CurrentPlannedCycleDataPresentedEventArgs(true));
         }
 
         public async Task<Guid?> GetCurrentPlannedCycleGuidAsync(Lift lift)
